@@ -25,6 +25,8 @@ for skill in "$FRAMEWORK_DIR"/.claude/skills/workflow:*/; do
   echo "✓ .claude/skills/$skill_name"
 done
 
+echo "$FRAMEWORK_DIR" > "$TARGET_DIR/.claude/workflow-framework-path"
+echo "✓ .claude/workflow-framework-path"
+
 echo ""
 echo "安裝完成。請在 $TARGET_DIR 開啟 Claude Code 並執行 /workflow:init"
-echo "init 會詢問框架路徑：$FRAMEWORK_DIR"
