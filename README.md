@@ -9,14 +9,9 @@
 git clone https://github.com/smlhorse/ai-workflow {框架路徑}
 ```
 
-**Step 2**：在目標專案根目錄建立 symlink：
+**Step 2**：執行安裝腳本，指定目標專案路徑：
 ```bash
-cd {目標專案}
-mkdir -p .claude/rules .claude/skills
-ln -sf {框架路徑}/.claude/CLAUDE.md .claude/rules/workflow.md
-for skill in {框架路徑}/.claude/skills/workflow:*/; do
-  ln -sf "$skill" .claude/skills/
-done
+bash {框架路徑}/install.sh /path/to/target-project
 ```
 
 **Step 3**：在目標專案開啟 Claude Code，執行：
