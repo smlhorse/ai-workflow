@@ -20,10 +20,11 @@ bash {框架路徑}/install.sh /path/to/target-project
 ```
 init 會互動式收集專案資訊，產生專案專屬的 `CLAUDE.md` 與 `.claude/settings.json`。
 
-**兩個 CLAUDE.md 的差異：**
+**檔案說明：**
 | 檔案 | 角色 | 內容 |
 |---|---|---|
-| `{框架路徑}/.claude/CLAUDE.md` | 框架行為規範，透過 symlink 引用，不改動 | AI 的通用執行原則 |
+| `{框架路徑}/.claude/CLAUDE.md` | 框架行為規範實體，不改動 | AI 的通用執行原則 |
+| `.claude/CLAUDE.md`（專案） | 由 `workflow:init` 附加一行 `@` 引用框架規範 | 專案原有內容不動 |
 | `CLAUDE.md`（專案根目錄） | 專案設定，由 `workflow:init` 產生 | 專案名稱、環境、規格文件位置、啟動命令 |
 
 **框架更新：**

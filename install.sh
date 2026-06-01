@@ -16,12 +16,7 @@ if [ ! -d "$TARGET_DIR" ]; then
   exit 1
 fi
 
-mkdir -p "$TARGET_DIR/.claude/rules"
 mkdir -p "$TARGET_DIR/.claude/skills"
-
-# 框架行為規範
-ln -sf "$FRAMEWORK_DIR/.claude/CLAUDE.md" "$TARGET_DIR/.claude/rules/workflow.md"
-echo "✓ .claude/rules/workflow.md"
 
 # workflow:* skill
 for skill in "$FRAMEWORK_DIR"/.claude/skills/workflow:*/; do
@@ -32,3 +27,4 @@ done
 
 echo ""
 echo "安裝完成。請在 $TARGET_DIR 開啟 Claude Code 並執行 /workflow:init"
+echo "init 會詢問框架路徑：$FRAMEWORK_DIR"
