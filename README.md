@@ -4,31 +4,38 @@
 
 ## 安裝
 
-**Step 1**：clone 框架 repo 到本機任意位置：
+**Step 1**：clone 框架 repo 到本機：
 ```bash
-git clone https://github.com/smlhorse/ai-workflow {本機路徑}
+git clone https://github.com/smlhorse/ai-workflow {框架路徑}
 ```
 
-**Step 2**：將框架的 `.claude/skills/workflow:*` 加入 Claude Code 可讀取的位置之一：
-- 放進目標專案的 `.claude/skills/`（`workflow:init` 會用 symlink 處理，不需手動 copy）
+**Step 2**：在目標專案根目錄建立 symlink：
+```bash
+cd {目標專案}
+mkdir -p .claude/rules .claude/skills
+ln -sf {框架路徑}/.claude/CLAUDE.md .claude/rules/workflow.md
+for skill in {框架路徑}/.claude/skills/workflow:*/; do
+  ln -sf "$skill" .claude/skills/
+done
+```
 
 **Step 3**：在目標專案開啟 Claude Code，執行：
 ```
 /workflow:init
 ```
-init 會詢問框架 repo 的本機路徑，自動建立 symlink，並產生專案專屬的 `CLAUDE.md`。
+init 會互動式收集專案資訊，產生專案專屬的 `CLAUDE.md` 與 `.claude/settings.json`。
 
 **兩個 CLAUDE.md 的差異：**
 | 檔案 | 角色 | 內容 |
 |---|---|---|
-| `{框架路徑}/.claude/CLAUDE.md` | 框架行為規範（實體），透過 symlink 引用 | AI 的通用執行原則，不改動 |
+| `{框架路徑}/.claude/CLAUDE.md` | 框架行為規範，透過 symlink 引用，不改動 | AI 的通用執行原則 |
 | `CLAUDE.md`（專案根目錄） | 專案設定，由 `workflow:init` 產生 | 專案名稱、環境、規格文件位置、啟動命令 |
 
 **框架更新：**
 ```bash
 cd {框架路徑} && git pull
 ```
-所有已安裝的專案透過 symlink 自動同步，不需要重新執行 `workflow:init`。
+所有已安裝的專案透過 symlink 自動同步，不需重新執行任何指令。
 
 ## 日常使用
 
