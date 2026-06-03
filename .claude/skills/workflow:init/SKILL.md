@@ -27,8 +27,8 @@ description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 
 `CLAUDE.md`（專案根目錄）：套用 `templates/CLAUDE.md`，填入收集的資訊。
 
-`.claude/CLAUDE.md`（不存在則建立，已存在則附加）：
-讀取 `.claude/workflow-framework-path` 取得框架路徑，在末尾附加：
+`.claude/CLAUDE.md`（不存在則建立，已存在則在最上面插入）：
+讀取 `.claude/workflow-framework-path` 取得框架路徑，在第一行插入：
 ```
 @{框架路徑}/.claude/CLAUDE.md
 ```
