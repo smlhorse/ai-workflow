@@ -27,7 +27,7 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 - 無 GitHub remote + Issue 編號 → 寫進 tmp/issues/#N.md 末尾
 - 無 Issue 編號 → 只在對話回報
 
-完成後用 Agent tool 在新對話觸發 /workflow:sqa。
+完成後：有「需你決策」項目 → 等 user 回覆；無 → 用 Agent tool 在新對話觸發 /workflow:sqa。
 
 ## 不做的事
 
