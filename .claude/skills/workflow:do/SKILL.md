@@ -27,16 +27,12 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 - 無 GitHub remote + Issue 編號 → 寫進 tmp/issues/#N.md 末尾
 - 無 Issue 編號 → 只在對話回報
 
-完成後提示（不自動執行）：
-```
-如需驗收，請在新對話執行：/workflow:sqa
-```
+完成後用 Agent tool 在新對話觸發 /workflow:sqa，不等 user 指示。
 
 ## 不做的事
 
 - Plan 有待確認事項時不自行推進執行
 - L+ 規模不執行，建 Sprint 文件後停下
-- SQA 必須在新對話執行，完成後提示 user，不在當前對話觸發
 - Issue comment 不寫執行中間過程，只寫最終結果
 
 ## 自主決策邊界
