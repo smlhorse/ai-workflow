@@ -39,7 +39,7 @@ description: 把 user 原話存為 Anchor，拆計畫，等 ack 後才能繼續�
 存 Anchor → 讀現況（相關規格、現有設計）→ 判規模 → 產出 Plan → **等 ack**
 
 Plan 包含：
-- **規模**：XS / S / M / L+（供 workflow:do 判斷後續流程用）
+- **規模**：XS / S / M / L+
 - **步驟**：標並行分組（parallel group）；每步附具體驗收方式
 - **Won't do**：刻意排除的事才列，無則省略
 - **待確認**：模糊地帶，查不到答案的才列

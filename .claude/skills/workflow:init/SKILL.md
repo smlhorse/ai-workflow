@@ -20,9 +20,8 @@ description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 1. 專案名稱與一句話描述
 2. 環境清單及各自連線方式（dev / uat / prod 或自訂）
 3. Ground Truth 規格文件位置
-4. Sprint 文件位置（預設 `docs/sprints/`）
-5. 啟動命令
-6. 架構摘要（技術棧、關鍵路徑）
+4. 啟動命令
+5. 架構摘要（技術棧、關鍵路徑）
 
 **Step 3 — 產生檔案**
 
@@ -41,10 +40,6 @@ description: 初始化新專案，產生 CLAUDE.md 與設定檔。
   "$comment": "入版控。規範此專案的 Claude Code 行為。"
 }
 ```
-
-建立目錄（不存在則建立）：
-- `{Sprint 文件位置}/`（e.g. `docs/sprints/`）
-- `tmp/issues/`
 
 `.gitignore` 補充（附加，不覆寫）：
 ```
