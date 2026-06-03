@@ -18,7 +18,7 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 
 **Issue 是任務容器** — 有 #N 就從 Issue 讀 anchor；無 #N 就從 user 原話建 anchor，並根據規模自動建立對應記錄（XS/S/M → tmp/issues/；L+ → Sprint 文件，要求人工拆解）。
 
-**回報給對的地方** — SQA 結果出來後才寫進 Issue：有 GitHub remote + Issue 編號 → gh issue comment；無 GitHub remote + Issue 編號 → 寫進 tmp/issues/#N.md；無 Issue 編號 → 只在對話回報。
+**回報給對的地方** — SQA 結果出來後才寫進 Issue：有 GitHub remote → gh issue comment；無 GitHub remote → 寫進 tmp/issues/#N.md。L+ 無 Issue → 只在對話回報。
 
 ## 完成後
 
