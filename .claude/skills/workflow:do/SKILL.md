@@ -36,7 +36,7 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 
 - Plan 有待確認事項時不自行推進執行
 - L+ 規模不執行，建 Sprint 文件後停下
-- 不自動執行 SQA
+- SQA 必須在新對話執行，完成後提示 user，不在當前對話觸發
 - Issue comment 不寫執行中間過程，只寫最終結果
 
 ## 自主決策邊界
