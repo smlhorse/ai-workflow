@@ -28,7 +28,7 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 ## 不做的事
 
 - Plan 有待確認事項時不自行推進執行
-- L+ 規模不執行，呼叫 workflow:sprint new 後停下
+- L+ 規模，呼叫 workflow:sprint new 後停下
 - Issue comment 不寫執行中間過程，只寫最終結果
 
 ## 自主決策邊界

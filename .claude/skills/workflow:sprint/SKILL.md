@@ -28,7 +28,7 @@ description: Sprint 與 Issue 清單管理。支援 GitHub Milestone 與本機�
 - 不自行決定未完成 Issue 的去向（列出後等 user 決定）
 - 不混用 GitHub 與本機模式資料
 - 建立或關閉 Milestone 前必須告知並等 user ack（影響 GitHub 共享狀態）
-- Sprint 文件的目標與 Issues 表不得修改；狀態、結果、備註可更新
+- Sprint 文件的原始目標內容未經 user 同意不得修改
 
 ## 自主決策邊界
 
