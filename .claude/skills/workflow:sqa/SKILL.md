@@ -30,6 +30,12 @@ description: 全套品質驗收。必須在新對話執行，不得與 Developer
 
 各子 skill 可單獨執行：`/workflow:sqa-review`、`/workflow:sqa-security`、`/workflow:sqa-e2e`、`/workflow:sqa-deploy`
 
+## 自主決策邊界
+
+收到 Issue 編號時：
+- PASS → append 結果至 Issue；owner 是 AI 自動關閉，owner 是 user 等 user 關閉
+- FAIL → 回報 user，不開也不關 Issue
+
 ## 最終輸出
 
 ```
