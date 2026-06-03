@@ -20,12 +20,24 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 
 **回報給對的地方** — 結果回報位置跟著 Issue 來源走：有 GitHub remote + Issue 編號 → gh issue comment；無 GitHub remote + Issue 編號 → 寫進 tmp/issues/#N.md；無 Issue 編號 → 只在對話回報。
 
+## 完成後回報
+
+執行結果用 exec 的完成後格式輸出，並依來源寫入對應位置：
+- 有 GitHub remote + Issue 編號 → gh issue comment（只寫最終結果，不寫中間過程）
+- 無 GitHub remote + Issue 編號 → 寫進 tmp/issues/#N.md 末尾
+- 無 Issue 編號 → 只在對話回報
+
+完成後提示（不自動執行）：
+```
+如需驗收，請在新對話執行：/workflow:sqa
+```
+
 ## 不做的事
 
 - Plan 有待確認事項時不自行推進執行
 - L+ 規模不執行，建 Sprint 文件後停下
-- 不自動執行 SQA（完成後只提示 user 在新對話執行 /workflow:sqa）
-- 回報不寫過程說明、感想、建議下一步
+- 不自動執行 SQA
+- Issue comment 不寫執行中間過程，只寫最終結果
 
 ## 自主決策邊界
 
