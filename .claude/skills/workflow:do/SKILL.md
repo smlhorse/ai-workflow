@@ -5,7 +5,9 @@ description: 全流程：workflow:plan + workflow:exec + 完成後提示驗收�
 
 # workflow:do
 
-**Step 1–Plan**：執行 `workflow:plan` 的全部規則。等 user ack 後繼續。
+**Step 1–Plan**：執行 `workflow:plan` 的全部規則（不含 Plan-First Lock）。Plan 完成後：
+- 有待確認事項 → 等 user ack 後繼續
+- 無待確認事項 → 直接進 Step 2
 
 **Step 2–執行**：執行 `workflow:exec` 的全部規則。
 
