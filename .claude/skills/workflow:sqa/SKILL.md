@@ -43,3 +43,9 @@ description: 全套品質驗收。必須在新對話執行，不得與 Developer
 FAIL 清單：
 - {項目} {具體位置或描述}
 ```
+
+## Issue 回寫
+
+收到 Issue 編號時：
+- PASS → append 結果至 Issue（有 GitHub remote → gh issue comment；無 → tmp/issues/#N.md）；owner 是 AI 自動關閉，owner 是 user 等 user 關閉
+- FAIL → 回報 user，不開也不關 Issue
