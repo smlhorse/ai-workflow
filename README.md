@@ -106,6 +106,7 @@ cd {框架路徑} && git pull
 ```
 .claude/
   CLAUDE.md                      ← 框架行為規範（跟著 plugin 走）
+  roles.md                       ← 10 角色定位與衝突處理
   settings.json
   skills/
     bnworkflow:init/
