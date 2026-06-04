@@ -1,17 +1,17 @@
 ---
-name: workflow:sprint
+name: bnworkflow:sprint
 description: Sprint 與 Issue 清單管理。支援 GitHub Milestone 與本機模式。
 ---
 
-# workflow:sprint
+# bnworkflow:sprint
 
 ## 用法
 
 ```
-/workflow:sprint              ← 列出所有 Sprint 與待辦
-/workflow:sprint {N}          ← 列出 Sprint N 的 Issues
-/workflow:sprint new          ← 建立新 Sprint
-/workflow:sprint close {N}    ← 關閉 Sprint N
+/bnworkflow:sprint              ← 列出所有 Sprint 與待辦
+/bnworkflow:sprint {N}          ← 列出 Sprint N 的 Issues
+/bnworkflow:sprint new          ← 建立新 Sprint
+/bnworkflow:sprint close {N}    ← 關閉 Sprint N
 ```
 
 ## 核心心法
@@ -20,7 +20,7 @@ description: Sprint 與 Issue 清單管理。支援 GitHub Milestone 與本機�
 
 **Sprint 文件住在專案** — 位置從專案 `CLAUDE.md` 的 `Sprint 文件位置：` 欄位讀取，預設 `docs/sprints/`。
 
-**規模決定歸屬** — Issue 歸 Sprint（Milestone）。workflow:do 建立 Issue 時加上對應 Label（`scale:XS/S/M/L`）。L+ 不建 Issue，改建 Sprint 文件要求人工拆解。
+**規模決定歸屬** — Issue 歸 Sprint（Milestone）。bnworkflow:do 建立 Issue 時加上對應 Label（`scale:XS/S/M/L`）。L+ 不建 Issue，改建 Sprint 文件要求人工拆解。
 
 ## 不做的事
 

@@ -1,9 +1,11 @@
 ---
-name: workflow:sqa-e2e
-description: E2E 驗測。實地操作，不得只靠源碼推斷。只輸出 PASS/FAIL，FAIL 附 DEF ID 與觀察描述。
+name: bnworkflow:sqa-e2e
+description: E2E 驗測（UI/UX + SRE 視角）。實地操作，不得只靠源碼推斷。只輸出 PASS/FAIL，FAIL 附 DEF ID 與觀察描述。
 ---
 
-# workflow:sqa-e2e
+# bnworkflow:sqa-e2e
+
+**角色視角**：UI/UX（操作流程順暢、介面回饋）+ SRE（環境一致性、可觀測性）。
 
 ## 執行規則
 

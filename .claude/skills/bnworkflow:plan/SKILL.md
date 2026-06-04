@@ -1,9 +1,9 @@
 ---
-name: workflow:plan
+name: bnworkflow:plan
 description: 把 user 原話存為 Anchor，拆計畫，等 ack 後才能繼續。
 ---
 
-# workflow:plan
+# bnworkflow:plan
 
 ## 核心心法
 
@@ -36,7 +36,7 @@ description: 把 user 原話存為 Anchor，拆計畫，等 ack 後才能繼續�
 
 ## 工作流
 
-存 Anchor → 讀現況（相關規格、現有設計）→ 判規模 → 產出 Plan → **等 ack**
+存 Anchor → 讀現況（相關規格、現有設計）→ 判規模 → 產出 Plan → 呼叫 `bnworkflow:review` 多角色審查 → **等 ack**
 
 Plan 包含：
 - **規模**：XS / S / M / L+

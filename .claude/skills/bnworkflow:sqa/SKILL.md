@@ -1,9 +1,9 @@
 ---
-name: workflow:sqa
+name: bnworkflow:sqa
 description: 全套品質驗收。必須在新對話執行，不得與 Developer 同一對話。只輸出 PASS/FAIL，不給修復建議。
 ---
 
-# workflow:sqa
+# bnworkflow:sqa
 
 **必須在新對話執行。不得接著 Developer 繼續。**
 
@@ -21,14 +21,15 @@ description: 全套品質驗收。必須在新對話執行，不得與 Developer
 
 ## 執行
 
-用 `Agent` tool 依序啟動四個子 skill，前一關 FAIL 則停止後續：
+用 `Agent` tool 依序啟動五個子 skill，前一關 FAIL 則停止後續：
 
-1. `workflow:sqa-review`
-2. `workflow:sqa-security`
-3. `workflow:sqa-e2e`
-4. `workflow:sqa-deploy`
+1. `bnworkflow:sqa-review`（SD 視角）
+2. `bnworkflow:sqa-security`（系統架構師 + SD 視角）
+3. `bnworkflow:sqa-e2e`（UI/UX + SRE 視角）
+4. `bnworkflow:sqa-deploy`（SRE 視角）
+5. `bnworkflow:sqa-pm`（PM 按規格最終驗收）
 
-各子 skill 可單獨執行：`/workflow:sqa-review`、`/workflow:sqa-security`、`/workflow:sqa-e2e`、`/workflow:sqa-deploy`
+各子 skill 可單獨執行：`/bnworkflow:sqa-review`、`/bnworkflow:sqa-security`、`/bnworkflow:sqa-e2e`、`/bnworkflow:sqa-deploy`、`/bnworkflow:sqa-pm`
 
 ## 自主決策邊界
 
@@ -45,6 +46,7 @@ description: 全套品質驗收。必須在新對話執行，不得與 Developer
 - Security：PASS / FAIL
 - E2E：PASS / FAIL
 - Deploy：PASS / FAIL
+- PM：PASS / FAIL
 
 FAIL 清單：
 - {項目} {具體位置或描述}

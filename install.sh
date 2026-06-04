@@ -18,8 +18,8 @@ fi
 
 mkdir -p "$TARGET_DIR/.claude/skills"
 
-# workflow:* skill
-for skill in "$FRAMEWORK_DIR"/.claude/skills/workflow:*/; do
+# bnworkflow:* skill
+for skill in "$FRAMEWORK_DIR"/.claude/skills/bnworkflow:*/; do
   skill_name="$(basename "$skill")"
   ln -sf "$skill" "$TARGET_DIR/.claude/skills/$skill_name"
   echo "✓ .claude/skills/$skill_name"
@@ -29,4 +29,4 @@ echo "$FRAMEWORK_DIR" > "$TARGET_DIR/.claude/workflow-framework-path"
 echo "✓ .claude/workflow-framework-path"
 
 echo ""
-echo "安裝完成。請在 $TARGET_DIR 開啟 Claude Code 並執行 /workflow:init"
+echo "安裝完成。請在 $TARGET_DIR 開啟 Claude Code 並執行 /bnworkflow:init"

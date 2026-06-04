@@ -16,7 +16,7 @@ bash {框架路徑}/install.sh /path/to/target-project
 
 **Step 3**：在目標專案開啟 Claude Code，執行：
 ```
-/workflow:init
+/bnworkflow:init
 ```
 init 會互動式收集專案資訊，產生專案專屬的 `CLAUDE.md` 與 `.claude/settings.json`。
 
@@ -24,8 +24,8 @@ init 會互動式收集專案資訊，產生專案專屬的 `CLAUDE.md` 與 `.cl
 | 檔案 | 角色 | 內容 |
 |---|---|---|
 | `{框架路徑}/.claude/CLAUDE.md` | 框架行為規範實體，不改動 | AI 的通用執行原則 |
-| `.claude/CLAUDE.md`（專案） | 由 `workflow:init` 附加一行 `@` 引用框架規範 | 專案原有內容不動 |
-| `CLAUDE.md`（專案根目錄） | 專案設定，由 `workflow:init` 產生 | 專案名稱、環境、規格文件位置、啟動命令 |
+| `.claude/CLAUDE.md`（專案） | 由 `bnworkflow:init` 附加一行 `@` 引用框架規範 | 專案原有內容不動 |
+| `CLAUDE.md`（專案根目錄） | 專案設定，由 `bnworkflow:init` 產生 | 專案名稱、環境、規格文件位置、啟動命令 |
 
 **框架更新：**
 ```bash
@@ -40,37 +40,45 @@ cd {框架路徑} && git pull
 我要做...
 
 # 只規畫不執行
-/workflow:plan
+/bnworkflow:plan
 
 # 規畫 + 執行 + 驗收摘要
-/workflow:do
+/bnworkflow:do
 
 # 只執行（已有明確做法，跳過 plan）
-/workflow:exec
+/bnworkflow:exec
 
 # 全套驗收（新對話執行）
-/workflow:sqa
+/bnworkflow:sqa
 
 # 單項驗收
-/workflow:sqa-review
-/workflow:sqa-security
-/workflow:sqa-e2e
-/workflow:sqa-deploy
+/bnworkflow:sqa-review
+/bnworkflow:sqa-security
+/bnworkflow:sqa-e2e
+/bnworkflow:sqa-deploy
 ```
 
 ## Skill 說明
 
 | Skill | 用途 |
 |---|---|
-| `workflow:init` | 初始化新專案，產生 CLAUDE.md 與設定檔 |
-| `workflow:do` | plan + 執行，完成後提示走 /workflow:sqa |
-| `workflow:plan` | Anchor → Plan → 等 ack，不執行 |
-| `workflow:exec` | 純執行，跳過 plan |
-| `workflow:sqa` | 全套驗收（必須新對話） |
-| `workflow:sqa-review` | Code review：規格對照 + 自行填充偵測 |
-| `workflow:sqa-security` | Security：OWASP + hardcode + 輸入驗證 |
-| `workflow:sqa-e2e` | E2E：實地操作，不靠源碼推斷 |
-| `workflow:sqa-deploy` | 部署準備：環境變數、migration、rollback |
+| `bnworkflow:init` | 初始化新專案，產生 CLAUDE.md 與設定檔 |
+| `bnworkflow:do` | plan + 執行，完成後提示走 /bnworkflow:sqa |
+| `bnworkflow:plan` | Anchor → Plan → 等 ack，不執行 |
+| `bnworkflow:exec` | 純執行，跳過 plan |
+| `bnworkflow:sqa` | 全套驗收（必須新對話） |
+| `bnworkflow:sqa-review` | Code review：規格對照 + 自行填充偵測 |
+| `bnworkflow:sqa-security` | Security：OWASP + hardcode + 輸入驗證 |
+| `bnworkflow:sqa-e2e` | E2E：實地操作，不靠源碼推斷 |
+| `bnworkflow:sqa-deploy` | 部署準備：環境變數、migration、rollback |
+| `bnworkflow:sqa-pm` | PM 按規格需求最終驗收 |
+| `bnworkflow:sprint` | Sprint 與 Issue 管理（GitHub Milestone / 本機模式） |
+| `bnworkflow:review` | 規格 review 總控（業務／系統／程式架構師＋SA＋UI/UX 多角色） |
+| `bnworkflow:review-business` | 業務流程架構師審查規格 |
+| `bnworkflow:review-system` | 系統架構師審查規格 |
+| `bnworkflow:review-program` | 程式架構師審查規格 |
+| `bnworkflow:review-sa` | 資深 SA 審查規格完整性 |
+| `bnworkflow:review-uiux` | UI/UX 審查介面與操作流程 |
 
 ## 解決的問題
 
@@ -100,17 +108,25 @@ cd {框架路徑} && git pull
   CLAUDE.md                      ← 框架行為規範（跟著 plugin 走）
   settings.json
   skills/
-    workflow:init/
+    bnworkflow:init/
       SKILL.md
       templates/CLAUDE.md        ← 新專案的 CLAUDE.md 模板
-    workflow:plan/SKILL.md
-    workflow:do/SKILL.md
-    workflow:exec/SKILL.md
-    workflow:sqa/SKILL.md
-    workflow:sqa-review/SKILL.md
-    workflow:sqa-security/SKILL.md
-    workflow:sqa-e2e/SKILL.md
-    workflow:sqa-deploy/SKILL.md
+    bnworkflow:plan/SKILL.md
+    bnworkflow:do/SKILL.md
+    bnworkflow:exec/SKILL.md
+    bnworkflow:sqa/SKILL.md
+    bnworkflow:sqa-review/SKILL.md
+    bnworkflow:sqa-security/SKILL.md
+    bnworkflow:sqa-e2e/SKILL.md
+    bnworkflow:sqa-deploy/SKILL.md
+    bnworkflow:sqa-pm/SKILL.md
+    bnworkflow:sprint/SKILL.md
+    bnworkflow:review/SKILL.md
+    bnworkflow:review-business/SKILL.md
+    bnworkflow:review-system/SKILL.md
+    bnworkflow:review-program/SKILL.md
+    bnworkflow:review-sa/SKILL.md
+    bnworkflow:review-uiux/SKILL.md
 CLAUDE.md                        ← 框架維護說明（不進 plugin）
 README.md
 .gitignore

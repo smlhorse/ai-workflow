@@ -1,9 +1,9 @@
 ---
-name: workflow:exec
+name: bnworkflow:exec
 description: 純執行，跳過 Plan。用於 XS 任務或 user 已明確指定做法的情況。
 ---
 
-# workflow:exec
+# bnworkflow:exec
 
 ## 核心心法
 

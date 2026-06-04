@@ -1,9 +1,9 @@
 ---
-name: workflow:init
+name: bnworkflow:init
 description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 ---
 
-# workflow:init
+# bnworkflow:init
 
 初始化專案 AI 工作流。產生專案 `CLAUDE.md` 與設定檔。
 
@@ -44,7 +44,7 @@ description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 `.gitignore` 補充（附加，不覆寫）：
 ```
 .claude/settings.local.json
-.claude/skills/workflow:*
+.claude/skills/bnworkflow:*
 .claude/workflow-framework-path
 tmp/
 ```

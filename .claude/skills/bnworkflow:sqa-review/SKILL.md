@@ -1,9 +1,11 @@
 ---
-name: workflow:sqa-review
-description: Code review。逐條核對實作決策是否有規格依據。只輸出 PASS/FAIL，不給修復建議。
+name: bnworkflow:sqa-review
+description: Code review（SD 視角）。逐條核對實作決策是否有規格依據。只輸出 PASS/FAIL，不給修復建議。
 ---
 
-# workflow:sqa-review
+# bnworkflow:sqa-review
+
+**角色視角**：資深工程師（SD）— 程式 clean code、程式碼架構制定、程式層安全與效能。
 
 ## 核對邏輯
 

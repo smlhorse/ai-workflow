@@ -36,17 +36,25 @@
   CLAUDE.md                      ← 框架行為規範（跟著 plugin 走）
   settings.json
   skills/
-    workflow:init/
+    bnworkflow:init/
       SKILL.md
       templates/CLAUDE.md        ← 新專案的 CLAUDE.md 模板
-    workflow:plan/SKILL.md
-    workflow:do/SKILL.md
-    workflow:exec/SKILL.md
-    workflow:sqa/SKILL.md
-    workflow:sqa-review/SKILL.md
-    workflow:sqa-security/SKILL.md
-    workflow:sqa-e2e/SKILL.md
-    workflow:sqa-deploy/SKILL.md
+    bnworkflow:plan/SKILL.md
+    bnworkflow:do/SKILL.md
+    bnworkflow:exec/SKILL.md
+    bnworkflow:sqa/SKILL.md
+    bnworkflow:sqa-review/SKILL.md
+    bnworkflow:sqa-security/SKILL.md
+    bnworkflow:sqa-e2e/SKILL.md
+    bnworkflow:sqa-deploy/SKILL.md
+    bnworkflow:sqa-pm/SKILL.md
+    bnworkflow:sprint/SKILL.md
+    bnworkflow:review/SKILL.md
+    bnworkflow:review-business/SKILL.md
+    bnworkflow:review-system/SKILL.md
+    bnworkflow:review-program/SKILL.md
+    bnworkflow:review-sa/SKILL.md
+    bnworkflow:review-uiux/SKILL.md
 CLAUDE.md                        ← 本檔，維護說明（不進 plugin）
 README.md
 .gitignore
