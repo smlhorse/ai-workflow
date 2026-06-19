@@ -48,6 +48,7 @@
     bnworkflow:sqa-security/SKILL.md
     bnworkflow:sqa-e2e/SKILL.md
     bnworkflow:sqa-deploy/SKILL.md
+    bnworkflow:sqa-security-officer/SKILL.md
     bnworkflow:sqa-pm/SKILL.md
     bnworkflow:sprint/SKILL.md
     bnworkflow:review/SKILL.md

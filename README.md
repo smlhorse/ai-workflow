@@ -56,6 +56,7 @@ cd {框架路徑} && git pull
 /bnworkflow:sqa-security
 /bnworkflow:sqa-e2e
 /bnworkflow:sqa-deploy
+/bnworkflow:sqa-security-officer
 ```
 
 ## Skill 說明
@@ -68,9 +69,10 @@ cd {框架路徑} && git pull
 | `bnworkflow:exec` | 純執行，跳過 plan |
 | `bnworkflow:sqa` | 全套驗收（必須新對話） |
 | `bnworkflow:sqa-review` | Code review：規格對照 + 自行填充偵測 |
-| `bnworkflow:sqa-security` | Security：OWASP + hardcode + 輸入驗證 |
+| `bnworkflow:sqa-security` | Security：OWASP + hardcode + 輸入驗證（系統架構師 + SD 視角） |
 | `bnworkflow:sqa-e2e` | E2E：實地操作，不靠源碼推斷 |
 | `bnworkflow:sqa-deploy` | 部署準備：環境變數、migration、rollback |
+| `bnworkflow:sqa-security-officer` | 資安官 Sprint 末關卡：弱掃 + SAST + 紅軍；推 UAT 前必跑 |
 | `bnworkflow:sqa-pm` | PM 按規格需求最終驗收 |
 | `bnworkflow:sprint` | Sprint 與 Issue 管理（GitHub Milestone / 本機模式） |
 | `bnworkflow:review` | 規格 review 總控（業務／系統／程式架構師＋SA＋UI/UX 多角色） |
@@ -120,6 +122,7 @@ cd {框架路徑} && git pull
     bnworkflow:sqa-security/SKILL.md
     bnworkflow:sqa-e2e/SKILL.md
     bnworkflow:sqa-deploy/SKILL.md
+    bnworkflow:sqa-security-officer/SKILL.md
     bnworkflow:sqa-pm/SKILL.md
     bnworkflow:sprint/SKILL.md
     bnworkflow:review/SKILL.md

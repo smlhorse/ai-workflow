@@ -21,15 +21,16 @@ description: 全套品質驗收。必須在新對話執行，不得與 Developer
 
 ## 執行
 
-用 `Agent` tool 依序啟動五個子 skill，前一關 FAIL 則停止後續：
+用 `Agent` tool 依序啟動六個子 skill，前一關 FAIL 則停止後續：
 
 1. `bnworkflow:sqa-review`（SD 視角）
 2. `bnworkflow:sqa-security`（系統架構師 + SD 視角）
 3. `bnworkflow:sqa-e2e`（UI/UX + SRE 視角）
 4. `bnworkflow:sqa-deploy`（SRE 視角）
-5. `bnworkflow:sqa-pm`（PM 按規格最終驗收）
+5. `bnworkflow:sqa-security-officer`（資安官視角，推 UAT 前必跑，FAIL 對 UAT 啟動有否決權）
+6. `bnworkflow:sqa-pm`（PM 按規格最終驗收）
 
-各子 skill 可單獨執行：`/bnworkflow:sqa-review`、`/bnworkflow:sqa-security`、`/bnworkflow:sqa-e2e`、`/bnworkflow:sqa-deploy`、`/bnworkflow:sqa-pm`
+各子 skill 可單獨執行：`/bnworkflow:sqa-review`、`/bnworkflow:sqa-security`、`/bnworkflow:sqa-e2e`、`/bnworkflow:sqa-deploy`、`/bnworkflow:sqa-security-officer`、`/bnworkflow:sqa-pm`
 
 ## 自主決策邊界
 
@@ -46,6 +47,7 @@ description: 全套品質驗收。必須在新對話執行，不得與 Developer
 - Security：PASS / FAIL
 - E2E：PASS / FAIL
 - Deploy：PASS / FAIL
+- Security Officer：PASS / FAIL
 - PM：PASS / FAIL
 
 FAIL 清單：
