@@ -140,12 +140,6 @@ description: 資安官視角的 Sprint 末關卡。弱點掃描 + 源碼掃描�
 ```markdown
 # 資安掃描頻率（UAT 啟動前必須由資安官發起討論並落定）
 
-## 工具清單（首次落定後不得隨意更換，需經資安官同意）
-
-- 弱點掃描：（待填，例：Trivy、npm audit、Checkov）
-- 源碼掃描：（待填，例：Semgrep、CodeQL、Bandit）
-- 紅軍演練：（待填，例：OWASP ZAP + 手動）
-
 ## 頻率（最低 monthly，建議 weekly 弱掃 / 源碼，monthly 紅軍）
 
 - 弱點掃描：（待填）
@@ -155,16 +149,11 @@ description: 資安官視角的 Sprint 末關卡。弱點掃描 + 源碼掃描�
 ## 落定日期
 
 （待填）
-
-## 落定簽核
-
-- 資安官：（待填）
-- PM：（待填）
 ```
 
 ## 自主決策邊界
 
-- 工具選型未綁定，但三類掃描範圍皆須覆蓋；專案首次執行時資安官在 `docs/security/scan-cadence.md` 落定工具清單
+- 工具選型未綁定，三類掃描範圍皆須覆蓋；每次跑 skill 前資安官先確認本次使用工具，並寫入當次掃描報告
 - 收到 Issue 編號時：FAIL → 回報 user，不開也不關 Issue；PASS → append 結果至 Issue
 - 發現新誤報時：先進 `docs/security/false-positives.md`，附證據，由資安官確認
 - 發現正式環境資料外洩 → 立刻停止所有動作並告知 user
@@ -180,6 +169,11 @@ description: 資安官視角的 Sprint 末關卡。弱點掃描 + 源碼掃描�
 
 ```
 ## Security Officer：PASS / FAIL
+
+本次使用工具：
+- 弱點掃描：{工具名稱與版本}
+- 源碼掃描：{工具名稱與版本}
+- 紅軍演練：{工具 / 手動方式}
 
 掃描範圍：
 - 弱點掃描：{覆蓋項目摘要}
