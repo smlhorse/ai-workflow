@@ -57,6 +57,7 @@
     bnworkflow:review-program/SKILL.md
     bnworkflow:review-sa/SKILL.md
     bnworkflow:review-uiux/SKILL.md
+    bnworkflow:feedback/SKILL.md
 CLAUDE.md                        ← 本檔，維護說明（不進 plugin）
 README.md
 .gitignore

@@ -81,6 +81,7 @@ cd {框架路徑} && git pull
 | `bnworkflow:review-program` | 程式架構師審查規格 |
 | `bnworkflow:review-sa` | 資深 SA 審查規格完整性 |
 | `bnworkflow:review-uiux` | UI/UX 審查介面與操作流程 |
+| `bnworkflow:feedback` | 框架使用回饋蒐集，寫入 `tmp/bnworkflow-feedback/`，回 framework repo 批量消化 |
 
 ## 解決的問題
 
@@ -131,6 +132,7 @@ cd {框架路徑} && git pull
     bnworkflow:review-program/SKILL.md
     bnworkflow:review-sa/SKILL.md
     bnworkflow:review-uiux/SKILL.md
+    bnworkflow:feedback/SKILL.md
 CLAUDE.md                        ← 框架維護說明（不進 plugin）
 README.md
 .gitignore
