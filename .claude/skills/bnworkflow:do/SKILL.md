@@ -20,6 +20,14 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 
 **回報給對的地方** — SQA 結果由 bnworkflow:sqa 寫回 Issue（有 GitHub remote → gh issue comment；無 → tmp/issues/#N.md）。
 
+## 規格產出分支
+
+讀 anchor 後，依下列規則決定是否先呼叫 `bnworkflow:spec`：
+
+- **有 UI 訊號**（任務提到畫面 / 頁面 / 介面 / 元件 / 按鈕 / 列表 / 表單 / 互動，或新增/修改 UI 元件，或改變使用者操作流程）→ 先呼叫 `bnworkflow:spec` 產 `tmp/spec.md`，再呼叫 `bnworkflow:plan`
+- **純後端**（純 API / DB / 演算法 / 重構 / 修 bug 且不影響 UI；設定檔、文件、CI/CD）→ 直接呼叫 `bnworkflow:plan`
+- **模糊**（任務描述同時可能是 UI 或後端，如「優化訂單功能」）→ 停下問 user，不自行判定
+
 ## 完成後
 
 執行結果用 exec 的完成後格式在對話輸出。

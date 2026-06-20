@@ -40,6 +40,7 @@
     bnworkflow:init/
       SKILL.md
       templates/CLAUDE.md        ← 新專案的 CLAUDE.md 模板
+    bnworkflow:spec/SKILL.md
     bnworkflow:plan/SKILL.md
     bnworkflow:do/SKILL.md
     bnworkflow:exec/SKILL.md

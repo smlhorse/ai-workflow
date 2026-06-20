@@ -39,6 +39,9 @@ cd {框架路徑} && git pull
 # 直接描述任務（自動判規模走對應路徑）
 我要做...
 
+# 涉及 UI 時，先產元件級規格（A-E 5 表）
+/bnworkflow:spec
+
 # 只規畫不執行
 /bnworkflow:plan
 
@@ -65,6 +68,7 @@ cd {框架路徑} && git pull
 |---|---|
 | `bnworkflow:init` | 初始化新專案，產生 CLAUDE.md 與設定檔 |
 | `bnworkflow:do` | plan + 執行，完成後提示走 /bnworkflow:sqa |
+| `bnworkflow:spec` | 涉及 UI 時產出元件級規格（A-E 5 表），對齊業務目標 |
 | `bnworkflow:plan` | Anchor → Plan → 等 ack，不執行 |
 | `bnworkflow:exec` | 純執行，跳過 plan |
 | `bnworkflow:sqa` | 全套驗收（必須新對話） |
@@ -115,6 +119,7 @@ cd {框架路徑} && git pull
     bnworkflow:init/
       SKILL.md
       templates/CLAUDE.md        ← 新專案的 CLAUDE.md 模板
+    bnworkflow:spec/SKILL.md
     bnworkflow:plan/SKILL.md
     bnworkflow:do/SKILL.md
     bnworkflow:exec/SKILL.md
