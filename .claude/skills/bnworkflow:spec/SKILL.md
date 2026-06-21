@@ -38,7 +38,9 @@ description: 兩層規格產出（lite 業務討論版 + business 結構化版�
 
 ## 路徑
 
-預設 `docs/specs/<feature>/{lite,business}.md`；專案 CLAUDE.md 可覆寫。
+**lite 格式 / 位置由 user 決定**（業務同仁用什麼工具看就用什麼）。
+
+business 預設 `docs/specs/<feature>/business.md`；專案 CLAUDE.md 可覆寫。
 
 ## 不做的事
 
