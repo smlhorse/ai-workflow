@@ -27,9 +27,11 @@ description: 系統架構師視角審查規格。聚焦系統設計、整合、�
 
 ## spec 視角
 
-審查對象為 `tmp/spec.md` 時，主審範圍：**B.DATA**（資料來源 / 撈取條件）與 **D.FLOW**（API call / DB 變更 / 影響範圍）。
+**lite**：主審影響範圍的系統合理性。
+- 操作劇本提及的影響範圍違反既有系統邊界或跨服務一致性原則 → FAIL
 
-- B 資料來源跨服務但未說明一致性策略 → FAIL
-- D 的 API call 未對齊既有 API 規範或無版本控管 → FAIL
-- D 影響範圍未涵蓋上下游系統 → FAIL
+**business**：主審資料面與流程面。
+- 資料來源跨服務但未說明一致性策略 → FAIL
+- 流程的 API call 未對齊既有 API 規範或無版本控管 → FAIL
+- 流程影響範圍未涵蓋上下游系統 → FAIL
 - 失敗處理未說明 retry / fallback / 補償機制 → FAIL

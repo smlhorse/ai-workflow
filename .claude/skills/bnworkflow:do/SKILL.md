@@ -22,11 +22,13 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 
 ## 規格產出分支
 
-讀 anchor 後，依下列規則決定是否先呼叫 `bnworkflow:spec`：
+讀 anchor 後，依原則決定是否先呼叫 `bnworkflow:spec`：
 
-- **有 UI 訊號**（任務提到畫面 / 頁面 / 介面 / 元件 / 按鈕 / 列表 / 表單 / 互動，或新增/修改 UI 元件，或改變使用者操作流程）→ 先呼叫 `bnworkflow:spec` 產 `tmp/spec.md`，再呼叫 `bnworkflow:plan`
-- **純後端**（純 API / DB / 演算法 / 重構 / 修 bug 且不影響 UI；設定檔、文件、CI/CD）→ 直接呼叫 `bnworkflow:plan`
-- **模糊**（任務描述同時可能是 UI 或後端，如「優化訂單功能」）→ 停下問 user，不自行判定
+- **任務會改變使用者可見的輸出或互動** → 先呼叫 `bnworkflow:spec`（產 lite，與業務 align 後升 business），再呼叫 `bnworkflow:plan`
+- **純後端 / 純資料處理 / 純內部重構**（不影響使用者可見行為） → 直接呼叫 `bnworkflow:plan`
+- **判斷不出來** → 停下問 user，不自行定奪
+
+跳級規則：anchor 明確標示「規格已 align」或既有 spec 已存在時，可跳 lite 直接走 business。
 
 ## 完成後
 

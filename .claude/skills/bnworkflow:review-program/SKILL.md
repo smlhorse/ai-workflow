@@ -27,9 +27,10 @@ description: 程式架構師視角審查規格。聚焦程式結構、模組邊�
 
 ## spec 視角
 
-審查對象為 `tmp/spec.md` 時，主審範圍：**D.FLOW**（API 設計、DB 變更）與**元件 ID 對應的模組邊界**。
+**lite**：N/A（lite 不寫元件 ID 與 API，本角色無切入點）。
 
-- D 的 API 設計違反既有命名慣例或 RESTful / RPC 一致性 → FAIL
+**business**：主審流程面 API/DB 設計與元件 ID 模組邊界。
+- 流程的 API 設計違反既有命名慣例或 RESTful / RPC 一致性 → FAIL
 - 元件 ID 命名混亂或同類元件職責切分不清（SRP 違反）→ FAIL
-- D 的 DB 變更未說明影響範圍或無 migration 路徑 → FAIL
+- DB 變更未說明影響範圍或無 migration 路徑 → FAIL
 - 元件設計無法獨立寫單元測試（耦合過深）→ FAIL

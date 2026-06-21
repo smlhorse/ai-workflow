@@ -62,11 +62,7 @@
 ## 角色介入點
 
 **需求階段**（do 開始前）：PM、業務流程架構師
-**規格產出階段**（涉及 UI 時，bnworkflow:spec 產出 tmp/spec.md）：
-- PM：spec 開頭定**業務目標 + 優先序**（純文字段，不畫表）
-- 資深 SA：**主寫 A.VISUAL / B.DATA / C.INTERACTION / D.FLOW 四張表**，逼出邊界條件
-- UI/UX：協同 SA 寫 A（VISUAL）和 C（INTERACTION）
-- E.STATUS：「最後更新」欄位由 git log 維護，不手寫
+**規格產出階段**（涉及使用者可見輸出時，bnworkflow:spec 分 lite / business 兩層）：分工見 `bnworkflow:spec`。
 
 **規格階段**（plan 完成後 review）：業務流程架構師、系統架構師、程式架構師、資深 SA、UI/UX（依對象 spec.md / plan.md 採差異化視角，詳見 bnworkflow:review）
 **實作階段**（exec）：PG、SD、UI/UX
