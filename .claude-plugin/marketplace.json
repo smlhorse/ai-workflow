@@ -1,0 +1,14 @@
+{
+  "name": "smlhorse-ai-workflow",
+  "description": "smlhorse AI 工作流框架 marketplace",
+  "owner": {
+    "name": "smlhorse"
+  },
+  "plugins": [
+    {
+      "name": "bnworkflow",
+      "source": "./bnworkflow",
+      "description": "AI 工作流框架：規格至上、Anchor First、多角色驗收"
+    }
+  ]
+}

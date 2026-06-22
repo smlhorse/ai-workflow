@@ -1,0 +1,11 @@
+{
+  "name": "bnworkflow",
+  "description": "AI 工作流框架：規格至上、Anchor First、多角色驗收，解決 AI 執行常見缺陷。",
+  "version": "0.1.0",
+  "author": {
+    "name": "smlhorse"
+  },
+  "homepage": "https://github.com/smlhorse/ai-workflow",
+  "repository": "https://github.com/smlhorse/ai-workflow",
+  "license": "MIT"
+}

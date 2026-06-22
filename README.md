@@ -1,37 +1,38 @@
 # AI 工作流框架
 
-全公司通用的 Claude Code 工作流規範，解決 AI 執行常見缺陷。
+全公司通用的 Claude Code 工作流規範，解決 AI 執行常見缺陷。以 Claude Code plugin 形式發布。
 
 ## 安裝
 
-**Step 1**：clone 框架 repo 到本機：
-```bash
-git clone https://github.com/smlhorse/ai-workflow {框架路徑}
+**Step 1**：加入 marketplace（一次性）：
+```
+/plugin marketplace add smlhorse/ai-workflow
+```
+（或本機路徑：`/plugin marketplace add /path/to/20260506_workflow`）
+
+**Step 2**：安裝 plugin：
+```
+/plugin install bnworkflow@smlhorse-ai-workflow
 ```
 
-**Step 2**：執行安裝腳本，指定目標專案路徑：
-```bash
-bash {框架路徑}/install.sh /path/to/target-project
-```
-
-**Step 3**：在目標專案開啟 Claude Code，執行：
+**Step 3**：在目標專案執行：
 ```
 /bnworkflow:init
 ```
-init 會互動式收集專案資訊，產生專案專屬的 `CLAUDE.md` 與 `.claude/settings.json`。
+init 會互動式收集專案資訊，產生：
+- `CLAUDE.md`（專案根目錄）— 專案名稱、環境、規格文件位置、啟動命令
+- `.claude/CLAUDE.md` — AI 行為規範（從 plugin 複製，獨立於 plugin 更新）
+- `.claude/roles.md` — 10 角色定位與衝突處理
+- `.claude/settings.json`
 
-**檔案說明：**
-| 檔案 | 角色 | 內容 |
-|---|---|---|
-| `{框架路徑}/.claude/CLAUDE.md` | 框架行為規範實體，不改動 | AI 的通用執行原則 |
-| `.claude/CLAUDE.md`（專案） | 由 `bnworkflow:init` 附加一行 `@` 引用框架規範 | 專案原有內容不動 |
-| `CLAUDE.md`（專案根目錄） | 專案設定，由 `bnworkflow:init` 產生 | 專案名稱、環境、規格文件位置、啟動命令 |
+## 更新
 
-**框架更新：**
-```bash
-cd {框架路徑} && git pull
 ```
-所有已安裝的專案透過 symlink 自動同步，不需重新執行任何指令。
+/plugin marketplace update smlhorse-ai-workflow
+```
+或在 `/plugin` UI Marketplaces 分頁啟用 auto-update。
+
+新增 skill 後重新跑一次 init 可選擇是否同步 `.claude/CLAUDE.md` 與 `.claude/roles.md`（plugin 升級不會自動覆蓋既有專案的規則檔，避免破壞用戶 local 修改）。
 
 ## 日常使用
 
@@ -108,37 +109,23 @@ cd {框架路徑} && git pull
 | 輸出混過程說明 | 輸出格式規範：只寫事實與決策 |
 | 重複提醒已知限制 | 已知限制不重複提醒，只報告新資訊 |
 
-## 目錄結構
+## 目錄結構（plugin 包裝）
 
 ```
-.claude/
-  CLAUDE.md                      ← 框架行為規範（跟著 plugin 走）
-  roles.md                       ← 10 角色定位與衝突處理
-  settings.json
-  skills/
-    bnworkflow:init/
-      SKILL.md
-      templates/CLAUDE.md        ← 新專案的 CLAUDE.md 模板
-    bnworkflow:spec/SKILL.md
-    bnworkflow:plan/SKILL.md
-    bnworkflow:do/SKILL.md
-    bnworkflow:exec/SKILL.md
-    bnworkflow:sqa/SKILL.md
-    bnworkflow:sqa-review/SKILL.md
-    bnworkflow:sqa-security/SKILL.md
-    bnworkflow:sqa-e2e/SKILL.md
-    bnworkflow:sqa-deploy/SKILL.md
-    bnworkflow:sqa-security-officer/SKILL.md
-    bnworkflow:sqa-pm/SKILL.md
-    bnworkflow:sprint/SKILL.md
-    bnworkflow:review/SKILL.md
-    bnworkflow:review-business/SKILL.md
-    bnworkflow:review-system/SKILL.md
-    bnworkflow:review-program/SKILL.md
-    bnworkflow:review-sa/SKILL.md
-    bnworkflow:review-uiux/SKILL.md
-    bnworkflow:feedback/SKILL.md
-CLAUDE.md                        ← 框架維護說明（不進 plugin）
-README.md
-.gitignore
+20260506_workflow/                    ← repo / marketplace 根目錄
+├── .claude-plugin/
+│   └── marketplace.json              ← 列出此 marketplace 包含的 plugins
+├── bnworkflow/                       ← plugin 本體
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   └── skills/
+│       ├── init/SKILL.md
+│       │   └── templates/{CLAUDE.md, rules.md, roles.md}
+│       ├── do/SKILL.md
+│       └── ... (共 20 個 skill)
+├── .claude/                          ← 框架自身的 AI 規範（維護者用）
+│   ├── CLAUDE.md
+│   └── roles.md
+├── CLAUDE.md                         ← 框架維護說明（不進 plugin）
+└── README.md
 ```
