@@ -1,5 +1,5 @@
 ---
-name: spec
+name: bnworkflow:spec
 description: 兩層規格產出（lite 業務討論版 + business 結構化版）。spec 描述系統長什麼樣，不是怎麼做。
 ---
 

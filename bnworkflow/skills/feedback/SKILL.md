@@ -1,5 +1,5 @@
 ---
-name: feedback
+name: bnworkflow:feedback
 description: 提交 bnworkflow 框架本身的改善回饋（不是專案 bug）。在 skill 卡關、走錯路、有改善構想時呼叫。輸出至 tmp/bnworkflow-feedback/，回到 framework repo 時批量消化。
 ---
 

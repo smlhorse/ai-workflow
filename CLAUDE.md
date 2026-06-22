@@ -16,7 +16,7 @@
 ## Skill 結構規範
 
 每個 skill 必須有：
-- `name` + `description` frontmatter；`name` 必須等於 skill folder 名稱（不含 `bnworkflow:` 前綴；plugin name 會自動加前綴）
+- `name` + `description` frontmatter；`name` 寫完整 `bnworkflow:<folder>`，slash command autocomplete 才會顯示 `/bnworkflow:<folder>` 而不是裸名 `/<folder>`
 - **核心心法**：說明這個 skill 存在的原因（解決什麼問題）
 - **不做的事**：針對已知失敗模式的明確禁止清單
 - **自主決策邊界**（如適用）：哪些自己決定、哪些停下來問

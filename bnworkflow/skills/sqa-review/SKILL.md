@@ -1,5 +1,5 @@
 ---
-name: sqa-review
+name: bnworkflow:sqa-review
 description: Code review（SD 視角）。逐條核對實作決策是否有規格依據。只輸出 PASS/FAIL，不給修復建議。
 ---
 

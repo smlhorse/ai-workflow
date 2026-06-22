@@ -1,5 +1,5 @@
 ---
-name: do
+name: bnworkflow:do
 description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 ---
 

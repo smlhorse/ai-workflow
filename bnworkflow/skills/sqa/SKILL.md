@@ -1,5 +1,5 @@
 ---
-name: sqa
+name: bnworkflow:sqa
 description: 全套品質驗收。必須在新對話執行，不得與 Developer 同一對話。只輸出 PASS/FAIL，不給修復建議。
 ---
 

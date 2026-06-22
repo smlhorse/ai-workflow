@@ -1,5 +1,5 @@
 ---
-name: review
+name: bnworkflow:review
 description: 規格 review 總控。對 lite / business / plan 呼叫 5 個子 skill，前一關 FAIL 停止後續。
 ---
 

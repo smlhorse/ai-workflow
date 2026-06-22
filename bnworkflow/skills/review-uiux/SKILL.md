@@ -1,5 +1,5 @@
 ---
-name: review-uiux
+name: bnworkflow:review-uiux
 description: UI/UX 視角審查規格。聚焦介面合理性、操作流程順暢、使用者體驗。
 ---
 

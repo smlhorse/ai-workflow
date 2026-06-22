@@ -1,5 +1,5 @@
 ---
-name: plan
+name: bnworkflow:plan
 description: 把 user 原話存為 Anchor，拆計畫，等 ack 後才能繼續。
 ---
 

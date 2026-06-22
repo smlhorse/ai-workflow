@@ -1,5 +1,5 @@
 ---
-name: sqa-deploy
+name: bnworkflow:sqa-deploy
 description: 部署準備檢查（SRE 視角）。環境變數、Migration、CI/CD、Rollback。只輸出 PASS/FAIL，FAIL 附具體缺漏。
 ---
 
