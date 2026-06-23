@@ -67,4 +67,4 @@ business 預設 `docs/specs/<feature>/business.md`；專案 CLAUDE.md 可覆寫�
 
 ## 工作流
 
-讀 anchor → 確認分支 → lite 或 business（依跳級規則）→ 涵蓋面向 → 自檢失敗情境與元件 ID 一致性 → 呼叫 `bnworkflow:review` → 等 ack → 交棒 `bnworkflow:plan`
+確認分支 → lite 或 business（依跳級規則）→ 涵蓋面向 → 自檢失敗情境與元件 ID 一致性 → 呼叫 `bnworkflow:review` → 等 ack → 交棒 `bnworkflow:plan`

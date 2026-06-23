@@ -7,8 +7,6 @@ description: 把 user 原話存為 Anchor，拆計畫，等 ack 後才能繼續�
 
 ## 核心心法
 
-**Anchor First** — 任務開始第一件事，把 user 原話**逐字**存進 `tmp/anchor.md`。禁止改寫、摘要、詮釋。所有後續決策對齊 anchor，不對齊自己的理解。
-
 **No-Drift** — 看到模糊地帶 → 列待確認，不擅自詮釋。任何想做但 anchor 沒說的事，列在 Won't do。後段執行若想改前段決策 → 停下告知，不靜悄悄調整。
 
 **Plan-First Lock** — 輸出 Plan 後強制等待 user ack，不得自動推進。
@@ -38,7 +36,7 @@ description: 把 user 原話存為 Anchor，拆計畫，等 ack 後才能繼續�
 
 ## 工作流
 
-存 Anchor → 讀現況（相關規格、現有設計）→ 判規模 → 產出 Plan → 呼叫 `bnworkflow:review` 多角色審查 → **等 ack**
+讀現況（相關規格、現有設計）→ 判規模 → 產出 Plan → 呼叫 `bnworkflow:review` 多角色審查 → **等 ack**
 
 Plan 包含：
 - **規模**：XS / S / M / L+
