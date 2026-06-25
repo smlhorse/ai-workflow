@@ -67,4 +67,9 @@ business 預設 `docs/specs/<feature>/business.md`；專案 CLAUDE.md 可覆寫�
 
 ## 工作流
 
-確認分支 → lite 或 business（依跳級規則）→ 涵蓋面向 → 自檢失敗情境與元件 ID 一致性 → 呼叫 `bnworkflow:review` → 等 ack → 交棒 `bnworkflow:plan`
+確認分支 → lite 或 business（依跳級規則）→ 涵蓋面向 → 自檢 → 呼叫 `bnworkflow:review` → 等 ack → 交棒 `bnworkflow:plan`
+
+**完成自檢（強制，缺一不打回）**：
+1. 失敗情境完整（失敗、空值、權限、網路失敗各有對應處理）
+2. 元件 ID 在 A-E 描述一致
+3. **文字來源核對** — 列出本次所有欄位名 + 提醒/錯誤/提示文字，逐一標出規格來源位置；無來源者列待確認，不自填、不自創
