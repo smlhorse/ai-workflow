@@ -1,7 +1,7 @@
 {
   "name": "bnworkflow",
   "description": "AI 工作流框架：規格至上、Anchor First、多角色驗收，解決 AI 執行常見缺陷。",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": {
     "name": "smlhorse"
   },

@@ -16,7 +16,7 @@ description: 把 user 原話存為 Anchor，拆計畫，等 ack 後才能繼續�
 - 不在 Plan 加 anchor 沒說的功能
 - 不猜 Open question 的答案（先問自己：grep／讀檔／規格文件能回答嗎？能就自己決定並說明理由，不問 user）
 - 不漫無目的探索 codebase
-- 不讀工作目錄以外的 repo
+- 不異動工作目錄以外的 repo
 - anchor 太模糊無法寫 Plan → 直接問，不瞎寫
 - 不分批發問，完整思考後一次列完所有待確認
 - Plan 後段步驟不得用「實作 X」帶過，每步都要有具體驗收方式
