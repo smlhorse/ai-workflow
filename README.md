@@ -34,34 +34,38 @@ init 會互動式收集專案資訊，產生：
 
 新增 skill 後重新跑一次 init 可選擇是否同步 `.claude/CLAUDE.md` 與 `.claude/roles.md`（plugin 升級不會自動覆蓋既有專案的規則檔，避免破壞用戶 local 修改）。
 
-## 日常使用
+## 執行流程（什麼時候用誰）
+
+**日常你只打 2 個**：`do`（做事）、`sqa`（驗收，開新對話）。其餘由 do / review / sqa 按規則自動派，你不用選。
 
 ```
-# 直接描述任務（自動判規模走對應路徑）
-我要做...
-
-# 涉及 UI 時，先產元件級規格（A-E 5 表）
-/bnworkflow:spec
-
-# 只規畫不執行
-/bnworkflow:plan
-
-# 規畫 + 執行 + 驗收摘要
-/bnworkflow:do
-
-# 只執行（已有明確做法，跳過 plan）
-/bnworkflow:exec
-
-# 全套驗收（新對話執行）
-/bnworkflow:sqa
-
-# 單項驗收
-/bnworkflow:sqa-review
-/bnworkflow:sqa-security
-/bnworkflow:sqa-e2e
-/bnworkflow:sqa-deploy
-/bnworkflow:sqa-security-officer
+你描述任務
+   ▼
+do ──讀 anchor、判規模
+   ├─ 改使用者可見？─是→ spec → review(派 5 設計視角)
+   │                 └否──────────┐
+   ├─ L+？─是→ sprint(停，人工拆)  │
+   │                              ▼
+   │                            plan → review(派 5 設計視角) → 等 ack
+   │                              ▼
+   │                            exec
+   ▼ (完成，開新對話)
+sqa → 派 6 驗收視角(review/security/e2e/deploy/pm/security-officer)
 ```
+
+- **review** ＝ 做**之前**審「規格／計畫對不對」（5 設計視角）；**sqa** ＝ 做**之後**驗「實作符不符規格」（6 驗收視角，須開新對話保持獨立）。
+- `init` ＝ 開新專案用一次；`feedback` ＝ 吐槽框架時用。兩者與日常流程無關。
+
+### 想手動單獨呼叫時
+
+| 你要 | 打 |
+|---|---|
+| 整件事（判規模 → 規畫 → 執行 → 驗收摘要） | `/bnworkflow:do` |
+| 只產規格 | `/bnworkflow:spec` |
+| 只規畫不執行 | `/bnworkflow:plan` |
+| 已有明確做法、跳過規畫 | `/bnworkflow:exec` |
+| 全套驗收（新對話） | `/bnworkflow:sqa` |
+| 單項驗收 | `/bnworkflow:sqa-review`、`-security`、`-e2e`、`-deploy`、`-security-officer` |
 
 ## Skill 說明
 
