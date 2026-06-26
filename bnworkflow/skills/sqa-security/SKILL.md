@@ -22,6 +22,12 @@ description: Security 審查（系統架構師 + SD 視角）。OWASP Top 10、h
 
 **敏感資料流**：PII 禁止明文出現在 log、response、git。
 
+## 不做的事
+
+- 只回報風險不修補，不給修復建議
+- OWASP 判「無問題」須有依據，帶過式結論一律 FAIL
+- 不只查 happy path，敏感資料流每條都要追到底
+
 ## 輸出
 
 ```

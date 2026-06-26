@@ -17,6 +17,12 @@ description: 部署準備檢查（SRE 視角）。環境變數、Migration、CI/
 
 **Rollback**：有明確的 rollback 步驟。資料變更的 rollback 方案已確認。
 
+## 不做的事
+
+- 只回報缺漏，不代為補設定
+- 不接受「上線後再補」的 migration / rollback
+- 不可逆操作未標注並確認 → FAIL，不放行
+
 ## 輸出
 
 ```

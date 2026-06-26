@@ -3,7 +3,7 @@ name: bnworkflow:init
 description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 ---
 
-# init
+# bnworkflow:init
 
 初始化專案 AI 工作流。產生專案 `CLAUDE.md`、`.claude/CLAUDE.md`、`.claude/roles.md` 與設定檔。
 
