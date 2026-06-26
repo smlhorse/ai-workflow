@@ -1,6 +1,6 @@
 ---
 name: bnworkflow:sqa-pm
-description: PM 最終驗收。按規格需求逐項確認，與 stakeholder 視角檢核成果。
+description: PM 最終驗收。按規格需求逐項確認，與 stakeholder 視角檢核成果。（由 sqa 自動呼叫，通常不需手動）
 ---
 
 # bnworkflow:sqa-pm

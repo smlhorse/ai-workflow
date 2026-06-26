@@ -13,6 +13,25 @@
 
 **寫原則，避免禁令清單，簡潔。** 簡潔、寫原則、說明為什麼，讓執行者能從原則判斷邊界，保留彈性。
 
+## Skill 分層（三層，新增 skill 必須歸位）
+
+20 個 skill 不是平的，分三層：
+
+**① 入口** — user 直接打：
+- orchestrator：`do`（任務全流程）、`review`（規格審查總控）、`sqa`（驗收總控）— 自動派第③層
+- 工具：`init`、`sprint`、`feedback`
+
+**② 管線** — 線性階段，`do` 自動串接，亦可單獨呼叫：
+`spec` → `plan` → `exec`
+
+**③ 視角（callee）** — 由第①層 orchestrator 自動派，一般不手動：
+- `review` 派：`review-business / -system / -program / -sa / -uiux`
+- `sqa` 派：`sqa-review / -security / -e2e / -deploy / -pm / -security-officer`
+
+慣例：
+- 第③層一律 `parent-` 前綴；description 結尾標「（由 {parent} 自動呼叫，通常不需手動）」，讓 `/plugin` 清單與 autocomplete 自我說明層級
+- 新增 skill 必須歸入某層；歸不進任何層 → 先檢討是否真需要
+
 ## Skill 結構規範
 
 每個 skill 必須有：
@@ -27,8 +46,9 @@
 
 1. 確認對應的失敗模式（來源：實際執行紀錄、用戶回饋）
 2. 每條規則對應一個失敗模式，無來源不寫
-3. 在 `bnworkflow/skills/<name>/SKILL.md` 建立檔案，frontmatter `name: <name>`
-4. 在 README.md Skill 說明表新增一行
+3. 歸入分層（① 入口 / ② 管線 / ③ 視角）；第③層用 `parent-` 前綴 + description 標 callee
+4. 在 `bnworkflow/skills/<name>/SKILL.md` 建立檔案，frontmatter `name: bnworkflow:<name>`
+5. 在 README.md Skill 說明表對應分層區塊新增一行
 5. push 到 `smlhorse/ai-workflow`；user 端透過 `/plugin marketplace update` 取得新版
 
 ## 規則檔同步注意

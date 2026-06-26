@@ -65,28 +65,42 @@ init 會互動式收集專案資訊，產生：
 
 ## Skill 說明
 
+20 個 skill 分三層。**你日常只需打第①層**；第②層 `do` 會自動串；第③層由 `review` / `sqa` 自動派，一般不手動。
+
+### ① 入口（user 直接打）
+
 | Skill | 用途 |
 |---|---|
+| `bnworkflow:do` | 任務全流程：plan + 執行，完成後提示走 sqa |
+| `bnworkflow:review` | 規格 review 總控，派第③層 review-* 多角色 |
+| `bnworkflow:sqa` | 驗收總控（必須新對話），派第③層 sqa-* |
 | `bnworkflow:init` | 初始化新專案，產生 CLAUDE.md 與設定檔 |
-| `bnworkflow:do` | plan + 執行，完成後提示走 /bnworkflow:sqa |
-| `bnworkflow:spec` | 涉及 UI 時產出元件級規格（A-E 5 表），對齊業務目標 |
+| `bnworkflow:sprint` | Sprint 與 Issue 管理（GitHub Milestone / 本機模式） |
+| `bnworkflow:feedback` | 框架使用回饋蒐集，回 framework repo 批量消化 |
+
+### ② 管線（do 自動串接，亦可單獨打）
+
+| Skill | 用途 |
+|---|---|
+| `bnworkflow:spec` | 產出規格（lite 業務版 + business 結構版），對齊業務目標 |
 | `bnworkflow:plan` | Anchor → Plan → 等 ack，不執行 |
 | `bnworkflow:exec` | 純執行，跳過 plan |
-| `bnworkflow:sqa` | 全套驗收（必須新對話） |
-| `bnworkflow:sqa-review` | Code review：規格對照 + 自行填充偵測 |
-| `bnworkflow:sqa-security` | Security：OWASP + hardcode + 輸入驗證（系統架構師 + SD 視角） |
-| `bnworkflow:sqa-e2e` | E2E：實地操作，不靠源碼推斷 |
-| `bnworkflow:sqa-deploy` | 部署準備：環境變數、migration、rollback |
-| `bnworkflow:sqa-security-officer` | 資安官 Sprint 末關卡：弱掃 + SAST + 紅軍；推 UAT 前必跑 |
-| `bnworkflow:sqa-pm` | PM 按規格需求最終驗收 |
-| `bnworkflow:sprint` | Sprint 與 Issue 管理（GitHub Milestone / 本機模式） |
-| `bnworkflow:review` | 規格 review 總控（業務／系統／程式架構師＋SA＋UI/UX 多角色） |
-| `bnworkflow:review-business` | 業務流程架構師審查規格 |
-| `bnworkflow:review-system` | 系統架構師審查規格 |
-| `bnworkflow:review-program` | 程式架構師審查規格 |
-| `bnworkflow:review-sa` | 資深 SA 審查規格完整性 |
-| `bnworkflow:review-uiux` | UI/UX 審查介面與操作流程 |
-| `bnworkflow:feedback` | 框架使用回饋蒐集，寫入 `tmp/bnworkflow-feedback/`，回 framework repo 批量消化 |
+
+### ③ 視角（callee，由 review / sqa 自動派，通常不手動）
+
+| Skill | 派工者 | 用途 |
+|---|---|---|
+| `bnworkflow:review-business` | review | 業務流程架構師審查規格 |
+| `bnworkflow:review-system` | review | 系統架構師審查規格 |
+| `bnworkflow:review-program` | review | 程式架構師審查規格 |
+| `bnworkflow:review-sa` | review | 資深 SA 審查規格完整性 |
+| `bnworkflow:review-uiux` | review | UI/UX 審查介面與操作流程 |
+| `bnworkflow:sqa-review` | sqa | Code review：規格對照 + 自行填充偵測 |
+| `bnworkflow:sqa-security` | sqa | Security：OWASP + hardcode + 輸入驗證 |
+| `bnworkflow:sqa-e2e` | sqa | E2E：實地操作，不靠源碼推斷 |
+| `bnworkflow:sqa-deploy` | sqa | 部署準備：環境變數、migration、rollback |
+| `bnworkflow:sqa-security-officer` | sqa | 資安官 Sprint 末關卡：弱掃 + SAST + 紅軍 |
+| `bnworkflow:sqa-pm` | sqa | PM 按規格需求最終驗收 |
 
 ## 解決的問題
 

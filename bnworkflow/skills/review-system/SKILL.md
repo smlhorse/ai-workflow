@@ -1,6 +1,6 @@
 ---
 name: bnworkflow:review-system
-description: 系統架構師視角審查規格。聚焦系統設計、整合、擴展性、系統層安全與效能。
+description: 系統架構師視角審查規格。聚焦系統設計、整合、擴展性、系統層安全與效能。（由 review 自動呼叫，通常不需手動）
 ---
 
 # bnworkflow:review-system
