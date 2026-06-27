@@ -1,9 +1,9 @@
 ---
-name: bnworkflow:sqa
+name: bnworkflow:verify
 description: 全套品質驗收。必須在新對話執行，不得與 Developer 同一對話。只輸出 PASS/FAIL，不給修復建議。
 ---
 
-# bnworkflow:sqa
+# bnworkflow:verify
 
 **必須在新對話執行。不得接著 Developer 繼續。**
 
@@ -39,16 +39,15 @@ docs/qa/
 
 ## 執行
 
-用 `Agent` tool 依序啟動六個子 skill，前一關 FAIL 則停止後續：
+做後驗收＝先審程式、再驗成品。用 `Agent` tool 依序啟動，前一關 FAIL 則停止後續：
 
-1. `bnworkflow:sqa-review`（SD 視角）
-2. `bnworkflow:sqa-security`（系統架構師 + SD 視角）
-3. `bnworkflow:sqa-e2e`（UI/UX + SRE 視角）
-4. `bnworkflow:sqa-deploy`（SRE 視角）
-5. `bnworkflow:sqa-security-officer`（資安官視角，推 UAT 前必跑，FAIL 對 UAT 啟動有否決權）
-6. `bnworkflow:sqa-pm`（PM 按規格最終驗收）
+1. 呼叫 `bnworkflow:review`（程式對象 → review-code + review-security）　← 程式審查（屬 review，做後跑）
+2. `bnworkflow:verify-e2e`（UI/UX + SRE，實地操作）
+3. `bnworkflow:verify-deploy`（SRE，部署就緒）
+4. `bnworkflow:verify-security-officer`（資安官，推 UAT 前必跑，FAIL 對 UAT 啟動有否決權）
+5. `bnworkflow:verify-pm`（PM + PO 業務驗收）
 
-各子 skill 可單獨執行：`/bnworkflow:sqa-review`、`/bnworkflow:sqa-security`、`/bnworkflow:sqa-e2e`、`/bnworkflow:sqa-deploy`、`/bnworkflow:sqa-security-officer`、`/bnworkflow:sqa-pm`
+各子 skill 可單獨執行：`/bnworkflow:verify-e2e`、`/bnworkflow:verify-deploy`、`/bnworkflow:verify-security-officer`、`/bnworkflow:verify-pm`；程式審查走 `/bnworkflow:review`。
 
 ## 自主決策邊界
 
@@ -59,10 +58,9 @@ docs/qa/
 ## 最終輸出
 
 ```
-## SQA：PASS / FAIL
+## Verify：PASS / FAIL
 
-- Review：PASS / FAIL
-- Security：PASS / FAIL
+- 程式審查（review-code + review-security）：PASS / FAIL
 - E2E：PASS / FAIL
 - Deploy：PASS / FAIL
 - Security Officer：PASS / FAIL

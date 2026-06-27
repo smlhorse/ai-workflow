@@ -1,61 +1,62 @@
 ---
 name: bnworkflow:review
-description: 規格 review 總控。對 lite / business / plan 呼叫 5 個子 skill，前一關 FAIL 停止後續。
+description: 審查總控。按對象（spec / design / plan / 程式）派對應審查角色，前一關 FAIL 停止後續。
 ---
 
 # bnworkflow:review
 
 ## 核心心法
 
-**多角色把關** — 規格必須通過所有角色 review 才可進入實作。任一 FAIL 停下修正後重跑。
+**多角色把關** — 產物必須通過對應角色 review 才可進入下一階段。任一 FAIL 停下修正後重跑。
 
-**前段優先** — 業務流程 FAIL 時不跑後段技術 review。
+**按對象派工** — review 不只審規格；spec / design SDD / plan / 程式碼 各召集不同審查角色。
 
-**對象明確** — 對 `lite.md` / `business.md` / `plan.md` 中存在的份做 review；多份並存都要看，先 lite → business → plan。
+**前段優先** — 業務/架構層 FAIL 時不跑後段細節 review。
+
+## 審查對象 → 角色
+
+| 對象 | 派哪些審查角色 |
+|---|---|
+| spec（lite / business） | review-business / -system / -program / -sa / -uiux |
+| design（SDD） | review-system / -program / -infra |
+| plan | review-program / -sa（技術可行性、步驟完整性） |
+| 程式（diff，做後） | review-code / -security |
 
 ## 不做的事
 
 - 不自行解釋 FAIL 原因（由各子 skill 回報）
 - 不放水：任一子 skill FAIL 即整體 FAIL
-- 多份內容矛盾 → 以較新 mtime 為基準陳述衝突，要求 user 確認是否更新另一份；未回應前不推進
-
-## 視角原則
-
-各子 skill 主審自己關注的面向，視對象有什麼自然調整：
-- 對象有的面向 → 主審
-- 對象沒的面向（如 lite 不寫元件 ID，review-program 無切入點）→ N/A
-
-詳細面向定義在各子 skill 的「spec 視角」段。
+- 多份內容矛盾 → 以較新 mtime 為基準陳述衝突，要求 user 確認；未回應不推進
+- 對象沒有的面向 → N/A，不硬套
 
 ## 自主決策邊界
 
-**自己決定**：呼叫順序（business → system → program → sa → uiux）、FAIL 時停下後續、依檔案存在性決定對象。
+**自己決定**：依對象決定派哪些角色、呼叫順序、FAIL 停下後續、依檔案存在性決定對象。
 
-**停下來問**：所有子 skill PASS 後彙總交 user；多份衝突時。
+**停下來問**：對應角色全 PASS 後彙總交 user；多份衝突時。
 
 ## 執行
 
-用 `Agent` tool 依序啟動 5 個子 skill，帶入「審查對象」，前一關 FAIL 停止：
+用 `Agent` tool 依「審查對象 → 角色」表啟動對應子 skill，帶入審查對象，前一關 FAIL 停止。各子 skill 可單獨執行。
 
-1. `bnworkflow:review-business`
-2. `bnworkflow:review-system`
-3. `bnworkflow:review-program`
-4. `bnworkflow:review-sa`
-5. `bnworkflow:review-uiux`
-
-各子 skill 可單獨執行。
+審查角色（8）：
+- `review-business` 業務流程架構師
+- `review-system` 系統架構師
+- `review-program` 程式架構師
+- `review-sa` 資深 SA
+- `review-uiux` UI/UX
+- `review-code` SD（程式碼對規格）
+- `review-security` 資安官（靜態資安）
+- `review-infra` SRE（基礎設施/部署架構）
 
 ## 最終輸出
 
 ```
 ## Review：PASS / FAIL
-審查對象：lite / business / plan / 多份
+審查對象：spec / design / plan / 程式
 
-- Business（{對象}）：PASS / FAIL
-- System（{對象}）：PASS / FAIL
-- Program（{對象}）：PASS / FAIL / N/A
-- SA（{對象}）：PASS / FAIL
-- UI/UX（{對象}）：PASS / FAIL
+- {角色}（{對象}）：PASS / FAIL / N/A
+  …（只列本次對象召集的角色）
 
 FAIL 清單：
 - {角色} {對象} {面向} {具體問題}

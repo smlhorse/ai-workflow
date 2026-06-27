@@ -1,9 +1,9 @@
 ---
-name: bnworkflow:sqa-security
-description: Security 審查（系統架構師 + SD 視角）。OWASP Top 10、hardcode 掃描、敏感資料流、輸入驗證。只輸出 PASS/FAIL，FAIL 附風險等級與具體位置。（由 sqa 自動呼叫，通常不需手動）
+name: bnworkflow:review-security
+description: Security 審查（系統架構師 + SD 視角）。OWASP Top 10、hardcode 掃描、敏感資料流、輸入驗證。只輸出 PASS/FAIL，FAIL 附風險等級與具體位置。（由 review 自動呼叫，通常不需手動）
 ---
 
-# bnworkflow:sqa-security
+# bnworkflow:review-security
 
 **角色視角**：系統架構師（系統層 authn/authz、傳輸加密、敏感資料）+ SD（程式層輸入驗證、注入防護、log 衛生）。
 

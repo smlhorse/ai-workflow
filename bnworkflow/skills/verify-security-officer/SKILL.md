@@ -1,9 +1,9 @@
 ---
-name: bnworkflow:sqa-security-officer
-description: 資安官視角的 Sprint 末關卡。orchestrator 派 3 個 Agent 分別跑 弱點掃描 + 源碼掃描（SAST）+ 紅軍演練，每類產出獨立日期戳記報告。推 UAT 前強制執行，FAIL 不得進 UAT。比外稽更細，不接受帶過式結論。（由 sqa 自動呼叫，通常不需手動）
+name: bnworkflow:verify-security-officer
+description: 資安官視角的 Sprint 末關卡。orchestrator 派 3 個 Agent 分別跑 弱點掃描 + 源碼掃描（SAST）+ 紅軍演練，每類產出獨立日期戳記報告。推 UAT 前強制執行，FAIL 不得進 UAT。比外稽更細，不接受帶過式結論。（由 verify 自動呼叫，通常不需手動）
 ---
 
-# bnworkflow:sqa-security-officer
+# bnworkflow:verify-security-officer
 
 **角色視角**：資安官 — 獨立於開發團隊，對 UAT 啟動有否決權。
 **觸發時機**：每次 Sprint 結束、推 UAT **之前**。無論規模（含 XS、S）皆不可省略。

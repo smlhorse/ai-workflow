@@ -1,9 +1,9 @@
 ---
-name: bnworkflow:sqa-pm
-description: PM 最終驗收。按規格需求逐項確認，與 stakeholder 視角檢核成果。（由 sqa 自動呼叫，通常不需手動）
+name: bnworkflow:verify-pm
+description: PM 最終驗收。按規格需求逐項確認，與 stakeholder 視角檢核成果。（由 verify 自動呼叫，通常不需手動）
 ---
 
-# bnworkflow:sqa-pm
+# bnworkflow:verify-pm
 
 ## 核心心法
 

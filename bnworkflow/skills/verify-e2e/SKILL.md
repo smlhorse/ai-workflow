@@ -1,9 +1,9 @@
 ---
-name: bnworkflow:sqa-e2e
-description: E2E 驗測（UI/UX + SRE 視角）。實地操作，不得只靠源碼推斷。只輸出 PASS/FAIL，FAIL 附 DEF ID 與觀察描述。（由 sqa 自動呼叫，通常不需手動）
+name: bnworkflow:verify-e2e
+description: E2E 驗測（UI/UX + SRE 視角）。實地操作，不得只靠源碼推斷。只輸出 PASS/FAIL，FAIL 附 DEF ID 與觀察描述。（由 verify 自動呼叫，通常不需手動）
 ---
 
-# bnworkflow:sqa-e2e
+# bnworkflow:verify-e2e
 
 **角色視角**：UI/UX（操作流程順暢、介面回饋）+ SRE（環境一致性、可觀測性）。
 
@@ -17,7 +17,7 @@ description: E2E 驗測（UI/UX + SRE 視角）。實地操作，不得只靠源
 ## 測試計畫來源
 
 依序查找，找到即用：
-1. `tmp/sqa-plan.md`
+1. `tmp/verify-plan.md`
 2. CLAUDE.md 指定的測試計畫位置
 3. 找不到 → 根據 `tmp/anchor.md` 範圍自建最小測試集（happy path + 主要例外情境）
 

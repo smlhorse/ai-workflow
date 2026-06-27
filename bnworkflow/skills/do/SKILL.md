@@ -14,26 +14,30 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 
 ## 核心心法
 
-**全流程不中斷** — bnworkflow:plan + bnworkflow:exec 連貫執行。Plan 無待確認事項時直接進執行，不停下等 ack；有待確認才停。
+**全流程不中斷** — 管線 discovery → spec → design → plan → exec 連貫執行（依分支判斷略過不需要的關）。Plan 無待確認事項時直接進執行，不停下等 ack；有待確認才停。
 
 **Issue 是任務容器** — 有 #N 就從 Issue 讀 anchor；無 #N 就從 user 原話建 anchor，並根據規模自動建立對應記錄（XS/S/M → tmp/issues/；L+ → 呼叫 bnworkflow:sprint new，將拆解建議記進 Sprint 文件）。
 
-**回報給對的地方** — SQA 結果由 bnworkflow:sqa 寫回 Issue（有 GitHub remote → gh issue comment；無 → tmp/issues/#N.md）。
+**回報給對的地方** — SQA 結果由 bnworkflow:verify 寫回 Issue（有 GitHub remote → gh issue comment；無 → tmp/issues/#N.md）。
 
-## 規格產出分支
+## 管線分支（讀 anchor 後依需要逐關判斷）
 
-讀 anchor 後，依原則決定是否先呼叫 `bnworkflow:spec`：
+每關只在「需要」時跑，否則略過：
 
-- **任務會改變使用者可見的輸出或互動** → 先呼叫 `bnworkflow:spec`（產 lite，與業務 align 後升 business），再呼叫 `bnworkflow:plan`
-- **純後端 / 純資料處理 / 純內部重構**（不影響使用者可見行為） → 直接呼叫 `bnworkflow:plan`
-- **判斷不出來** → 停下問 user，不自行定奪
+- **discovery**（需求訪談）：anchor 模糊、user 講不清要什麼 → 先 `bnworkflow:discovery` 逼出可執行需求；需求已清楚 → 略過
+- **spec**（規格）：任務改變使用者可見輸出/互動 → `bnworkflow:spec`；純後端/純資料/純內部重構 → 略過
+- **design**（SDD）：M/L+ 或跨模組/新介面/DB schema 變更 → `bnworkflow:design`；XS/S 單模組無架構決策 → 略過
+- **plan**（計畫）：除 XS 外都跑 `bnworkflow:plan`
+- **exec**（實作）：`bnworkflow:exec`
 
-跳級規則：anchor 明確標示「規格已 align」或既有 spec 已存在時，可跳 lite 直接走 business。
+跳級：anchor 標「規格已 align」或既有 spec/SDD 已存在 → 跳對應關。判斷不出來 → 停下問，不自行定奪。
+
+每產出一個產物（spec / design / plan）即呼叫 `bnworkflow:review` 審該對象，FAIL 停下修正。
 
 ## 完成後
 
 執行結果用 exec 的完成後格式在對話輸出。
-有「需你決策」項目 → 等 user 回覆；無 → 用 Agent tool 在新對話觸發 /bnworkflow:sqa，帶入 Issue 編號。
+有「需你決策」項目 → 等 user 回覆；無 → 用 Agent tool 在新對話觸發 /bnworkflow:verify，帶入 Issue 編號。
 
 ## 不做的事
 

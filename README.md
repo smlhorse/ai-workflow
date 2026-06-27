@@ -22,7 +22,7 @@
 init 會互動式收集專案資訊，產生：
 - `CLAUDE.md`（專案根目錄）— 專案名稱、環境、規格文件位置、啟動命令
 - `.claude/CLAUDE.md` — AI 行為規範（從 plugin 複製，獨立於 plugin 更新）
-- `.claude/roles.md` — 10 角色定位與衝突處理
+- `.claude/roles.md` — 12 角色定位與衝突處理
 - `.claude/settings.json`
 
 ## 更新
@@ -36,75 +36,90 @@ init 會互動式收集專案資訊，產生：
 
 ## 執行流程（什麼時候用誰）
 
-**日常你只打 2 個**：`do`（做事）、`sqa`（驗收，開新對話）。其餘由 do / review / sqa 按規則自動派，你不用選。
+**日常你只打 2 個**：`do`（做事）、`verify`（驗收，開新對話）。其餘由 do / review / verify 按規則自動派，你不用選。
 
 ```
 你描述任務
    ▼
-do ──讀 anchor、判規模
-   ├─ 改使用者可見？─是→ spec → review(派 5 設計視角)
-   │                 └否──────────┐
-   ├─ L+？─是→ sprint(停，人工拆)  │
-   │                              ▼
-   │                            plan → review(派 5 設計視角) → 等 ack
-   │                              ▼
-   │                            exec
+do ──讀 anchor、判規模、逐關判斷需不需要
+   ├─ 需求講不清？─是→ discovery(PO 訪談逼出需求)
+   ▼
+   ├─ 改使用者可見？─是→ spec ──→ review(審 spec)
+   ▼
+   ├─ M/L+ 或跨模組？─是→ design(SDD) ──→ review(審 design)
+   ▼
+   plan ──→ review(審 plan) → 等 ack
+   ▼
+   exec(寫 code) ──→ 做後 review(審程式 code+security)
    ▼ (完成，開新對話)
-sqa → 派 6 驗收視角(review/security/e2e/deploy/pm/security-officer)
+verify ── 程式審查 + e2e + deploy + 紅軍 + PM驗收
 ```
 
-- **review** ＝ 做**之前**審「規格／計畫對不對」（5 設計視角）；**sqa** ＝ 做**之後**驗「實作符不符規格」（6 驗收視角，須開新對話保持獨立）。
-- `init` ＝ 開新專案用一次；`feedback` ＝ 吐槽框架時用。兩者與日常流程無關。
+每產出一個產物（spec / design / plan / 程式）就 `review` 審那個對象，FAIL 停下修。
+
+- **review** ＝ 審查（讀產物判對錯）：每完成一個產物就跑，按對象派對應角色。
+- **verify** ＝ 驗測（把成品跑起來驗）：做後一次、開新對話保持獨立。
+- `init` ＝ 開新專案用一次；`feedback` ＝ 吐槽框架時用。
 
 ### 想手動單獨呼叫時
 
 | 你要 | 打 |
 |---|---|
-| 整件事（判規模 → 規畫 → 執行 → 驗收摘要） | `/bnworkflow:do` |
+| 整件事（訪談 → 規格 → 設計 → 規畫 → 執行 → 驗收） | `/bnworkflow:do` |
+| 釐清需求 | `/bnworkflow:discovery` |
 | 只產規格 | `/bnworkflow:spec` |
+| 只做架構設計（SDD） | `/bnworkflow:design` |
 | 只規畫不執行 | `/bnworkflow:plan` |
 | 已有明確做法、跳過規畫 | `/bnworkflow:exec` |
-| 全套驗收（新對話） | `/bnworkflow:sqa` |
-| 單項驗收 | `/bnworkflow:sqa-review`、`-security`、`-e2e`、`-deploy`、`-security-officer` |
+| 審查某產物（spec/design/plan/程式） | `/bnworkflow:review` |
+| 全套驗收（新對話） | `/bnworkflow:verify` |
 
 ## Skill 說明
 
-20 個 skill 分三層。**你日常只需打第①層**；第②層 `do` 會自動串；第③層由 `review` / `sqa` 自動派，一般不手動。
+23 個 skill 按「做哪種工作」分四類。**日常只需打 `do` 與 `verify`**，其餘自動派。
 
-### ① 入口（user 直接打）
-
-| Skill | 用途 |
-|---|---|
-| `bnworkflow:do` | 任務全流程：plan + 執行，完成後提示走 sqa |
-| `bnworkflow:review` | 規格 review 總控，派第③層 review-* 多角色 |
-| `bnworkflow:sqa` | 驗收總控（必須新對話），派第③層 sqa-* |
-| `bnworkflow:init` | 初始化新專案，產生 CLAUDE.md 與設定檔 |
-| `bnworkflow:sprint` | Sprint 與 Issue 管理（GitHub Milestone / 本機模式） |
-| `bnworkflow:feedback` | 框架使用回饋蒐集，回 framework repo 批量消化 |
-
-### ② 管線（do 自動串接，亦可單獨打）
+### 調度（派工，自己不做事）
 
 | Skill | 用途 |
 |---|---|
-| `bnworkflow:spec` | 產出規格（lite 業務版 + business 結構版），對齊業務目標 |
+| `bnworkflow:do` | 任務全流程驅動，自動串管線 |
+| `bnworkflow:review` | 審查總控，按對象派審查角色 |
+| `bnworkflow:verify` | 驗測總控（必須新對話），派驗測角色 |
+
+### 產出執行（管線：把產物做出來，do 自動串、亦可單獨打）
+
+| Skill | 用途 |
+|---|---|
+| `bnworkflow:discovery` | 需求訪談，逼出 user 講不清的真需求 |
+| `bnworkflow:spec` | 兩層規格（lite 業務版 + business 結構版） |
+| `bnworkflow:design` | 架構設計 SDD（系統＋軟體＋基礎設施） |
 | `bnworkflow:plan` | Anchor → Plan → 等 ack，不執行 |
 | `bnworkflow:exec` | 純執行，跳過 plan |
 
-### ③ 視角（callee，由 review / sqa 自動派，通常不手動）
+### 把關執行（callee，由 review / verify 自動派，通常不手動）
 
 | Skill | 派工者 | 用途 |
 |---|---|---|
-| `bnworkflow:review-business` | review | 業務流程架構師審查規格 |
-| `bnworkflow:review-system` | review | 系統架構師審查規格 |
-| `bnworkflow:review-program` | review | 程式架構師審查規格 |
-| `bnworkflow:review-sa` | review | 資深 SA 審查規格完整性 |
-| `bnworkflow:review-uiux` | review | UI/UX 審查介面與操作流程 |
-| `bnworkflow:sqa-review` | sqa | Code review：規格對照 + 自行填充偵測 |
-| `bnworkflow:sqa-security` | sqa | Security：OWASP + hardcode + 輸入驗證 |
-| `bnworkflow:sqa-e2e` | sqa | E2E：實地操作，不靠源碼推斷 |
-| `bnworkflow:sqa-deploy` | sqa | 部署準備：環境變數、migration、rollback |
-| `bnworkflow:sqa-security-officer` | sqa | 資安官 Sprint 末關卡：弱掃 + SAST + 紅軍 |
-| `bnworkflow:sqa-pm` | sqa | PM 按規格需求最終驗收 |
+| `bnworkflow:review-business` | review | 業務流程架構師審業務流程合理性 |
+| `bnworkflow:review-system` | review | 系統架構師審系統架構面 |
+| `bnworkflow:review-program` | review | 程式架構師審軟體架構面 |
+| `bnworkflow:review-sa` | review | 資深 SA 審規格完整性/品質 |
+| `bnworkflow:review-uiux` | review | UI/UX 審介面與操作流程 |
+| `bnworkflow:review-code` | review | SD 審程式碼對規格 |
+| `bnworkflow:review-security` | review | 資安官靜態資安審查（OWASP/hardcode） |
+| `bnworkflow:review-infra` | review | SRE 審基礎設施/部署架構 |
+| `bnworkflow:verify-e2e` | verify | UI/UX+SRE 實地操作 E2E |
+| `bnworkflow:verify-deploy` | verify | SRE 部署就緒檢查 |
+| `bnworkflow:verify-security-officer` | verify | 資安官動態關卡：弱掃 + SAST + 紅軍 |
+| `bnworkflow:verify-pm` | verify | PM+PO 業務最終驗收 |
+
+### 工具
+
+| Skill | 用途 |
+|---|---|
+| `bnworkflow:init` | 初始化新專案，產生 CLAUDE.md 與設定檔 |
+| `bnworkflow:sprint` | Sprint 與 Issue 管理（GitHub Milestone / 本機模式） |
+| `bnworkflow:feedback` | 框架使用回饋蒐集，回 framework repo 批量消化 |
 
 ## 解決的問題
 
@@ -140,7 +155,7 @@ sqa → 派 6 驗收視角(review/security/e2e/deploy/pm/security-officer)
 │       ├── init/SKILL.md
 │       │   └── templates/{CLAUDE.md, rules.md, roles.md}
 │       ├── do/SKILL.md
-│       └── ... (共 20 個 skill)
+│       └── ... (共 23 個 skill)
 ├── .claude/                          ← 框架自身的 AI 規範（維護者用）
 │   ├── CLAUDE.md
 │   └── roles.md

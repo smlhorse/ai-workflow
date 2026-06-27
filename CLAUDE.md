@@ -13,24 +13,24 @@
 
 **寫原則，避免禁令清單，簡潔。** 簡潔、寫原則、說明為什麼，讓執行者能從原則判斷邊界，保留彈性。
 
-## Skill 分層（三層，新增 skill 必須歸位）
+## Skill 分類（四類，新增 skill 必須歸類）
 
-20 個 skill 不是平的，分三層：
+23 個 skill 按「做哪種工作」分四類：
 
-**① 入口** — user 直接打：
-- orchestrator：`do`（任務全流程）、`review`（規格審查總控）、`sqa`（驗收總控）— 自動派第③層
-- 工具：`init`、`sprint`、`feedback`
+**調度** — 派工/把關，自己不做事：`do`、`review`（審查總控）、`verify`（驗測總控）
 
-**② 管線** — 線性階段，`do` 自動串接，亦可單獨呼叫：
-`spec` → `plan` → `exec`
+**產出執行** — 把產物做出來（管線，`do` 自動串、亦可單獨打）：
+`discovery → spec → design → plan → exec`
 
-**③ 視角（callee）** — 由第①層 orchestrator 自動派，一般不手動：
-- `review` 派：`review-business / -system / -program / -sa / -uiux`
-- `sqa` 派：`sqa-review / -security / -e2e / -deploy / -pm / -security-officer`
+**把關執行** — 角色執行一次審查/驗測（由 review/verify 派，一般不手動）：
+- review 派（8）：`review-business / -system / -program / -sa / -uiux / -code / -security / -infra`
+- verify 派（4）：`verify-e2e / -deploy / -security-officer / -pm`
+
+**工具** — 一次性雜務：`init`、`sprint`、`feedback`
 
 慣例：
-- 第③層一律 `parent-` 前綴；description 結尾標「（由 {parent} 自動呼叫，通常不需手動）」，讓 `/plugin` 清單與 autocomplete 自我說明層級
-- 新增 skill 必須歸入某層；歸不進任何層 → 先檢討是否真需要
+- 把關執行一律 `review-` / `verify-` 前綴；description 標「（由 {parent} 自動呼叫，通常不需手動）」，讓 `/plugin` 清單與 autocomplete 自我說明
+- 新增 skill 必須歸入某類；歸不進 → 先檢討是否真需要
 
 ## Skill 結構規範
 
@@ -46,10 +46,10 @@
 
 1. 確認對應的失敗模式（來源：實際執行紀錄、用戶回饋）
 2. 每條規則對應一個失敗模式，無來源不寫
-3. 歸入分層（① 入口 / ② 管線 / ③ 視角）；第③層用 `parent-` 前綴 + description 標 callee
+3. 歸入分類（調度 / 產出執行 / 把關執行 / 工具）；把關執行用 `review-` / `verify-` 前綴 + description 標 callee
 4. 在 `bnworkflow/skills/<name>/SKILL.md` 建立檔案，frontmatter `name: bnworkflow:<name>`
-5. 在 README.md Skill 說明表對應分層區塊新增一行
-5. push 到 `smlhorse/ai-workflow`；user 端透過 `/plugin marketplace update` 取得新版
+5. 在 README.md Skill 說明表對應分類區塊新增一行
+6. push 到 `smlhorse/ai-workflow`；user 端透過 `/plugin marketplace update` 取得新版
 
 ## 規則檔同步注意
 
@@ -73,7 +73,7 @@
 │       │       └── roles.md          ← 複製到用戶 .claude/roles.md
 │       ├── do/SKILL.md
 │       ├── spec/SKILL.md
-│       └── ...（共 20 個 skill）
+│       └── ...（共 23 個 skill）
 ├── .claude/                          ← 框架自身運行規則（維護者用）
 │   ├── CLAUDE.md
 │   ├── roles.md
