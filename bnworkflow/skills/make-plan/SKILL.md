@@ -1,9 +1,9 @@
 ---
-name: bnworkflow:plan
+name: bnworkflow:make-plan
 description: 把 user 原話存為 Anchor，拆計畫，等 ack 後才能繼續。
 ---
 
-# bnworkflow:plan
+# bnworkflow:make-plan
 
 ## 核心心法
 

@@ -1,9 +1,9 @@
 ---
-name: bnworkflow:discovery
+name: bnworkflow:make-discovery
 description: 需求訪談。代位不成熟 user 逼出隱性需求，把模糊願望翻成可執行需求。在 spec 之前。
 ---
 
-# bnworkflow:discovery
+# bnworkflow:make-discovery
 
 ## 核心心法
 
@@ -32,4 +32,4 @@ description: 需求訪談。代位不成熟 user 逼出隱性需求，把模糊�
 
 ## 角色
 
-PO 主導（代位 user），PM（業務優先序）、業務流程架構師（流程合理性）協同。交棒 `bnworkflow:spec`。
+PO 主導（代位 user），PM（業務優先序）、業務流程架構師（流程合理性）協同。交棒 `bnworkflow:make-spec`。

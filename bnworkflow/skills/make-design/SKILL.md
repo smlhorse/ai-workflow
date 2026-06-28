@@ -1,9 +1,9 @@
 ---
-name: bnworkflow:design
+name: bnworkflow:make-design
 description: 架構設計，產出 SDD（系統架構＋軟體架構＋基礎設施架構）。在 spec 後、plan 前。
 ---
 
-# bnworkflow:design
+# bnworkflow:make-design
 
 ## 核心心法
 
@@ -45,4 +45,4 @@ description: 架構設計，產出 SDD（系統架構＋軟體架構＋基礎設
 
 ## 角色
 
-系統架構師、程式架構師、SRE 共同產出；交棒 `bnworkflow:plan`。
+系統架構師、程式架構師、SRE 共同產出；交棒 `bnworkflow:make-plan`。

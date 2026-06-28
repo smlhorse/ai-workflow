@@ -1,9 +1,9 @@
 ---
-name: bnworkflow:exec
+name: bnworkflow:make-code
 description: 純執行，跳過 Plan。用於 XS 任務或 user 已明確指定做法的情況。
 ---
 
-# bnworkflow:exec
+# bnworkflow:make-code
 
 ## 核心心法
 

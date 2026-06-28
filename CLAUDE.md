@@ -20,7 +20,7 @@
 **調度** — 派工/把關，自己不做事：`do`、`review`（審查總控）、`verify`（驗測總控）
 
 **產出執行** — 把產物做出來（管線，`do` 自動串、亦可單獨打）：
-`discovery → spec → design → plan → exec`
+`make-discovery → make-spec → make-design → make-plan → make-code`
 
 **把關執行** — 角色執行一次審查/驗測（由 review/verify 派，一般不手動）：
 - review 派（8）：`review-business / -system / -program / -sa / -uiux / -code / -security / -infra`

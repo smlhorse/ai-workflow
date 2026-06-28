@@ -1,9 +1,9 @@
 ---
-name: bnworkflow:spec
+name: bnworkflow:make-spec
 description: 兩層規格產出（lite 業務討論版 + business 結構化版）。spec 描述系統長什麼樣，不是怎麼做。
 ---
 
-# bnworkflow:spec
+# bnworkflow:make-spec
 
 ## 核心心法
 
@@ -67,7 +67,7 @@ business 預設 `docs/specs/<feature>/business.md`；專案 CLAUDE.md 可覆寫�
 
 ## 工作流
 
-確認分支 → lite 或 business（依跳級規則）→ 涵蓋面向 → 自檢 → 呼叫 `bnworkflow:review` → 等 ack → 交棒 `bnworkflow:design`（M/L+ 或跨模組）或 `bnworkflow:plan`
+確認分支 → lite 或 business（依跳級規則）→ 涵蓋面向 → 自檢 → 呼叫 `bnworkflow:review` → 等 ack → 交棒 `bnworkflow:make-design`（M/L+ 或跨模組）或 `bnworkflow:make-plan`
 
 **完成自檢（強制，缺一不打回）**：
 1. 失敗情境完整（失敗、空值、權限、網路失敗各有對應處理）

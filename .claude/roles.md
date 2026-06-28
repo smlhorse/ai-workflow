@@ -71,11 +71,11 @@
 
 | 階段 | 產出/主導 | 把關（審查/驗測） |
 |---|---|---|
-| 需求（discovery） | PO、PM、業務流程架構師 | — |
-| 規格（spec） | 資深 SA、UI/UX 主寫；PM、業務架構師（lite 協同） | review-business/system/program/sa/uiux |
-| 設計（design，SDD） | 系統架構師、程式架構師、SRE | review-system/program/infra（審 SDD） |
-| 規劃（plan） | 程式架構師、SD | review（審 plan） |
-| 實作（exec） | PG（SD 督） | review-code、review-security（做後程式審查） |
+| 需求（make-discovery） | PO、PM、業務流程架構師 | — |
+| 規格（make-spec） | 資深 SA、UI/UX 主寫；PM、業務架構師（lite 協同） | review-business/system/program/sa/uiux |
+| 設計（make-design，SDD） | 系統架構師、程式架構師、SRE | review-system/program/infra（審 SDD） |
+| 規劃（make-plan） | 程式架構師、SD | review（審 plan） |
+| 實作（make-code） | PG（SD 督） | review-code、review-security（做後程式審查） |
 | 驗測（verify，做後新對話） | — | SQA 主導；UI/UX+SRE(e2e)、SRE(deploy)、資安官(security-officer)、PM+PO(pm) |
 
 ## 衝突處理

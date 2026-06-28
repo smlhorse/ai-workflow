@@ -42,15 +42,15 @@ init 會互動式收集專案資訊，產生：
 你描述任務
    ▼
 do ──讀 anchor、判規模、逐關判斷需不需要
-   ├─ 需求講不清？─是→ discovery(PO 訪談逼出需求)
+   ├─ 需求講不清？─是→ make-discovery(PO 訪談逼出需求)
    ▼
-   ├─ 改使用者可見？─是→ spec ──→ review(審 spec)
+   ├─ 改使用者可見？─是→ make-spec ──→ review(審規格)
    ▼
-   ├─ M/L+ 或跨模組？─是→ design(SDD) ──→ review(審 design)
+   ├─ M/L+ 或跨模組？─是→ make-design(SDD) ──→ review(審設計)
    ▼
-   plan ──→ review(審 plan) → 等 ack
+   make-plan ──→ review(審計畫) → 等 ack
    ▼
-   exec(寫 code) ──→ 做後 review(審程式 code+security)
+   make-code(寫 code) ──→ 做後 review(審程式 code+security)
    ▼ (完成，開新對話)
 verify ── 程式審查 + e2e + deploy + 紅軍 + PM驗收
 ```
@@ -66,11 +66,11 @@ verify ── 程式審查 + e2e + deploy + 紅軍 + PM驗收
 | 你要 | 打 |
 |---|---|
 | 整件事（訪談 → 規格 → 設計 → 規畫 → 執行 → 驗收） | `/bnworkflow:do` |
-| 釐清需求 | `/bnworkflow:discovery` |
-| 只產規格 | `/bnworkflow:spec` |
-| 只做架構設計（SDD） | `/bnworkflow:design` |
-| 只規畫不執行 | `/bnworkflow:plan` |
-| 已有明確做法、跳過規畫 | `/bnworkflow:exec` |
+| 釐清需求 | `/bnworkflow:make-discovery` |
+| 只產規格 | `/bnworkflow:make-spec` |
+| 只做架構設計（SDD） | `/bnworkflow:make-design` |
+| 只規畫不執行 | `/bnworkflow:make-plan` |
+| 已有明確做法、跳過規畫 | `/bnworkflow:make-code` |
 | 審查某產物（spec/design/plan/程式） | `/bnworkflow:review` |
 | 全套驗收（新對話） | `/bnworkflow:verify` |
 
@@ -109,11 +109,11 @@ verify ── 程式審查 + e2e + deploy + 紅軍 + PM驗收
 
 | # | Skill | 參與角色 | 用途 |
 |---|---|---|---|
-| 4 | `bnworkflow:discovery` | PO、PM、業務流程架構師 | 需求訪談，逼出 user 講不清的真需求 |
-| 5 | `bnworkflow:spec` | 資深 SA、UI/UX（PM、業務架構師協同） | 兩層規格（lite 業務版 + business 結構版） |
-| 6 | `bnworkflow:design` | 系統架構師、程式架構師、SRE | 架構設計 SDD（系統＋軟體＋基礎設施） |
-| 7 | `bnworkflow:plan` | 程式架構師、SD | Anchor → Plan → 等 ack，不執行 |
-| 8 | `bnworkflow:exec` | PG（SD 督） | 純執行，跳過 plan |
+| 4 | `bnworkflow:make-discovery` | PO、PM、業務流程架構師 | 需求訪談，逼出 user 講不清的真需求 |
+| 5 | `bnworkflow:make-spec` | 資深 SA、UI/UX（PM、業務架構師協同） | 兩層規格（lite 業務版 + business 結構版） |
+| 6 | `bnworkflow:make-design` | 系統架構師、程式架構師、SRE | 架構設計 SDD（系統＋軟體＋基礎設施） |
+| 7 | `bnworkflow:make-plan` | 程式架構師、SD | Anchor → Plan → 等 ack，不執行 |
+| 8 | `bnworkflow:make-code` | PG（SD 督） | 純執行，跳過 plan |
 
 ### 把關執行（callee，由 review / verify 自動派，通常不手動）
 
