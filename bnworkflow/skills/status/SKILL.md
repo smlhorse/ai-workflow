@@ -28,7 +28,7 @@ view-driven，看當下要看什麼：
 ## 讀取來源
 
 - **WBS 樹**：`docs/wbs/{sprint}.md`（make-plan 於 L+ 規模產出）
-- **Issue**：GitHub Issues（有 remote）或 `tmp/issues/`（本機模式）
+- **Issue**：GitHub Issues（有 remote）或 `docs/issues/`（本機模式）
 - **Sprint**：GitHub Milestone（due_on）或 `docs/sprints/`（起訖日）
 
 ## 輸出視角

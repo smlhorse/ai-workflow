@@ -49,6 +49,8 @@ L+ 規模時，make-plan 的產物之一是 WBS 樹 `docs/wbs/{sprint}.md`（S/M
 
 讀現況（相關規格、現有設計）→ 判規模 → 產出 Plan → 呼叫 `bnworkflow:review` 多角色審查 → **等 ack**
 
+Plan 的家是任務 Issue，不另寫獨立 plan 暫存檔：有 GitHub remote → 寫進 Issue body；本機模式 → 寫進 `docs/issues/#N.md`（納入 git 版控）。
+
 Plan 包含：
 - **規模**：XS / S / M / L+
 - **步驟**：標並行分組（parallel group）；每步附具體驗收方式

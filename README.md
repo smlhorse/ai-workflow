@@ -81,7 +81,7 @@ make-req(需求) → make-spec(規格) → make-design(SDD) → make-plan(計畫
 | `make-req` | `docs/requirements/` |
 | `make-spec` | `docs/specs/` |
 | `make-design` | `docs/design/<feature>/SDD.md` |
-| `make-plan` | `tmp/plan.md` 或 Issue |
+| `make-plan` | Issue（`docs/issues/#N.md` 或 GitHub Issue） |
 | `make-testplan` | `docs/qa/{sprint}_測試計畫_v{N}.md` |
 | `make-code` | repo（程式碼） |
 | `verify` | `docs/qa/reports/{sprint}_測試紀錄_v{N}_{時戳}.md` |
@@ -193,6 +193,30 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | 重複讀同一份文件 | 同對話內讀過的內容不重讀；先查已有上下文，再查 codebase |
 | 輸出混過程說明 | 輸出格式規範：只寫事實與決策 |
 | 重複提醒已知限制 | 已知限制不重複提醒，只報告新資訊 |
+
+## 使用後的專案目錄結構
+
+跑過 `init` 與各 skill 後，**你的專案**長這樣（與下方 plugin repo 本身結構不同，勿混淆）：
+
+```
+你的專案/
+├── CLAUDE.md                    ← init 產（必有，專案設定）
+├── .claude/{CLAUDE.md, roles.md, settings.json}  ← init 產/複製（必有）
+├── docs/                        ← skills 按需產生
+│   ├── requirements/            ← make-req
+│   ├── specs/                   ← make-spec
+│   ├── design/<feature>/SDD.md  ← make-design
+│   ├── qa/{sprint}_測試計畫_v{N}.md + reports/  ← make-testplan / verify
+│   ├── wbs/{sprint}.md          ← make-plan（L+）
+│   ├── issues/#N.md             ← 本機 Issue（版控）
+│   ├── sprints/                 ← sprint（本機模式）
+│   └── security/                ← verify-security-officer
+└── tmp/                         ← gitignore（scratch：anchor.md、report.md）
+```
+
+- **必有**＝init 一開始就建：`CLAUDE.md`、`.claude/*`。
+- **按需**＝skill 用到才建：`docs/*` 子目錄、`tmp/*`。
+- GitHub 模式下 Issue/Milestone 走 GitHub，不產 `docs/issues`、`docs/sprints`。
 
 ## 目錄結構（plugin 包裝）
 

@@ -73,8 +73,11 @@
 │       │       ├── rules.md          ← 複製到用戶 .claude/CLAUDE.md
 │       │       └── roles.md          ← 複製到用戶 .claude/roles.md
 │       ├── do/SKILL.md
-│       ├── spec/SKILL.md
-│       └── ...（共 25 個 skill）
+│       ├── make-spec/SKILL.md
+│       ├── verify-security-officer/
+│       │   ├── SKILL.md
+│       │   └── templates/         ← findings / false-positives / scan-cadence
+│       └── ...（共 25 個 skill；部分 skill 含 templates/）
 ├── .claude/                          ← 框架自身運行規則（維護者用）
 │   ├── CLAUDE.md
 │   ├── roles.md

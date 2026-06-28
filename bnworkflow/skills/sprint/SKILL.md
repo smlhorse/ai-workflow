@@ -16,7 +16,7 @@ description: Sprint 與 Issue 清單管理。支援 GitHub Milestone 與本機�
 
 ## 核心心法
 
-**單一來源** — 有 GitHub remote 用 Milestone + Issues，沒有用 `docs/sprints/` + `tmp/issues/`。禁止混用。
+**單一來源** — 有 GitHub remote 用 Milestone + Issues，沒有用 `docs/sprints/` + `docs/issues/`。禁止混用。
 
 **Sprint 文件住在專案** — 位置從專案 `CLAUDE.md` 的 `Sprint 文件位置：` 欄位讀取，預設 `docs/sprints/`。
 
