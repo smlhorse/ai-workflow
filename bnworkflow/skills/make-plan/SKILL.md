@@ -24,6 +24,17 @@ description: 執行規劃。產出計畫＝怎麼一步步做（步驟＋每步�
 - 有疑問前先查對話上下文與規格文件；同一對話中 user 已回答的問題不重問
 - 若 `business.md` 存在（預設 `docs/specs/<feature>/business.md`，路徑以專案 CLAUDE.md 為準），plan 涉及 UI 元件的步驟必須引用 business 中的元件 ID；非 UI 步驟不強制引用
 - 執行中若發現需修改 spec（如元件邊界調整、欄位變動）→ 停下回報，不靜悄悄改 plan 繞過 spec
+- 有 WBS（`docs/wbs/`）時執行或修改必同步更新對應節點狀態；不更新不算完成
+- 無 WBS/Issue 時不腦補 — 先查 anchor 有無拆解指示，缺資訊回報，不硬產空殼樹
+
+## WBS 樹（僅 L+ 規模產出）
+
+L+ 規模時，make-plan 的產物之一是 WBS 樹 `docs/wbs/{sprint}.md`（S/M 不需要，Issue 清單已足）：
+
+- 層級 milestone → epic → story → task；**葉子＝task＝一張 Issue（標 Issue 編號）**；非葉子是分組節點
+- 須含兩種 bucket：**未規劃**（知道要做、還沒拆，粗估點或標未估）、**想像中**（還不確定要不要做，標不估、查 anchor）
+- 每節點標狀態：`已執行 / 執行中 / 未執行 / 未規劃 / 想像中`
+- 估時：scale 帶（XS=1 / S=2 / M=3 / L=5 點），**不強制**；查 anchor 有無指示，沒指示 → 標「未估」列待確認
 
 ## 規模判斷
 

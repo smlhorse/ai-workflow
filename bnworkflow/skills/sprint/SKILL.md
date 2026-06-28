@@ -22,6 +22,8 @@ description: Sprint 與 Issue 清單管理。支援 GitHub Milestone 與本機�
 
 **規模決定歸屬** — Issue 歸 Sprint（Milestone）。bnworkflow:do 建立 Issue 時加上對應 Label（`scale:XS/S/M/L`）。L+ 不建 Issue，改建 Sprint 文件要求人工拆解。
 
+**起訖日記錄** — `new` 時記 Sprint 起訖日（user 填）；GitHub 模式設 Milestone `due_on`，本機模式寫進 Sprint 文件。列表顯示起訖日（供 status 算剩餘天數／逾期）。
+
 ## 不做的事
 
 - 不在目標不清楚的情況下建立 Sprint
@@ -34,4 +36,4 @@ description: Sprint 與 Issue 清單管理。支援 GitHub Milestone 與本機�
 
 **自己決定**：Sprint 編號（現有最大值 + 1）、模式偵測（git remote get-url origin）。
 
-**停下來等確認**：Sprint 目標不清楚、關閉 Sprint 時有未完成 Issue、CLAUDE.md 沒有 `Sprint 文件位置：` 欄位、建立或關閉 Milestone。
+**停下來等確認**：Sprint 目標不清楚、Sprint 起訖日須 user 提供（不自定）、關閉 Sprint 時有未完成 Issue、CLAUDE.md 沒有 `Sprint 文件位置：` 欄位、建立或關閉 Milestone。

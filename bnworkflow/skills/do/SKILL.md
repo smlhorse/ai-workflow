@@ -47,6 +47,15 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 - Plan 有待確認事項時不自行推進執行
 - L+ 規模，呼叫 bnworkflow:sprint new 後停下
 - Issue comment 不寫執行中間過程，只寫最終結果
+- 有 WBS（`docs/wbs/`）時本關完成必更新對應節點狀態（建節點＝未執行→執行中）；不更新＝不算完成
+- 無 WBS/Issue 時不腦補，先查 anchor，缺資訊回報
+
+## 資料記錄（建 Issue 時）
+
+建 Issue 必記：建立日（今天）、估時（scale 帶 XS=1/S=2/M=3/L=5，可改）、due（依所屬 Sprint 結束日）。
+
+- 本機模式：寫進 `tmp/issues/#N.md` frontmatter（`estimate` / `created` / `due` / `closed` / `status`）
+- GitHub 模式：用 label（如 `est:3`）＋ Milestone due
 
 ## 自主決策邊界
 

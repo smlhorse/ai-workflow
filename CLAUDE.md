@@ -15,7 +15,7 @@
 
 ## Skill 分類（四類，新增 skill 必須歸類）
 
-24 個 skill 按「做哪種工作」分四類：
+25 個 skill 按「做哪種工作」分四類：
 
 **調度** — 派工/把關，自己不做事：`do`、`review`（審查總控）、`verify`（驗測總控）
 
@@ -27,7 +27,7 @@
 - review 派（8）：`review-business / -system / -program / -sa / -uiux / -code / -security / -infra`
 - verify 派（4）：`verify-e2e / -deploy / -security-officer / -pm`
 
-**工具** — 一次性雜務：`init`、`sprint`、`feedback`
+**工具** — 一次性雜務：`init`、`sprint`、`feedback`、`status`
 
 慣例：
 - 把關執行一律 `review-` / `verify-` 前綴；description 標「（由 {parent} 自動呼叫，通常不需手動）」，讓 `/plugin` 清單與 autocomplete 自我說明
@@ -74,7 +74,7 @@
 │       │       └── roles.md          ← 複製到用戶 .claude/roles.md
 │       ├── do/SKILL.md
 │       ├── spec/SKILL.md
-│       └── ...（共 24 個 skill）
+│       └── ...（共 25 個 skill）
 ├── .claude/                          ← 框架自身運行規則（維護者用）
 │   ├── CLAUDE.md
 │   ├── roles.md

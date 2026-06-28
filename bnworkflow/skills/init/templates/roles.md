@@ -78,6 +78,7 @@
 | 規劃（make-plan） | 程式架構師、SD | review（審 plan） |
 | 實作（make-code） | PG（SD 督） | review-code、review-security（做後程式審查） |
 | 驗測（verify，做後新對話） | — | SQA 主導；UI/UX+SRE(e2e)、SRE(deploy)、資安官(security-officer)、PM+PO(pm) |
+| 專案管理（status，只讀彙整） | PM 主、SD 協（估時合理性） | — |
 
 ## 衝突處理
 

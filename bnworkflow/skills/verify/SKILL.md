@@ -50,10 +50,15 @@ Fallback（找不到計畫才走）：從規格（lite / business / plan）臨�
 
 各子 skill 可單獨執行：`/bnworkflow:verify-e2e`、`/bnworkflow:verify-deploy`、`/bnworkflow:verify-security-officer`、`/bnworkflow:verify-pm`；程式審查走 `/bnworkflow:review`。
 
+## 不做的事
+
+- 有 WBS（`docs/wbs/`）時，PASS 必更新對應節點為「已執行」並戳完成日（今天）；不更新＝不算完成
+- 無 WBS/Issue 時不腦補，先查 anchor，缺資訊回報
+
 ## 自主決策邊界
 
 收到 Issue 編號時：
-- PASS → append 結果至 Issue；owner 是 AI 自動關閉，owner 是 user 等 user 關閉
+- PASS → 戳完成日（今天）、更新對應 WBS 節點為「已執行」；append 結果至 Issue；owner 是 AI 自動關閉，owner 是 user 等 user 關閉
 - FAIL → 回報 user，不開也不關 Issue
 
 ## 最終輸出

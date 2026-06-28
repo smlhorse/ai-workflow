@@ -86,6 +86,10 @@ make-req(需求) → make-spec(規格) → make-design(SDD) → make-plan(計畫
 | `make-code` | repo（程式碼） |
 | `verify` | `docs/qa/reports/{sprint}_測試紀錄_v{N}_{時戳}.md` |
 
+### 專案管理（WBS + status）
+
+L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 milestone → epic → story → task，葉子＝一張 Issue）。執行各關（do / make-code / verify）**必更新對應節點狀態**，不更新不算完成。`status` 只讀 WBS 樹＋Issue＋Sprint，給**雙軌進度%**（已拆解 vs 含未規劃）＋**時程**（剩餘天數、逾期、即將到期、stale 旗），計時用**日曆天、非實際工時**。
+
 ### 想手動單獨呼叫時
 
 | 你要 | 打 |
@@ -97,7 +101,9 @@ make-req(需求) → make-spec(規格) → make-design(SDD) → make-plan(計畫
 | 只規畫不執行 | `/bnworkflow:make-plan` |
 | 已有明確做法、跳過規畫 | `/bnworkflow:make-code` |
 | 審查某產物（spec/design/plan/程式） | `/bnworkflow:review` |
+| 寫測試計畫 | `/bnworkflow:make-testplan` |
 | 全套驗收（新對話） | `/bnworkflow:verify` |
+| 看進度／時程 | `/bnworkflow:status` |
 
 ## 角色與能力（12 位資深成員，皆 10+ 年、負責過大型系統）
 
@@ -120,7 +126,7 @@ make-req(需求) → make-spec(規格) → make-design(SDD) → make-plan(計畫
 
 ## Skill 說明
 
-24 個 skill 按「做哪種工作」分四類。**日常只需打 `do` 與 `verify`**，其餘自動派。
+25 個 skill 按「做哪種工作」分四類。**日常只需打 `do` 與 `verify`**，其餘自動派。
 
 ### 調度（派工，自己不做事）
 
@@ -165,6 +171,7 @@ make-req(需求) → make-spec(規格) → make-design(SDD) → make-plan(計畫
 | 22 | `bnworkflow:init` | （工具） | 初始化新專案，產生 CLAUDE.md 與設定檔 |
 | 23 | `bnworkflow:sprint` | （PM 視角） | Sprint 與 Issue 管理（GitHub Milestone / 本機模式） |
 | 24 | `bnworkflow:feedback` | （工具） | 框架使用回饋蒐集，回 framework repo 批量消化 |
+| 25 | `bnworkflow:status` | PM、SD | 讀 WBS+Issue 給雙軌進度% + 時程 + stale 旗（只讀，非工時） |
 
 ## 解決的問題
 
@@ -200,7 +207,7 @@ make-req(需求) → make-spec(規格) → make-design(SDD) → make-plan(計畫
 │       ├── init/SKILL.md
 │       │   └── templates/{CLAUDE.md, rules.md, roles.md}
 │       ├── do/SKILL.md
-│       └── ... (共 24 個 skill)
+│       └── ... (共 25 個 skill)
 ├── .claude/                          ← 框架自身的 AI 規範（維護者用）
 │   ├── CLAUDE.md
 │   └── roles.md
