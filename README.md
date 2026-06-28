@@ -76,22 +76,22 @@ verify ── 程式審查 + e2e + deploy + 紅軍 + PM驗收
 
 ## 角色與能力（12 位資深成員，皆 10+ 年、負責過大型系統）
 
-| 角色 | 核心能力 |
-|---|---|
-| **PM**（產品經理） | 商業模式、市場/競品、需求優先序與 ROI、roadmap、stakeholder 管理、跨域裁定、驗收 sign-off |
-| **PO**（需求擁有者） | 需求訪談、把模糊願望翻成可執行需求、代位不成熟 user 做系統化決策、**按需動態補齊能力** |
-| **業務流程架構師** | 跨領域流程設計與重構、產業合規、維運成本、業務層權限/稽核、流量/批次/時效 |
-| **系統架構師** | 高併發/分散式設計、容錯/災難恢復、整合架構、系統層安全、容量/SLA、**產系統架構 SDD** |
-| **程式架構師** | 模組化（SRP/DDD/分層）、設計模式與技術選型、可測試性、介面契約、技術債/重構、**產軟體架構 SDD** |
-| **資深 SA** | 需求釐清、隱性需求挖掘、無歧義規格、邊界條件、資料流/狀態機、規格↔實作追溯 |
-| **資深工程師（SD＝Tech Lead）** | clean code/重構、程式層安全、效能優化、code review；**軟體工程實務總負責**：工程流程/測試策略/CI/分支/相依/工具鏈/規範 |
-| **PG**（程式設計師） | 按規格/設計快速實作、CRUD/API、單元測試、bug 修復、規範遵循 |
-| **UI/UX** | 介面/互動設計與 design system、心智模型、操作流程、切版/響應式、user research、無障礙 |
-| **SRE** | 部署/CI-CD/IaC、監控/可觀測性、容量/災難恢復、基礎設施層安全、事故/SLO、**產 infra SDD＋審 infra** |
-| **SQA**（資深 QA） | 缺陷模式、邊界/回歸測試、測試計畫、PASS/FAIL 把關（三不原則） |
-| **資安官** | 弱掃/SAST/DAST、紅軍演練、OWASP/CVE、零容忍紅線與 SLA 強制（三不原則） |
+| # | 角色 | 核心能力 |
+|---|---|---|
+| 1 | **PM**（產品經理） | 商業模式、市場/競品、需求優先序與 ROI、roadmap、stakeholder 管理、跨域裁定、驗收 sign-off |
+| 2 | **PO**（需求擁有者） | 需求訪談、把模糊願望翻成可執行需求、代位不成熟 user 做系統化決策、**按需動態補齊能力** |
+| 3 | **業務流程架構師** | 跨領域流程設計與重構、產業合規、維運成本、業務層權限/稽核、流量/批次/時效 |
+| 4 | **系統架構師** | 高併發/分散式設計、容錯/災難恢復、整合架構、系統層安全、容量/SLA、**產系統架構 SDD** |
+| 5 | **程式架構師** | 模組化（SRP/DDD/分層）、設計模式與技術選型、可測試性、介面契約、技術債/重構、**產軟體架構 SDD** |
+| 6 | **資深 SA** | 需求釐清、隱性需求挖掘、無歧義規格、邊界條件、資料流/狀態機、規格↔實作追溯 |
+| 7 | **資深工程師（SD＝Tech Lead）** | clean code/重構、程式層安全、效能優化、code review；**軟體工程實務總負責**：工程流程/測試策略/CI/分支/相依/工具鏈/規範 |
+| 8 | **PG**（程式設計師） | 按規格/設計快速實作、CRUD/API、單元測試、bug 修復、規範遵循 |
+| 9 | **UI/UX** | 介面/互動設計與 design system、心智模型、操作流程、切版/響應式、user research、無障礙 |
+| 10 | **SRE** | 部署/CI-CD/IaC、監控/可觀測性、容量/災難恢復、基礎設施層安全、事故/SLO、**產 infra SDD＋審 infra** |
+| 11 | **SQA**（資深 QA） | 缺陷模式、邊界/回歸測試、測試計畫、PASS/FAIL 把關（三不原則） |
+| 12 | **資安官** | 弱掃/SAST/DAST、紅軍演練、OWASP/CVE、零容忍紅線與 SLA 強制（三不原則） |
 
-完整定位、判斷依據、衝突裁定見 `.claude/roles.md`。
+完整定位、經驗背景、判斷依據、衝突裁定見 `.claude/roles.md`。
 
 ## Skill 說明
 
@@ -99,46 +99,46 @@ verify ── 程式審查 + e2e + deploy + 紅軍 + PM驗收
 
 ### 調度（派工，自己不做事）
 
-| Skill | 用途 |
-|---|---|
-| `bnworkflow:do` | 任務全流程驅動，自動串管線 |
-| `bnworkflow:review` | 審查總控，按對象派審查角色 |
-| `bnworkflow:verify` | 驗測總控（必須新對話），派驗測角色 |
+| # | Skill | 參與角色 | 用途 |
+|---|---|---|---|
+| 1 | `bnworkflow:do` | （流程驅動） | 任務全流程驅動，自動串管線 |
+| 2 | `bnworkflow:review` | 召集對應審查角色 | 審查總控，按對象派審查角色 |
+| 3 | `bnworkflow:verify` | SQA 主導 | 驗測總控（必須新對話），派驗測角色 |
 
 ### 產出執行（管線：把產物做出來，do 自動串、亦可單獨打）
 
-| Skill | 用途 |
-|---|---|
-| `bnworkflow:discovery` | 需求訪談，逼出 user 講不清的真需求 |
-| `bnworkflow:spec` | 兩層規格（lite 業務版 + business 結構版） |
-| `bnworkflow:design` | 架構設計 SDD（系統＋軟體＋基礎設施） |
-| `bnworkflow:plan` | Anchor → Plan → 等 ack，不執行 |
-| `bnworkflow:exec` | 純執行，跳過 plan |
+| # | Skill | 參與角色 | 用途 |
+|---|---|---|---|
+| 4 | `bnworkflow:discovery` | PO、PM、業務流程架構師 | 需求訪談，逼出 user 講不清的真需求 |
+| 5 | `bnworkflow:spec` | 資深 SA、UI/UX（PM、業務架構師協同） | 兩層規格（lite 業務版 + business 結構版） |
+| 6 | `bnworkflow:design` | 系統架構師、程式架構師、SRE | 架構設計 SDD（系統＋軟體＋基礎設施） |
+| 7 | `bnworkflow:plan` | 程式架構師、SD | Anchor → Plan → 等 ack，不執行 |
+| 8 | `bnworkflow:exec` | PG（SD 督） | 純執行，跳過 plan |
 
 ### 把關執行（callee，由 review / verify 自動派，通常不手動）
 
-| Skill | 派工者 | 用途 |
-|---|---|---|
-| `bnworkflow:review-business` | review | 業務流程架構師審業務流程合理性 |
-| `bnworkflow:review-system` | review | 系統架構師審系統架構面 |
-| `bnworkflow:review-program` | review | 程式架構師審軟體架構面 |
-| `bnworkflow:review-sa` | review | 資深 SA 審規格完整性/品質 |
-| `bnworkflow:review-uiux` | review | UI/UX 審介面與操作流程 |
-| `bnworkflow:review-code` | review | SD 審程式碼對規格 |
-| `bnworkflow:review-security` | review | 資安官靜態資安審查（OWASP/hardcode） |
-| `bnworkflow:review-infra` | review | SRE 審基礎設施/部署架構 |
-| `bnworkflow:verify-e2e` | verify | UI/UX+SRE 實地操作 E2E |
-| `bnworkflow:verify-deploy` | verify | SRE 部署就緒檢查 |
-| `bnworkflow:verify-security-officer` | verify | 資安官動態關卡：弱掃 + SAST + 紅軍 |
-| `bnworkflow:verify-pm` | verify | PM+PO 業務最終驗收 |
+| # | Skill | 參與角色 | 派工者 | 用途 |
+|---|---|---|---|---|
+| 9 | `bnworkflow:review-business` | 業務流程架構師 | review | 審業務流程合理性 |
+| 10 | `bnworkflow:review-system` | 系統架構師 | review | 審系統架構面 |
+| 11 | `bnworkflow:review-program` | 程式架構師 | review | 審軟體架構面 |
+| 12 | `bnworkflow:review-sa` | 資深 SA | review | 審規格完整性/品質 |
+| 13 | `bnworkflow:review-uiux` | UI/UX | review | 審介面與操作流程 |
+| 14 | `bnworkflow:review-code` | SD | review | 審程式碼對規格 |
+| 15 | `bnworkflow:review-security` | 資安官 | review | 靜態資安審查（OWASP/hardcode） |
+| 16 | `bnworkflow:review-infra` | SRE | review | 審基礎設施/部署架構 |
+| 17 | `bnworkflow:verify-e2e` | UI/UX、SRE | verify | 實地操作 E2E |
+| 18 | `bnworkflow:verify-deploy` | SRE | verify | 部署就緒檢查 |
+| 19 | `bnworkflow:verify-security-officer` | 資安官 | verify | 動態關卡：弱掃 + SAST + 紅軍 |
+| 20 | `bnworkflow:verify-pm` | PM、PO | verify | 業務最終驗收 |
 
 ### 工具
 
-| Skill | 用途 |
-|---|---|
-| `bnworkflow:init` | 初始化新專案，產生 CLAUDE.md 與設定檔 |
-| `bnworkflow:sprint` | Sprint 與 Issue 管理（GitHub Milestone / 本機模式） |
-| `bnworkflow:feedback` | 框架使用回饋蒐集，回 framework repo 批量消化 |
+| # | Skill | 參與角色 | 用途 |
+|---|---|---|---|
+| 21 | `bnworkflow:init` | （工具） | 初始化新專案，產生 CLAUDE.md 與設定檔 |
+| 22 | `bnworkflow:sprint` | （PM 視角） | Sprint 與 Issue 管理（GitHub Milestone / 本機模式） |
+| 23 | `bnworkflow:feedback` | （工具） | 框架使用回饋蒐集，回 framework repo 批量消化 |
 
 ## 解決的問題
 
