@@ -57,7 +57,7 @@ Fallback（找不到計畫才走）：從規格（lite / business / plan）臨�
 
 ## 自主決策邊界
 
-收到 Issue 編號時：
+收到 Issue 編號時（Issue 位置依設定：GitHub 模式走 GitHub Issues；本機模式讀專案 CLAUDE.md「本機 Issue 位置」欄位，預設 `docs/issues/#N.md`）：
 - PASS → 戳完成日（今天）、更新對應 WBS 節點為「已執行」；append 結果至 Issue；owner 是 AI 自動關閉，owner 是 user 等 user 關閉
 - FAIL → 回報 user，不開也不關 Issue
 

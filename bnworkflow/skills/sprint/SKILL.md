@@ -16,9 +16,11 @@ description: Sprint 與 Issue 清單管理。支援 GitHub Milestone 與本機�
 
 ## 核心心法
 
-**單一來源** — 有 GitHub remote 用 Milestone + Issues，沒有用 `docs/sprints/` + `docs/issues/`。禁止混用。
+**單一來源** — 有 GitHub remote 用 Milestone + Issues；沒有用本機模式：Sprint 走 `docs/sprints/`，Issue 走專案設定的 Issue 位置（預設 `docs/issues/`）。禁止混用。
 
 **Sprint 文件住在專案** — 位置從專案 `CLAUDE.md` 的 `Sprint 文件位置：` 欄位讀取，預設 `docs/sprints/`。
+
+**本機 Issue 位置依設定** — 本機模式的 Issue 位置從專案 `CLAUDE.md`「本機 Issue 位置」欄位讀取，預設 `docs/issues/`（版控）。
 
 **規模決定歸屬** — Issue 歸 Sprint（Milestone）。bnworkflow:do 建立 Issue 時加上對應 Label（`scale:XS/S/M/L`）。L+ 不建 Issue，改建 Sprint 文件要求人工拆解。
 

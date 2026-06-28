@@ -81,7 +81,8 @@ make-req(需求) → make-spec(規格) → make-design(SDD) → make-plan(計畫
 | `make-req` | `docs/requirements/` |
 | `make-spec` | `docs/specs/` |
 | `make-design` | `docs/design/<feature>/SDD.md` |
-| `make-plan` | Issue（`docs/issues/#N.md` 或 GitHub Issue） |
+| `make-plan` | 小任務＝Issue 內步驟；L+＝WBS（`docs/wbs/`） |
+| Issue（任務追蹤） | GitHub Issues / 本機 `docs/issues/`（版控，預設）/ `tmp/issues/`（scratch，依設定） |
 | `make-testplan` | `docs/qa/{sprint}_測試計畫_v{N}.md` |
 | `make-code` | repo（程式碼） |
 | `verify` | `docs/qa/reports/{sprint}_測試紀錄_v{N}_{時戳}.md` |
@@ -208,15 +209,17 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 │   ├── design/<feature>/SDD.md  ← make-design
 │   ├── qa/{sprint}_測試計畫_v{N}.md + reports/  ← make-testplan / verify
 │   ├── wbs/{sprint}.md          ← make-plan（L+）
-│   ├── issues/#N.md             ← 本機 Issue（版控）
+│   ├── issues/#N.md             ← 本機 Issue（本機模式預設；專案可設 tmp/issues）
+│   ├── adr/                     ← 重要決策記錄（選用）
 │   ├── sprints/                 ← sprint（本機模式）
 │   └── security/                ← verify-security-officer
-└── tmp/                         ← gitignore（scratch：anchor.md、report.md）
+└── tmp/                         ← gitignore（scratch：anchor.md、report.md；專案設 tmp/issues 時 Issue 也在此）
 ```
 
 - **必有**＝init 一開始就建：`CLAUDE.md`、`.claude/*`。
 - **按需**＝skill 用到才建：`docs/*` 子目錄、`tmp/*`。
 - GitHub 模式下 Issue/Milestone 走 GitHub，不產 `docs/issues`、`docs/sprints`。
+- **Issue ＝任務追蹤，不是萬用桶**：產出物（需求/spec/設計/測試計畫/WBS）住 `docs/*` 恆版控、Issue 只引用；討論走 Issue 留言、重要決策落 `docs/adr/`。Issue 位置才「視情況」（GitHub / `docs/issues/` 版控 / `tmp/issues/` scratch，依設定）。
 
 ## 目錄結構（plugin 包裝）
 

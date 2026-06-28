@@ -16,9 +16,11 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 
 **全流程不中斷** — 管線 make-req → make-spec →〔工程軌 make-design → make-plan → make-code ＋ QA 軌 make-testplan 並行〕→ make-code 連貫執行（依分支判斷略過不需要的關）。Plan 無待確認事項時直接進執行，不停下等 ack；有待確認才停。
 
-**Issue 是任務容器** — 有 #N 就從 Issue 讀 anchor；無 #N 就從 user 原話建 anchor，並根據規模自動建立對應記錄（XS/S/M → docs/issues/；L+ → 呼叫 bnworkflow:sprint new，將拆解建議記進 Sprint 文件）。
+**Issue 是任務追蹤，不是萬用桶** — Issue 只裝任務追蹤（目標/狀態/估時/日期/驗收結果），引用產出物（需求/spec/設計/測試計畫/WBS，一律住 `docs/*` 版控）而不裝它們；討論走留言、重要決策落 `docs/adr/`。有 #N 就從 Issue 讀 anchor；無 #N 就從 user 原話建 anchor，並根據規模自動建立對應記錄（XS/S/M → 依 Issue 位置設定建 Issue；L+ → 呼叫 bnworkflow:sprint new，將拆解建議記進 Sprint 文件）。
 
-**回報給對的地方** — SQA 結果由 bnworkflow:verify 寫回 Issue（有 GitHub remote → gh issue comment；無 → docs/issues/#N.md）。
+**Issue 位置依設定** — GitHub 模式（偵測到 git remote）走 GitHub Issues；本機模式讀專案 CLAUDE.md「本機 Issue 位置」欄位，預設 `docs/issues/#N.md`（版控）。
+
+**回報給對的地方** — SQA 結果由 bnworkflow:verify 寫回 Issue（GitHub 模式 → gh issue comment；本機模式 → 依設定的 Issue 位置 `#N.md`）。
 
 ## 管線分支（讀 anchor 後依需要逐關判斷）
 
@@ -54,7 +56,7 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 
 建 Issue 必記：建立日（今天）、估時（scale 帶 XS=1/S=2/M=3/L=5，可改）、due（依所屬 Sprint 結束日）。
 
-- 本機模式：寫進 `docs/issues/#N.md` frontmatter（`estimate` / `created` / `due` / `closed` / `status`），納入 git 版控
+- 本機模式：寫進專案設定的 Issue 位置（預設 `docs/issues/`）`#N.md` frontmatter（`estimate` / `created` / `due` / `closed` / `status`）；預設位置納入 git 版控
 - GitHub 模式：用 label（如 `est:3`）＋ Milestone due
 
 ## 自主決策邊界

@@ -30,6 +30,10 @@
 
 實作必須完全符合規格定義。發現實作與規格不符 → 以規格為準，先問清楚再改，不擅自詮釋。
 
+## 本機 Issue 位置
+
+`docs/issues/`（版控，預設）。改 `tmp/issues/` 則不版控、團隊共享會掉。GitHub 模式下 Issue 走 GitHub Issues，不用此設定。
+
 ## 啟動命令
 
 ```bash
