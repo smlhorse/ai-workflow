@@ -71,8 +71,9 @@
 
 | 階段 | 產出/主導 | 把關（審查/驗測） |
 |---|---|---|
-| 需求（make-discovery） | PO、PM、業務流程架構師 | — |
+| 需求（make-req） | PO、PM、業務流程架構師 | — |
 | 規格（make-spec） | 資深 SA、UI/UX 主寫；PM、業務架構師（lite 協同） | review-business/system/program/sa/uiux |
+| 測試計畫（make-testplan，與工程軌並行） | SQA 主、UI/UX 協 | —（計畫即早期 spec review；由 verify 執行） |
 | 設計（make-design，SDD） | 系統架構師、程式架構師、SRE | review-system/program/infra（審 SDD） |
 | 規劃（make-plan） | 程式架構師、SD | review（審 plan） |
 | 實作（make-code） | PG（SD 督） | review-code、review-security（做後程式審查） |

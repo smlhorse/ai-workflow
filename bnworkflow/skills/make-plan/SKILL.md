@@ -1,6 +1,6 @@
 ---
 name: bnworkflow:make-plan
-description: 把 user 原話存為 Anchor，拆計畫，等 ack 後才能繼續。
+description: 執行規劃。產出計畫＝怎麼一步步做（步驟＋每步驗收）。不是怎麼設計(設計)。
 ---
 
 # bnworkflow:make-plan

@@ -42,17 +42,22 @@ init 會互動式收集專案資訊，產生：
 你描述任務
    ▼
 do ──讀 anchor、判規模、逐關判斷需不需要
-   ├─ 需求講不清？─是→ make-discovery(PO 訪談逼出需求)
+   ├─ 需求講不清？─是→ make-req(PO 訪談逼出需求)
    ▼
    ├─ 改使用者可見？─是→ make-spec ──→ review(審規格)
    ▼
-   ├─ M/L+ 或跨模組？─是→ make-design(SDD) ──→ review(審設計)
-   ▼
-   make-plan ──→ review(審計畫) → 等 ack
-   ▼
-   make-code(寫 code) ──→ 做後 review(審程式 code+security)
-   ▼ (完成，開新對話)
-verify ── 程式審查 + e2e + deploy + 紅軍 + PM驗收
+   規格定案後 fan-out 兩軌並行：
+   ├─────────────────────┬─────────────────────────────┐
+   │ 工程軌                │ QA 軌                        │
+   │ make-design(SDD)      │ make-testplan(SQA 從規格寫    │
+   │   ──→ review(審設計)  │   測試案例，涵蓋失敗/邊界)   │
+   │ make-plan ──→ review  │                              │
+   │   →等 ack             │                              │
+   │ make-code ──→ 做後    │                              │
+   │   review(code+sec)    │                              │
+   └─────────────────────┴─────────────────────────────┘
+   ▼ 兩軌匯流(barrier，完成，開新對話)
+verify ── 讀 make-testplan 的測試計畫執行：程式審查 + e2e + deploy + 紅軍 + PM驗收
 ```
 
 每產出一個產物（spec / design / plan / 程式）就 `review` 審那個對象，FAIL 停下修。
@@ -61,12 +66,32 @@ verify ── 程式審查 + e2e + deploy + 紅軍 + PM驗收
 - **verify** ＝ 驗測（把成品跑起來驗）：做後一次、開新對話保持獨立。
 - `init` ＝ 開新專案用一次；`feedback` ＝ 吐槽框架時用。
 
+### 產物遞進
+
+```
+make-req(需求) → make-spec(規格) → make-design(SDD) → make-plan(計畫) → make-code(程式碼)
+```
+
+一句話分清差別：**要解決什麼**（需求）→ **長什麼樣**（規格）→ **怎麼建**（設計）→ **怎麼一步步做**（計畫）→ **寫出來**（程式碼）。
+
+### 各 skill 產出位置
+
+| Skill | 產出位置 |
+|---|---|
+| `make-req` | `docs/requirements/` |
+| `make-spec` | `docs/specs/` |
+| `make-design` | `docs/design/<feature>/SDD.md` |
+| `make-plan` | `tmp/plan.md` 或 Issue |
+| `make-testplan` | `docs/qa/{sprint}_測試計畫_v{N}.md` |
+| `make-code` | repo（程式碼） |
+| `verify` | `docs/qa/reports/{sprint}_測試紀錄_v{N}_{時戳}.md` |
+
 ### 想手動單獨呼叫時
 
 | 你要 | 打 |
 |---|---|
 | 整件事（訪談 → 規格 → 設計 → 規畫 → 執行 → 驗收） | `/bnworkflow:do` |
-| 釐清需求 | `/bnworkflow:make-discovery` |
+| 釐清需求 | `/bnworkflow:make-req` |
 | 只產規格 | `/bnworkflow:make-spec` |
 | 只做架構設計（SDD） | `/bnworkflow:make-design` |
 | 只規畫不執行 | `/bnworkflow:make-plan` |
@@ -95,7 +120,7 @@ verify ── 程式審查 + e2e + deploy + 紅軍 + PM驗收
 
 ## Skill 說明
 
-23 個 skill 按「做哪種工作」分四類。**日常只需打 `do` 與 `verify`**，其餘自動派。
+24 個 skill 按「做哪種工作」分四類。**日常只需打 `do` 與 `verify`**，其餘自動派。
 
 ### 調度（派工，自己不做事）
 
@@ -109,36 +134,37 @@ verify ── 程式審查 + e2e + deploy + 紅軍 + PM驗收
 
 | # | Skill | 參與角色 | 用途 |
 |---|---|---|---|
-| 4 | `bnworkflow:make-discovery` | PO、PM、業務流程架構師 | 需求訪談，逼出 user 講不清的真需求 |
+| 4 | `bnworkflow:make-req` | PO、PM、業務流程架構師 | 需求訪談，逼出 user 講不清的真需求 |
 | 5 | `bnworkflow:make-spec` | 資深 SA、UI/UX（PM、業務架構師協同） | 兩層規格（lite 業務版 + business 結構版） |
 | 6 | `bnworkflow:make-design` | 系統架構師、程式架構師、SRE | 架構設計 SDD（系統＋軟體＋基礎設施） |
-| 7 | `bnworkflow:make-plan` | 程式架構師、SD | Anchor → Plan → 等 ack，不執行 |
-| 8 | `bnworkflow:make-code` | PG（SD 督） | 純執行，跳過 plan |
+| 7 | `bnworkflow:make-testplan` | SQA、UI/UX | 規格定案後與工程軌並行寫測試計畫（涵蓋失敗/邊界） |
+| 8 | `bnworkflow:make-plan` | 程式架構師、SD | Anchor → Plan → 等 ack，不執行 |
+| 9 | `bnworkflow:make-code` | PG（SD 督） | 純執行，跳過 plan |
 
 ### 把關執行（callee，由 review / verify 自動派，通常不手動）
 
 | # | Skill | 參與角色 | 派工者 | 用途 |
 |---|---|---|---|---|
-| 9 | `bnworkflow:review-business` | 業務流程架構師 | review | 審業務流程合理性 |
-| 10 | `bnworkflow:review-system` | 系統架構師 | review | 審系統架構面 |
-| 11 | `bnworkflow:review-program` | 程式架構師 | review | 審軟體架構面 |
-| 12 | `bnworkflow:review-sa` | 資深 SA | review | 審規格完整性/品質 |
-| 13 | `bnworkflow:review-uiux` | UI/UX | review | 審介面與操作流程 |
-| 14 | `bnworkflow:review-code` | SD | review | 審程式碼對規格 |
-| 15 | `bnworkflow:review-security` | 資安官 | review | 靜態資安審查（OWASP/hardcode） |
-| 16 | `bnworkflow:review-infra` | SRE | review | 審基礎設施/部署架構 |
-| 17 | `bnworkflow:verify-e2e` | UI/UX、SRE | verify | 實地操作 E2E |
-| 18 | `bnworkflow:verify-deploy` | SRE | verify | 部署就緒檢查 |
-| 19 | `bnworkflow:verify-security-officer` | 資安官 | verify | 動態關卡：弱掃 + SAST + 紅軍 |
-| 20 | `bnworkflow:verify-pm` | PM、PO | verify | 業務最終驗收 |
+| 10 | `bnworkflow:review-business` | 業務流程架構師 | review | 審業務流程合理性 |
+| 11 | `bnworkflow:review-system` | 系統架構師 | review | 審系統架構面 |
+| 12 | `bnworkflow:review-program` | 程式架構師 | review | 審軟體架構面 |
+| 13 | `bnworkflow:review-sa` | 資深 SA | review | 審規格完整性/品質 |
+| 14 | `bnworkflow:review-uiux` | UI/UX | review | 審介面與操作流程 |
+| 15 | `bnworkflow:review-code` | SD | review | 審程式碼對規格 |
+| 16 | `bnworkflow:review-security` | 資安官 | review | 靜態資安審查（OWASP/hardcode） |
+| 17 | `bnworkflow:review-infra` | SRE | review | 審基礎設施/部署架構 |
+| 18 | `bnworkflow:verify-e2e` | UI/UX、SRE | verify | 實地操作 E2E |
+| 19 | `bnworkflow:verify-deploy` | SRE | verify | 部署就緒檢查 |
+| 20 | `bnworkflow:verify-security-officer` | 資安官 | verify | 動態關卡：弱掃 + SAST + 紅軍 |
+| 21 | `bnworkflow:verify-pm` | PM、PO | verify | 業務最終驗收 |
 
 ### 工具
 
 | # | Skill | 參與角色 | 用途 |
 |---|---|---|---|
-| 21 | `bnworkflow:init` | （工具） | 初始化新專案，產生 CLAUDE.md 與設定檔 |
-| 22 | `bnworkflow:sprint` | （PM 視角） | Sprint 與 Issue 管理（GitHub Milestone / 本機模式） |
-| 23 | `bnworkflow:feedback` | （工具） | 框架使用回饋蒐集，回 framework repo 批量消化 |
+| 22 | `bnworkflow:init` | （工具） | 初始化新專案，產生 CLAUDE.md 與設定檔 |
+| 23 | `bnworkflow:sprint` | （PM 視角） | Sprint 與 Issue 管理（GitHub Milestone / 本機模式） |
+| 24 | `bnworkflow:feedback` | （工具） | 框架使用回饋蒐集，回 framework repo 批量消化 |
 
 ## 解決的問題
 
@@ -174,7 +200,7 @@ verify ── 程式審查 + e2e + deploy + 紅軍 + PM驗收
 │       ├── init/SKILL.md
 │       │   └── templates/{CLAUDE.md, rules.md, roles.md}
 │       ├── do/SKILL.md
-│       └── ... (共 23 個 skill)
+│       └── ... (共 24 個 skill)
 ├── .claude/                          ← 框架自身的 AI 規範（維護者用）
 │   ├── CLAUDE.md
 │   └── roles.md

@@ -1,21 +1,21 @@
 ---
-name: bnworkflow:make-discovery
-description: 需求訪談。代位不成熟 user 逼出隱性需求，把模糊願望翻成可執行需求。在 spec 之前。
+name: bnworkflow:make-req
+description: 需求釐清（訪談）。產出需求＝要解決什麼、user 真正要什麼。落 docs/requirements/。
 ---
 
-# bnworkflow:make-discovery
+# bnworkflow:make-req
 
 ## 核心心法
 
-**user 常講不清自己要什麼** — discovery 用 PO（成熟版 user）視角，把模糊願望逼成明確、可驗證的需求，再交給 spec。
+**user 常講不清自己要什麼** — make-req 用 PO（成熟版 user）視角，把模糊願望逼成明確、可驗證的需求，再交給 spec。
 
 **訪談不是記錄** — 主動追問隱性需求、邊界、例外、「為什麼」，不照單全收。
 
-**輸出是需求，不是方案** — discovery 回答「要解決什麼」，不回答「長什麼樣」（spec）或「怎麼建」（design）。
+**輸出是需求，不是方案** — make-req 回答「要解決什麼」，不回答「長什麼樣」（spec）或「怎麼建」（design）。
 
 ## 產出
 
-精煉後的需求（寫入 anchor 或 `tmp/discovery.md`）：目標、使用情境、邊界/例外、成功標準、未決項。
+精煉後的需求（寫入 `docs/requirements/`；專案 CLAUDE.md 可覆寫路徑）：目標、使用情境、邊界/例外、成功標準、未決項。
 
 ## 不做的事
 

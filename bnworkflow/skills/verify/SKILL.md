@@ -18,7 +18,7 @@ description: 全套品質驗收。必須在新對話執行，不得與 Developer
 1. `tmp/anchor.md` + 本次 diff
 2. CLAUDE.md 指定的 Ground Truth 規格文件
 3. `SPEC_CONTRACT.md`（若存在）
-4. 對應的測試計畫（位置見「QA 文件結構」）
+4. make-testplan 產出的測試計畫（主路徑；位置見「QA 文件結構」。找不到才 fallback 臨時推導）
 
 ## QA 文件結構
 
@@ -26,16 +26,17 @@ description: 全套品質驗收。必須在新對話執行，不得與 Developer
 
 ```
 docs/qa/
-  SQA測試計畫_範本.md
-  {sprint}_SQA測試計畫_{YYYYMMDD}.md
+  {sprint}_測試計畫_v{N}.md          ← make-testplan 產出（版本化；spec 變更 → v+1）
   reports/
-    {計畫檔名去 .md}_執行紀錄_v{YYYYMMDDHHmm}.md
+    {sprint}_測試紀錄_v{N}_{時戳}.md  ← verify 產出；v{N} 對應所驗的計畫版本，時戳為執行時間
     assets/
 ```
 
-執行紀錄檔名須能回溯對應計畫並含執行時間（精確到分鐘以上）；多次執行保留多份。
+測試紀錄的 `v{N}` 必須對應所驗的測試計畫版本，`{時戳}` 為執行時間（精確到分鐘以上）；同版計畫重跑保留多份紀錄。
 
-啟動時：對應計畫不存在 → 從規格（lite / business / plan）推導 case 寫入計畫檔；跑完 case → 寫 reports/，FAIL 案附 {case id} {期望} {實際} {附件路徑}。
+啟動時（主路徑）：讀 make-testplan 產出的現成 `{sprint}_測試計畫_v{N}.md` 執行。
+Fallback（找不到計畫才走）：從規格（lite / business / plan）臨時推導 case。
+跑完 case → 寫 reports/，FAIL 案附 {case id} {期望} {實際} {附件路徑}。
 
 ## 執行
 

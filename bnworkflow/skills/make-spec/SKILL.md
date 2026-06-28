@@ -1,6 +1,6 @@
 ---
 name: bnworkflow:make-spec
-description: 兩層規格產出（lite 業務討論版 + business 結構化版）。spec 描述系統長什麼樣，不是怎麼做。
+description: 規格產出（lite＋business）。產出規格＝系統長什麼樣（畫面/行為/規則）。不是要解決什麼(需求)、不是怎麼建(設計)。
 ---
 
 # bnworkflow:make-spec

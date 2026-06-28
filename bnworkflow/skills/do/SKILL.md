@@ -14,7 +14,7 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 
 ## 核心心法
 
-**全流程不中斷** — 管線 make-discovery → make-spec → make-design → make-plan → make-code 連貫執行（依分支判斷略過不需要的關）。Plan 無待確認事項時直接進執行，不停下等 ack；有待確認才停。
+**全流程不中斷** — 管線 make-req → make-spec →〔工程軌 make-design → make-plan → make-code ＋ QA 軌 make-testplan 並行〕→ make-code 連貫執行（依分支判斷略過不需要的關）。Plan 無待確認事項時直接進執行，不停下等 ack；有待確認才停。
 
 **Issue 是任務容器** — 有 #N 就從 Issue 讀 anchor；無 #N 就從 user 原話建 anchor，並根據規模自動建立對應記錄（XS/S/M → tmp/issues/；L+ → 呼叫 bnworkflow:sprint new，將拆解建議記進 Sprint 文件）。
 
@@ -24,11 +24,14 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 
 每關只在「需要」時跑，否則略過：
 
-- **make-discovery**（需求訪談）：anchor 模糊、user 講不清要什麼 → 先 `bnworkflow:make-discovery` 逼出可執行需求；需求已清楚 → 略過
+- **make-req**（需求訪談）：anchor 模糊、user 講不清要什麼 → 先 `bnworkflow:make-req` 逼出可執行需求；需求已清楚 → 略過
 - **make-spec**（規格）：任務改變使用者可見輸出/互動 → `bnworkflow:make-spec`；純後端/純資料/純內部重構 → 略過
-- **make-design**（SDD）：M/L+ 或跨模組/新介面/DB schema 變更 → `bnworkflow:make-design`；XS/S 單模組無架構決策 → 略過
-- **make-plan**（計畫）：除 XS 外都跑 `bnworkflow:make-plan`
-- **make-code**（實作）：`bnworkflow:make-code`
+
+**make-spec 完成且 review 審規格通過後，fan-out 兩軌並行**：
+- **工程軌**：make-design（M/L+ 或跨模組/新介面/DB schema 變更才跑；XS/S 單模組無架構決策 → 略過）→ make-plan（除 XS 外都跑）→ make-code
+- **QA 軌**：`bnworkflow:make-testplan`（SQA 主、UI/UX 協，從規格寫測試案例）
+
+兩軌都完成（barrier）才進 verify；verify 讀 QA 軌產出的測試計畫執行驗收。未走 spec 的純後端/重構任務無 QA 軌，工程軌完成即進 verify。
 
 跳級：anchor 標「規格已 align」或既有 spec/SDD 已存在 → 跳對應關。判斷不出來 → 停下問，不自行定奪。
 

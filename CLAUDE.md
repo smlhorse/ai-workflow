@@ -15,12 +15,13 @@
 
 ## Skill 分類（四類，新增 skill 必須歸類）
 
-23 個 skill 按「做哪種工作」分四類：
+24 個 skill 按「做哪種工作」分四類：
 
 **調度** — 派工/把關，自己不做事：`do`、`review`（審查總控）、`verify`（驗測總控）
 
 **產出執行** — 把產物做出來（管線，`do` 自動串、亦可單獨打）：
-`make-discovery → make-spec → make-design → make-plan → make-code`
+`make-req → make-spec → 〔工程軌 make-design → make-plan → make-code ＋ QA 軌 make-testplan〕`
+（make-spec 後 fan-out 兩軌並行；make-testplan 是並行軌、非線性串，兩軌匯流才進 verify）
 
 **把關執行** — 角色執行一次審查/驗測（由 review/verify 派，一般不手動）：
 - review 派（8）：`review-business / -system / -program / -sa / -uiux / -code / -security / -infra`
@@ -73,7 +74,7 @@
 │       │       └── roles.md          ← 複製到用戶 .claude/roles.md
 │       ├── do/SKILL.md
 │       ├── spec/SKILL.md
-│       └── ...（共 23 個 skill）
+│       └── ...（共 24 個 skill）
 ├── .claude/                          ← 框架自身運行規則（維護者用）
 │   ├── CLAUDE.md
 │   ├── roles.md

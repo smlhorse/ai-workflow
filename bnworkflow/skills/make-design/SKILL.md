@@ -1,6 +1,6 @@
 ---
 name: bnworkflow:make-design
-description: 架構設計，產出 SDD（系統架構＋軟體架構＋基礎設施架構）。在 spec 後、plan 前。
+description: 架構設計。產出 SDD＝系統怎麼建（模組/API/schema/部署）。不是長什麼樣(規格)。
 ---
 
 # bnworkflow:make-design
