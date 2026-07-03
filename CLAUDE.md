@@ -24,19 +24,20 @@ plan 不是一律進 Issue：小任務的計畫＝Issue 內幾行步驟；L+＝W
 
 ## Skill 分類（四類，新增 skill 必須歸類）
 
-25 個 skill 按「做哪種工作」分四類：
+30 個 skill 按「做哪種工作」分四類：
 
 **調度** — 派工/把關，自己不做事：`do`、`review`（審查總控）、`verify`（驗測總控）
 
 **產出執行** — 把產物做出來（管線，`do` 自動串、亦可單獨打）：
-`make-req → make-spec → 〔工程軌 make-design → make-plan → make-code ＋ QA 軌 make-testplan〕`
+`make-req → make-spec →〔工程軌 make-design → make-plan → make-code ＋ QA 軌 make-testplan〕`
 （make-spec 後 fan-out 兩軌並行；make-testplan 是並行軌、非線性串，兩軌匯流才進 verify）
+四個可選關按需插入：`make-threat-model`（設計前，做前安全建模）、`make-data-governance`（設計後，資料治理）、`make-apidoc`（設計後，對外 API 文件）、`make-ops`（實作後、與 verify 並行，維運手冊）
 
 **把關執行** — 角色執行一次審查/驗測（由 review/verify 派，一般不手動）：
 - review 派（8）：`review-business / -system / -program / -sa / -uiux / -code / -security / -infra`
 - verify 派（4）：`verify-e2e / -deploy / -security-officer / -pm`
 
-**工具** — 一次性雜務：`init`、`sprint`、`feedback`、`status`
+**工具** — 一次性雜務：`init`、`sprint`、`feedback`、`status`、`changelog`（發布記錄）
 
 慣例：
 - 把關執行一律 `review-` / `verify-` 前綴；description 標「（由 {parent} 自動呼叫，通常不需手動）」，讓 `/plugin` 清單與 autocomplete 自我說明
@@ -86,7 +87,7 @@ plan 不是一律進 Issue：小任務的計畫＝Issue 內幾行步驟；L+＝W
 │       ├── verify-security-officer/
 │       │   ├── SKILL.md
 │       │   └── templates/         ← findings / false-positives / scan-cadence
-│       └── ...（共 25 個 skill；部分 skill 含 templates/）
+│       └── ...（共 30 個 skill；部分 skill 含 templates/）
 ├── .claude/                          ← 框架自身運行規則（維護者用）
 │   ├── CLAUDE.md
 │   ├── roles.md

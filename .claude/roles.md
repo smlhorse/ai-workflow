@@ -74,9 +74,13 @@
 | 需求（make-req） | PO、PM、業務流程架構師 | — |
 | 規格（make-spec） | 資深 SA、UI/UX 主寫；PM、業務架構師（lite 協同） | review-business/system/program/sa/uiux |
 | 測試計畫（make-testplan，與工程軌並行） | SQA 主、UI/UX 協 | —（計畫即早期 spec review；由 verify 執行） |
-| 設計（make-design，SDD） | 系統架構師、程式架構師、SRE | review-system/program/infra（審 SDD） |
+| 威脅模型（make-threat-model，可選，設計前） | 資安官 主、系統架構師 協 | review-security/system |
+| 設計（make-design，SDD＋強制圖） | 系統架構師、程式架構師、SRE | review-system/program/infra（審 SDD） |
+| 資料治理（make-data-governance，可選，設計後） | 業務流程架構師 主、系統架構師 協 | review-business/system/security |
+| 對外 API（make-apidoc，可選，設計後） | 程式架構師/資深 SA 主、SD 審 | review-program/sa |
 | 規劃（make-plan） | 程式架構師、SD | review（審 plan） |
 | 實作（make-code） | PG（SD 督） | review-code、review-security（做後程式審查） |
+| 維運手冊（make-ops，可選，與 verify 並行） | SRE 主、SD 協 | review-infra |
 | 驗測（verify，做後新對話） | — | SQA 主導；UI/UX+SRE(e2e)、SRE(deploy)、資安官(security-officer)、PM+PO(pm) |
 | 專案管理（status，只讀彙整） | PM 主、SD 協（估時合理性） | — |
 

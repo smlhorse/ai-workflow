@@ -34,6 +34,15 @@
 
 `docs/issues/`（版控，預設）。改 `tmp/issues/` 則不版控、團隊共享會掉。GitHub 模式下 Issue 走 GitHub Issues，不用此設定。
 
+## 可選產物位置（選填，不填用各 skill 預設）
+
+以下產物按需才產、預設路徑已在對應 skill 定義，需自訂才填：
+- 威脅模型（make-threat-model）：`docs/security/threat-model/`
+- 資料治理（make-data-governance）：`docs/data-governance/`
+- 對外 API 文件（make-apidoc）：`docs/api/`
+- 維運手冊（make-ops）：`docs/ops/`
+- 發布記錄（changelog）：`CHANGELOG.md`
+
 ## 啟動命令
 
 ```bash
