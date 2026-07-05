@@ -29,7 +29,7 @@ description: 架構設計。產出 SDD＝系統怎麼建（模組/API/schema/部
 
 ## 路徑
 
-預設 `docs/design/<feature>/SDD.md`；專案 CLAUDE.md 可覆寫。
+預設 `docs/SDD/`，檔名 `{編號}_{名稱}[_{子模組}].md`（編號前綴決定排序、同一功能群共用編號前綴；例 `001_訂單.md`、`001_訂單_結帳.md`）；專案 CLAUDE.md 可覆寫。
 
 ## 不做的事
 

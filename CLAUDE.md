@@ -66,7 +66,8 @@ plan 不是一律進 Issue：小任務的計畫＝Issue 內幾行步驟；L+＝W
 3. 歸入分類（調度 / 產出執行 / 把關執行 / 工具）；把關執行用 `review-` / `verify-` 前綴 + description 標 callee
 4. 在 `bnworkflow/skills/<name>/SKILL.md` 建立檔案，frontmatter `name: bnworkflow:<name>`
 5. 在 README.md Skill 說明表對應分類區塊新增一行
-6. push 到 `smlhorse/ai-workflow`；user 端透過 `/plugin marketplace update` 取得新版
+6. **完成前自檢**：跑 `bash tools/check-readme.sh`（skill 數／三表順序／命名／SDD／專案化洩漏／@import／版本），全綠才 commit；已裝 `.git/hooks/pre-commit` 會自動擋
+7. push 到 `smlhorse/ai-workflow`；user 端透過 `/plugin marketplace update` 取得新版
 
 ## 規則檔（內容只一份，.claude 用 @import）
 

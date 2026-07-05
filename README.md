@@ -76,26 +76,33 @@ make-req(需求) → make-spec(規格) → make-design(SDD) → make-plan(計畫
 
 主線之外，管線在「需要時」插入可選產物：`make-threat-model`（規格後、設計前的做前安全建模）、`make-data-governance`（設計後的資料治理）、`make-apidoc`（設計後的對外 API 文件）、`make-ops`（實作後、與 verify 並行的維運手冊）。不需要的關自動略過。
 
-### 各 skill 產出位置
+### 各產物的家
+
+**skill 產出物**（skill 名與下方「Skill 說明」一致）：
 
 | Skill | 產出位置 |
 |---|---|
-| `make-req` | `docs/requirements/` |
-| `make-spec` | `docs/specs/` |
-| `make-threat-model` | `docs/security/threat-model/<feature>.md`（可選） |
-| `make-design` | `docs/design/<feature>/SDD.md` |
-| `make-data-governance` | `docs/data-governance/`（可選） |
-| `make-apidoc` | `docs/api/<service>/api.md`（可選） |
-| `make-plan` | 小任務＝Issue 內步驟；L+＝WBS（`docs/wbs/`） |
+| `bnworkflow:make-req` | `docs/requirements/` |
+| `bnworkflow:make-spec` | `docs/specs/` |
+| `bnworkflow:make-threat-model` | `docs/security/threat-model/<feature>.md`（可選） |
+| `bnworkflow:make-design` | `docs/SDD/{編號}_{名稱}.md`（編號前綴排序、統一命名） |
+| `bnworkflow:make-data-governance` | `docs/data-governance/`（可選） |
+| `bnworkflow:make-apidoc` | `docs/api/<service>/api.md`（可選） |
+| `bnworkflow:make-testplan` | `docs/qa/{sprint}_測試計畫_v{N}.md` |
+| `bnworkflow:make-plan` | 小任務＝Issue 內步驟；L+＝WBS（`docs/wbs/`） |
+| `bnworkflow:make-code` | repo（程式碼） |
+| `bnworkflow:make-ops` | `docs/ops/<feature>/`（可選，與 verify 並行） |
+| `bnworkflow:verify` | `docs/qa/reports/{sprint}_測試紀錄_v{N}_{時戳}.md` |
+| `bnworkflow:changelog` | repo 根 `CHANGELOG.md` |
+
+**任務追蹤／變更去處**（非 skill 產物）：
+
+| 類別 | 去處 |
+|---|---|
 | Issue（任務追蹤，已排程） | GitHub Issues / 本機 `docs/issues/`（版控，預設）/ `tmp/issues/`（scratch，依設定） |
 | backlog（未排程前置池） | `docs/backlog/{bugs.md, 改善.md, questions.md}`（只列未完成、做完即刪、恆短） |
 | 變更＋決策日誌 | `docs/decisions.md`（🔵動到範圍的變更/決策，一條一行） |
 | 改字級小改 | git log（🟢沒動範圍、直接 commit，不進任何清單） |
-| `make-testplan` | `docs/qa/{sprint}_測試計畫_v{N}.md` |
-| `make-code` | repo（程式碼） |
-| `make-ops` | `docs/ops/<feature>/`（可選，與 verify 並行） |
-| `verify` | `docs/qa/reports/{sprint}_測試紀錄_v{N}_{時戳}.md` |
-| `changelog` | repo 根 `CHANGELOG.md` |
 
 ### 專案管理（WBS + status）
 
@@ -108,18 +115,23 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | 整件事（訪談 → 規格 → 設計 → 規畫 → 執行 → 驗收） | `/bnworkflow:do` |
 | 釐清需求 | `/bnworkflow:make-req` |
 | 只產規格 | `/bnworkflow:make-spec` |
-| 只做架構設計（SDD） | `/bnworkflow:make-design` |
 | 做前威脅建模（STRIDE） | `/bnworkflow:make-threat-model` |
+| 只做架構設計（SDD） | `/bnworkflow:make-design` |
 | 資料治理（字典/PII/保留/SBOM） | `/bnworkflow:make-data-governance` |
 | 對外 API 文件 | `/bnworkflow:make-apidoc` |
+| 寫測試計畫 | `/bnworkflow:make-testplan` |
 | 只規畫不執行 | `/bnworkflow:make-plan` |
 | 已有明確做法、跳過規畫 | `/bnworkflow:make-code` |
 | 維運手冊（runbook/DR/rollback） | `/bnworkflow:make-ops` |
-| 審查某產物（spec/design/plan/程式） | `/bnworkflow:review` |
-| 寫測試計畫 | `/bnworkflow:make-testplan` |
+| 審查某產物（spec/SDD/plan/程式） | `/bnworkflow:review` |
 | 全套驗收（新對話） | `/bnworkflow:verify` |
-| 產發布記錄 | `/bnworkflow:changelog` |
+| 開新專案初始化 | `/bnworkflow:init` |
+| Sprint／Issue 管理 | `/bnworkflow:sprint` |
+| 回饋框架本身 | `/bnworkflow:feedback` |
 | 看進度／時程 | `/bnworkflow:status` |
+| 產發布記錄 | `/bnworkflow:changelog` |
+
+> 順序與下方「Skill 說明」一致（管線序：do → 產出執行管線 → review/verify → 工具）。不含 `review-*` / `verify-*` 那 12 個 callee——由 review / verify 自動派、不手動打（清單見下方「把關執行」）。
 
 ## 角色與能力（12 位資深成員，皆 10+ 年、負責過大型系統）
 
@@ -227,7 +239,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 ├── docs/                        ← skills 按需產生
 │   ├── requirements/            ← make-req
 │   ├── specs/                   ← make-spec
-│   ├── design/<feature>/SDD.md  ← make-design（含強制架構圖/DFD）
+│   ├── SDD/{編號}_{名稱}.md     ← make-design（含強制架構圖/DFD）
 │   ├── api/<service>/api.md     ← make-apidoc（選用）
 │   ├── data-governance/         ← make-data-governance（選用）
 │   ├── ops/<feature>/           ← make-ops（選用）
