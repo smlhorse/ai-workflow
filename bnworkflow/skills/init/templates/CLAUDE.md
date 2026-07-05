@@ -42,30 +42,18 @@
 - sprint / issue＝**已排程**：功能級（多一項使用者能力）才進；規劃時從 backlog 選進，非清空。
 - git log＝**改字級**：🟢沒動範圍的小改，直接 commit，不進任何清單。
 
+## 可選產物位置（選填，不填用各 skill 預設）
+
+以下產物按需才產、預設路徑已在對應 skill 定義，需自訂才填：
+- 威脅模型（make-threat-model）：`docs/security/threat-model/`
+- 資料治理（make-data-governance）：`docs/data-governance/`
+- 對外 API 文件（make-apidoc）：`docs/api/`
+- 維運手冊（make-ops）：`docs/ops/`
+- 發布記錄（changelog）：`CHANGELOG.md`
+
 ## 目錄結構
 
-init 建 `CLAUDE.md`、`.claude/*` 與 `docs/專案管理.md`（操作總覽）；其餘 `docs/*` 由對應 skill 首次用到時才建。地圖如下：
-
-```
-專案根/
-├── CLAUDE.md                             # 專案設定（init 建）
-├── .claude/{CLAUDE.md,roles.md,settings.json}   # 行為規範/角色（init 建）
-├── CHANGELOG.md                          # 發布記錄（changelog，選用）
-└── docs/
-    ├── 專案管理.md                       # 操作總覽：三堆/Sprint/digest（init 建）
-    ├── requirements/                     # 需求（make-req）
-    ├── specs/<feature>/                  # 規格（make-spec）
-    ├── design/<feature>/                 # SDD：架構＋DB schema（make-design）
-    ├── wbs/                              # WBS 功能全景樹（make-plan，L+）
-    ├── sprints/                          # 已排程功能級任務＋驗收
-    ├── issues/#N.md                      # 本機 Issue 任務追蹤（見「本機 Issue 位置」）
-    ├── qa/                               # 測試計畫/紀錄（make-testplan / verify）
-    ├── backlog/{bugs,改善,questions}.md  # 🟡未排程池，做完即刪
-    ├── decisions.md                      # 🔵範圍變更＋決策日誌
-    ├── adr/                              # 架構決策（選用）
-    └── 可選關：security/threat-model/、data-governance/、api/、ops/  # 對應 make-* 可選 skill
-（git log＝🟢改字級小改，不進任何檔）
-```
+完整目錄樹見框架 README「使用後的專案目錄結構」：<https://github.com/smlhorse/ai-workflow>。各產物放哪由對應 skill 決定，AI 不需這張樹也能運作。
 
 ## 啟動命令
 

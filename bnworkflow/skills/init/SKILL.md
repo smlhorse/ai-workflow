@@ -34,8 +34,6 @@ description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 `.claude/roles.md`（不存在則建立；已存在則告知衝突，由 user 決定是否覆寫）：
 從 `templates/roles.md` 複製內容。
 
-`docs/專案管理.md`（不存在則建立）：從 `templates/專案管理.md` 複製——每個專案的可讀操作總覽（變更分流三堆／Sprint 防波堤／digest）。規則見 `.claude/CLAUDE.md`，地圖見根 `CLAUDE.md`。
-
 `.claude/settings.json`（不存在則建立）：
 ```json
 {
@@ -50,4 +48,4 @@ tmp/
 ```
 
 **Step 4 — 回報**
-列出產生與修改的檔案，標出仍需人工填寫的 `{佔位符}`；並指向 CLAUDE.md「目錄結構」地圖，說明 `docs/*` 由對應 skill 首次用到時才建、init 不預建。
+列出產生與修改的檔案，標出仍需人工填寫的 `{佔位符}`。

@@ -68,9 +68,9 @@ plan 不是一律進 Issue：小任務的計畫＝Issue 內幾行步驟；L+＝W
 5. 在 README.md Skill 說明表對應分類區塊新增一行
 6. push 到 `smlhorse/ai-workflow`；user 端透過 `/plugin marketplace update` 取得新版
 
-## 規則檔同步注意
+## 規則檔（內容只一份，.claude 用 @import）
 
-`.claude/CLAUDE.md` + `.claude/roles.md`（框架自身運行時用）與 `bnworkflow/skills/init/templates/rules.md` + `templates/roles.md`（init 複製給用戶專案）內容應保持一致。修改規則時兩處同步更新。
+規則內容只有一份、住 `bnworkflow/skills/init/templates/rules.md`（＋`templates/roles.md`）——這點沒變。差別是：框架自身的 `.claude/CLAUDE.md` / `.claude/roles.md`（Claude Code 在本 repo 的**自動載入入口，仍必須存在**）現在**只 `@import` 那一份、不再各存一份手動同步**。改規則只改 templates。init 給用戶專案的是 templates 的**全文複本**（用戶端無 templates 可 import）。
 
 ## 目錄結構
 
@@ -85,10 +85,9 @@ plan 不是一律進 Issue：小任務的計畫＝Issue 內幾行步驟；L+＝W
 │       ├── init/
 │       │   ├── SKILL.md
 │       │   └── templates/
-│       │       ├── CLAUDE.md         ← 新專案根 CLAUDE.md 模板（含目錄結構地圖）
+│       │       ├── CLAUDE.md         ← 新專案根 CLAUDE.md 模板
 │       │       ├── rules.md          ← 複製到用戶 .claude/CLAUDE.md
-│       │       ├── roles.md          ← 複製到用戶 .claude/roles.md
-│       │       └── 專案管理.md        ← 複製到用戶 docs/專案管理.md（操作總覽）
+│       │       └── roles.md          ← 複製到用戶 .claude/roles.md
 │       ├── do/SKILL.md
 │       ├── make-spec/SKILL.md
 │       ├── verify-security-officer/
