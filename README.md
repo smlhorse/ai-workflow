@@ -24,6 +24,7 @@ init 會互動式收集專案資訊，產生：
 - `.claude/CLAUDE.md` — AI 行為規範（從 plugin 複製，獨立於 plugin 更新）
 - `.claude/roles.md` — 12 角色定位與衝突處理
 - `.claude/settings.json`
+- `docs/專案管理.md` — 專案管理操作總覽（變更分流三堆／Sprint 防波堤／digest）
 
 ## 更新
 
@@ -219,13 +220,16 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 
 跑過 `init` 與各 skill 後，**你的專案**長這樣（與下方 plugin repo 本身結構不同，勿混淆）：
 
+> 這張地圖也寫進每個專案自己的 `CLAUDE.md`「目錄結構」段（init 產、隨專案走）；日常看專案 CLAUDE.md 即可，不必翻本 README。`docs/*` 由對應 skill 首次用到時才建，init 不預建。
+
 ```
 你的專案/
 ├── CLAUDE.md                    ← init 產（必有，專案設定）
 ├── .claude/{CLAUDE.md, roles.md, settings.json}  ← init 產/複製（必有）
 ├── CHANGELOG.md                 ← changelog（選用）
-├── docs/                        ← skills 按需產生
-│   ├── requirements/            ← make-req
+├── docs/
+│   ├── 專案管理.md              ← init 產（操作總覽）
+│   ├── requirements/            ← make-req（以下 skills 按需產生）
 │   ├── specs/                   ← make-spec
 │   ├── design/<feature>/SDD.md  ← make-design（含強制架構圖/DFD）
 │   ├── api/<service>/api.md     ← make-apidoc（選用）

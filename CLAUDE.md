@@ -85,9 +85,10 @@ plan 不是一律進 Issue：小任務的計畫＝Issue 內幾行步驟；L+＝W
 │       ├── init/
 │       │   ├── SKILL.md
 │       │   └── templates/
-│       │       ├── CLAUDE.md         ← 新專案根 CLAUDE.md 模板
+│       │       ├── CLAUDE.md         ← 新專案根 CLAUDE.md 模板（含目錄結構地圖）
 │       │       ├── rules.md          ← 複製到用戶 .claude/CLAUDE.md
-│       │       └── roles.md          ← 複製到用戶 .claude/roles.md
+│       │       ├── roles.md          ← 複製到用戶 .claude/roles.md
+│       │       └── 專案管理.md        ← 複製到用戶 docs/專案管理.md（操作總覽）
 │       ├── do/SKILL.md
 │       ├── make-spec/SKILL.md
 │       ├── verify-security-officer/
