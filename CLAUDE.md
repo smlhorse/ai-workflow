@@ -18,9 +18,15 @@
 三種東西、三個家，撰寫任何涉及 issue/plan/產出物的 skill 都依此：
 - **產出物**（需求/spec/設計 SDD/測試計畫/WBS）＝跨任務的文件 → 一律 `docs/*`，恆版控（無「視情況」）。Issue 只引用，不裝。
 - **任務追蹤 Issue**（目標/狀態/估時/日期/驗收結果）＝一件要做的事 → 位置才「視情況」：GitHub 模式走 GitHub Issues；本機模式預設 `docs/issues/`（版控），專案可設 `tmp/issues/`（scratch、不版控）。這是唯一的「視情況」變數。
-- **討論/決策** → Issue 留言；重要決策落 `docs/adr/`，不是 Issue 本體。
+- **討論/決策** → Issue 留言；架構決策（為什麼這樣設計）落 `docs/adr/`；🔵已定案範圍的變更日誌（改了什麼規格/範圍，一行一條）落 `docs/decisions.md`。兩者不同家、不互換，都不是 Issue 本體。
 
 plan 不是一律進 Issue：小任務的計畫＝Issue 內幾行步驟；L+＝WBS（`docs/wbs/`）。沒有獨立 plan 暫存檔。
+
+**任務追蹤再依「規模×是否排程」分家**（根治 issue 堆積、大小不分、混一桶）：
+- **已排程**（sprint/issue）＝功能級（多一項使用者能力）才進；規劃時從 backlog **選**進、非清空。
+- **未排程**（`docs/backlog/{bugs.md, 改善.md, questions.md}`）＝🟡前置池，只列未完成、做完即刪（git 留歷史），故恆短。
+- **改字級**（🟢沒動範圍的小改）＝直接 commit、只留 git log，不進任何清單。
+撰寫涉及變更分流的 skill 依此三線，並遵守 `.claude/CLAUDE.md`「變更分流與 Sprint 防波堤」核心原則（兩份規則檔須同步）。
 
 ## Skill 分類（四類，新增 skill 必須歸類）
 

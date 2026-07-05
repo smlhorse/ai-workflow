@@ -34,6 +34,14 @@
 
 `docs/issues/`（版控，預設）。改 `tmp/issues/` 則不版控、團隊共享會掉。GitHub 模式下 Issue 走 GitHub Issues，不用此設定。
 
+## 變更去哪：backlog / decisions / sprint / git log
+
+冒出來的東西按規模與是否排程分家（詳規則見 `.claude/CLAUDE.md`「變更分流與 Sprint 防波堤」）：
+- `docs/backlog/{bugs.md, 改善.md, questions.md}`＝**未排程前置池**：🟡現在不做的待辦，只列未完成、做完即刪（git 留歷史，故恆短）。
+- `docs/decisions.md`＝**變更＋決策日誌**：🔵動到已定案範圍的變更/決策，一條一行，等 user 點頭。
+- sprint / issue＝**已排程**：功能級（多一項使用者能力）才進；規劃時從 backlog 選進，非清空。
+- git log＝**改字級**：🟢沒動範圍的小改，直接 commit，不進任何清單。
+
 ## 可選產物位置（選填，不填用各 skill 預設）
 
 以下產物按需才產、預設路徑已在對應 skill 定義，需自訂才填：

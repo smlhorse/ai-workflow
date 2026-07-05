@@ -22,6 +22,8 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 
 **回報給對的地方** — SQA 結果由 bnworkflow:verify 寫回 Issue（GitHub 模式 → gh issue comment；本機模式 → 依設定的 Issue 位置 `#N.md`）。
 
+**執行中冒出來的照心法三堆分流** — user 中途丟的、做著發現的雜項，依 `.claude/CLAUDE.md`「變更分流與 Sprint 防波堤」分：🟢直接 commit、只留 git log 不進桶／🔵扣住等 user 拍板（記 `docs/decisions.md`＋改 spec/wbs），不靜默改計畫／🟡入 `docs/backlog/`。sprint 進行中 🔵🟡不插斷當期，只有 blocker 例外。
+
 ## 管線分支（讀 anchor 後依需要逐關判斷）
 
 每關只在「需要」時跑，否則略過：
@@ -49,7 +51,8 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 ## 完成後
 
 執行結果用 make-code 的完成後格式在對話輸出。
-有「需你決策」項目 → 等 user 回覆；無 → 用 Agent tool 在新對話觸發 /bnworkflow:verify，帶入 Issue 編號。
+一個主題告一段落給 user 一張 **digest**：🟢已做(附 commit)、🔵待拍板、🟡已入 backlog；user 只需對🔵🟡點頭定序，🟢事後看 git。不靜默改計畫。
+有「需你決策」項目（含🔵待拍板）→ 等 user 回覆；無 → 用 Agent tool 在新對話觸發 /bnworkflow:verify，帶入 Issue 編號。
 verify 全通過、推 UAT/發布時 → 呼叫 `bnworkflow:changelog` 彙整本次發布記錄。
 
 ## 不做的事

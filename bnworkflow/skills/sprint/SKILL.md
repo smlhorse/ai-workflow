@@ -24,6 +24,12 @@ description: Sprint 與 Issue 清單管理。支援 GitHub Milestone 與本機�
 
 **規模決定歸屬** — Issue 歸 Sprint（Milestone）。bnworkflow:do 建立 Issue 時加上對應 Label（`scale:XS/S/M/L`）。L+ 不建 Issue，改建 Sprint 文件要求人工拆解。
 
+**進 sprint 門檻＝功能級** — 只有「多一項使用者能力」的東西才進 sprint/issue（根治大小不分）。改幾個字＝🟢改字級，走 git log、不進 sprint、不建 Issue。
+
+**大 backlog 用選不用清** — 規劃 sprint 時從 `docs/backlog/`＋wbs 挑「功能級＋這期值得做」的進 sprint，其餘留著，不排完整優先序，只標三態：`本期候選 / 之後 / 可能砍`。大 backlog 不是靠排完，是靠選少數進當期。
+
+**backlog triage 換關口** — triage 時機：blocker 立即；否則 sprint 交界（開跑前／收尾）。triage 時把過時項直接砍，`docs/decisions.md` 記一行；不做逐項精修。
+
 **起訖日記錄** — `new` 時記 Sprint 起訖日（user 填）；GitHub 模式設 Milestone `due_on`，本機模式寫進 Sprint 文件。列表顯示起訖日（供 status 算剩餘天數／逾期）。
 
 ## 不做的事

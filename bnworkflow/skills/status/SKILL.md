@@ -30,6 +30,8 @@ view-driven，看當下要看什麼：
 - **WBS 樹**：`docs/wbs/{sprint}.md`（make-plan 於 L+ 規模產出）
 - **Issue**：GitHub Issues（有 remote）或 `docs/issues/`（本機模式）
 - **Sprint**：GitHub Milestone（due_on）或 `docs/sprints/`（起訖日）
+- **backlog**：`docs/backlog/{bugs.md, 改善.md, questions.md}`（未排程前置池，呈現待辦量與三態；不進進度分母）
+- **decisions**：`docs/decisions.md`（🔵變更＋決策日誌，供追溯範圍變動）
 
 ## 輸出視角
 

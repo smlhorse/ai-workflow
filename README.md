@@ -87,7 +87,10 @@ make-req(需求) → make-spec(規格) → make-design(SDD) → make-plan(計畫
 | `make-data-governance` | `docs/data-governance/`（可選） |
 | `make-apidoc` | `docs/api/<service>/api.md`（可選） |
 | `make-plan` | 小任務＝Issue 內步驟；L+＝WBS（`docs/wbs/`） |
-| Issue（任務追蹤） | GitHub Issues / 本機 `docs/issues/`（版控，預設）/ `tmp/issues/`（scratch，依設定） |
+| Issue（任務追蹤，已排程） | GitHub Issues / 本機 `docs/issues/`（版控，預設）/ `tmp/issues/`（scratch，依設定） |
+| backlog（未排程前置池） | `docs/backlog/{bugs.md, 改善.md, questions.md}`（只列未完成、做完即刪、恆短） |
+| 變更＋決策日誌 | `docs/decisions.md`（🔵動到範圍的變更/決策，一條一行） |
+| 改字級小改 | git log（🟢沒動範圍、直接 commit，不進任何清單） |
 | `make-testplan` | `docs/qa/{sprint}_測試計畫_v{N}.md` |
 | `make-code` | repo（程式碼） |
 | `make-ops` | `docs/ops/<feature>/`（可選，與 verify 並行） |
@@ -231,6 +234,8 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 │   ├── qa/{sprint}_測試計畫_v{N}.md + reports/  ← make-testplan / verify
 │   ├── wbs/{sprint}.md          ← make-plan（L+）
 │   ├── issues/#N.md             ← 本機 Issue（本機模式預設；專案可設 tmp/issues）
+│   ├── backlog/{bugs,改善,questions}.md ← 🟡未排程前置池（做完即刪、恆短）
+│   ├── decisions.md             ← 🔵變更＋決策日誌（動到範圍才記，一條一行）
 │   ├── adr/                     ← 重要決策記錄（選用）
 │   ├── sprints/                 ← sprint（本機模式）
 │   └── security/                ← verify-security-officer + make-threat-model（threat-model/）
@@ -241,6 +246,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 - **按需**＝skill 用到才建：`docs/*` 子目錄、`tmp/*`。
 - GitHub 模式下 Issue/Milestone 走 GitHub，不產 `docs/issues`、`docs/sprints`。
 - **Issue ＝任務追蹤，不是萬用桶**：產出物（需求/spec/設計/測試計畫/WBS）住 `docs/*` 恆版控、Issue 只引用；討論走 Issue 留言、重要決策落 `docs/adr/`。Issue 位置才「視情況」（GitHub / `docs/issues/` 版控 / `tmp/issues/` scratch，依設定）。
+- **變更依「規模×是否排程」分家**（根治大小不分）：`backlog`＝未排程前置池（🟡未做、做完即刪、恆短）；`sprint`/`issue`＝已排程（功能級才進，多一項使用者能力）；`decisions.md`＝🔵動到已定案範圍的變更/決策（等 user 拍板）；git log＝🟢改字級小改（不進任何清單）。sprint 規劃從 backlog **選**進、非清空。
 
 ## 目錄結構（plugin 包裝）
 
