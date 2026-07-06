@@ -22,28 +22,24 @@
 
 plan 不是一律進 Issue：小任務的計畫＝Issue 內幾行步驟；L+＝WBS（`docs/wbs/`）。沒有獨立 plan 暫存檔。
 
-**任務追蹤再依「規模×是否排程」分家**（根治 issue 堆積、大小不分、混一桶）：
-- **已排程**（sprint/issue）＝功能級（多一項使用者能力）才進；規劃時從 backlog **選**進、非清空。
-- **未排程**（`docs/backlog/{bugs.md, 改善.md, questions.md}`）＝🟡前置池，只列未完成、做完即刪（git 留歷史），故恆短。
-- **改字級**（🟢沒動範圍的小改）＝直接 commit、只留 git log，不進任何清單。
-撰寫涉及變更分流的 skill 依此三線，並遵守 `.claude/CLAUDE.md`「變更分流與 Sprint 防波堤」核心原則（兩份規則檔須同步）。
+**任務追蹤再依「規模×是否排程」分三線**：🟢改字級＝git log／🔵動到範圍＝decisions.md 等拍板／🟡未排程＝backlog。定義、門檻、防波堤以 rules.md（即 `.claude/CLAUDE.md`）「變更分流與 Sprint 防波堤」為唯一權威，撰寫相關 skill 依它，此處不另抄。
 
 ## Skill 分類（四類，新增 skill 必須歸類）
 
-30 個 skill 按「做哪種工作」分四類：
+25 個 skill 按「做哪種工作」分四類：
 
 **調度** — 派工/把關，自己不做事：`do`、`review`（審查總控）、`verify`（驗測總控）
 
 **產出執行** — 把產物做出來（管線，`do` 自動串、亦可單獨打）：
 `make-req → make-spec →〔工程軌 make-design → make-plan → make-code ＋ QA 軌 make-testplan〕`
 （make-spec 後 fan-out 兩軌並行；make-testplan 是並行軌、非線性串，兩軌匯流才進 verify）
-四個可選關按需插入：`make-threat-model`（設計前，做前安全建模）、`make-data-governance`（設計後，資料治理）、`make-apidoc`（設計後，對外 API 文件）、`make-ops`（實作後、與 verify 並行，維運手冊）
+make-design 的 SDD 按需涵蓋威脅模型（STRIDE，做前）、資料治理、對外 API 文件、維運等 facet；發布記錄由 verify 於推 UAT/發布時彙整。
 
 **把關執行** — 角色執行一次審查/驗測（由 review/verify 派，一般不手動）：
 - review 派（8）：`review-business / -system / -program / -sa / -uiux / -code / -security / -infra`
 - verify 派（4）：`verify-e2e / -deploy / -security-officer / -pm`
 
-**工具** — 一次性雜務：`init`、`sprint`、`feedback`、`status`、`changelog`（發布記錄）
+**工具** — 一次性雜務：`init`、`sprint`、`feedback`、`status`
 
 慣例：
 - 把關執行一律 `review-` / `verify-` 前綴；description 標「（由 {parent} 自動呼叫，通常不需手動）」，讓 `/plugin` 清單與 autocomplete 自我說明
@@ -66,7 +62,7 @@ plan 不是一律進 Issue：小任務的計畫＝Issue 內幾行步驟；L+＝W
 3. 歸入分類（調度 / 產出執行 / 把關執行 / 工具）；把關執行用 `review-` / `verify-` 前綴 + description 標 callee
 4. 在 `bnworkflow/skills/<name>/SKILL.md` 建立檔案，frontmatter `name: bnworkflow:<name>`
 5. 在 README.md Skill 說明表對應分類區塊新增一行
-6. **完成前自檢**：跑 `bash tools/check-readme.sh`（skill 數／三表順序／命名／SDD／專案化洩漏／@import／版本），全綠才 commit；已裝 `.git/hooks/pre-commit` 會自動擋
+6. **完成前自檢**：動到的文件逐項對照本檔原則自審（skill 數／三表順序／命名／無專案化洩漏／版本）；**大改後派 general agent 審文件一致性與廢話**（段落重複、命名/順序一致、無廢話）——語意一致與廢話非 grep 能判，靠 AI 或人審。
 7. push 到 `smlhorse/ai-workflow`；user 端透過 `/plugin marketplace update` 取得新版
 
 ## 規則檔（內容只一份，.claude 用 @import）
@@ -94,7 +90,7 @@ plan 不是一律進 Issue：小任務的計畫＝Issue 內幾行步驟；L+＝W
 │       ├── verify-security-officer/
 │       │   ├── SKILL.md
 │       │   └── templates/         ← findings / false-positives / scan-cadence
-│       └── ...（共 30 個 skill；部分 skill 含 templates/）
+│       └── ...（共 25 個 skill；部分 skill 含 templates/）
 ├── .claude/                          ← 框架自身運行規則（維護者用）
 │   ├── CLAUDE.md
 │   ├── roles.md

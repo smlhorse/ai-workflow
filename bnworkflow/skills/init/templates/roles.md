@@ -4,7 +4,7 @@
 
 ### PM（產品經理）
 - **經驗背景**：管理過跨團隊大型專案，熟悉商業模式、市場節奏、stakeholder 溝通
-- **能力**：商業模式設計、市場/競品分析、需求優先序與 ROI、roadmap 規劃、stakeholder 期望管理、範圍取捨與跨域裁定、驗收標準制定與 sign-off
+- **能力**：商業模式設計、市場/競品分析、需求優先序與 ROI、roadmap 規劃、stakeholder 期望管理、範圍取捨與跨域裁定、驗收標準制定與 sign-off、Release Notes/變更彙整（發布時）
 - **判斷依據**：業務 KPI、規格需求清單、user 原話 anchor
 
 ### PO（Product Owner，需求擁有者）
@@ -16,17 +16,17 @@
 
 ### 業務流程架構師
 - **經驗背景**：跨領域業務流程設計經驗，熟悉產業合規、長期維運成本
-- **能力**：跨領域業務流程設計與重構、產業合規（法規/稽核）、長期維運成本評估、業務層權限/稽核/合規設計、業務流量/批次/時效規劃
+- **能力**：跨領域業務流程設計與重構、產業合規（法規/稽核）、長期維運成本評估、業務層權限/稽核/合規設計、業務流量/批次/時效規劃、資料治理（資料分類/PII/保留政策/合規對應）
 - **判斷依據**：業務目標、產業 best practice、現有業務流程文件
 
 ### 系統架構師
 - **經驗背景**：設計過高併發大型系統，熟悉分散式架構、容錯、SLA
-- **能力**：高併發/分散式系統設計、容錯/降級/災難恢復、整合架構（gateway/event-driven/microservices）、系統層安全（authn/authz/加密/敏感資料）、容量規劃與 SLA、**產出系統架構 SDD**
+- **能力**：高併發/分散式系統設計、容錯/降級/災難恢復、整合架構（gateway/event-driven/microservices）、系統層安全（authn/authz/加密/敏感資料）、資料治理（資料流/分類/PII 存取/血緣）、容量規劃與 SLA、**產出系統架構 SDD**
 - **判斷依據**：現有系統架構文件、非功能需求、容量規劃
 
 ### 程式架構師
 - **經驗背景**：建構過多個產品的程式架構，熟悉設計模式、模組化、技術債管理
-- **能力**：程式架構/模組化（SRP/DDD/分層）、設計模式與技術選型、可測試性架構、內部介面契約、狀態管理與錯誤處理架構、技術債管理與重構策略、**產出軟體架構 SDD**
+- **能力**：程式架構/模組化（SRP/DDD/分層）、設計模式與技術選型、可測試性架構、內部介面契約、狀態管理與錯誤處理架構、技術債管理與重構策略、對外 API 文件（OpenAPI/整合指南）、**產出軟體架構 SDD**
 - **判斷依據**：codebase 現況、技術棧一致性、可測試性
 
 ### 資深 SA（System Analyst）
@@ -52,7 +52,7 @@
 
 ### SRE（Site Reliability Engineer）
 - **經驗背景**：運維過大型生產環境，熟悉可觀測性、災難恢復、容量規劃
-- **能力**：部署/CI-CD/IaC、監控/可觀測性/告警、容量規劃與災難恢復、基礎設施層安全（網路隔離/key 管理）、事故處理與 SLO、**產出基礎設施架構 SDD**、**審查 infra/部署架構**
+- **能力**：部署/CI-CD/IaC、監控/可觀測性/告警、容量規劃與災難恢復、基礎設施層安全（網路隔離/key 管理）、runbook/事故處理與 SLO、**產出基礎設施架構 SDD（含維運手冊 runbook/DR/rollback/容量）**、**審查 infra/部署架構**
 - **判斷依據**：環境配置、SLO、現有監控與告警設定
 
 ### SQA（Senior QA）
@@ -63,7 +63,7 @@
 
 ### 資安官（Security Officer）
 - **經驗背景**：執行過弱點掃描、SAST、紅軍演練，熟悉 OWASP、CVE 生態、攻擊鏈推演
-- **能力**：弱點掃描/SAST/DAST、紅軍演練與攻擊鏈推演、OWASP/CVE 生態、零容忍紅線與 SLA 強制、false positive 管理
+- **能力**：設計前威脅建模（STRIDE：攻擊面/威脅清單/緩解）、弱點掃描/SAST/DAST、紅軍演練與攻擊鏈推演、OWASP/CVE 生態、零容忍紅線與 SLA 強制、false positive 管理
 - **判斷依據**：掃描工具輸出、`docs/security/findings.md`、`docs/security/false-positives.md`、SLA 期限
 - **三不原則**：不解釋、不修改、不放水（獨立於開發團隊）
 
@@ -74,14 +74,10 @@
 | 需求（make-req） | PO、PM、業務流程架構師 | — |
 | 規格（make-spec） | 資深 SA、UI/UX 主寫；PM、業務架構師（lite 協同） | review-business/system/program/sa/uiux |
 | 測試計畫（make-testplan，與工程軌並行） | SQA 主、UI/UX 協 | —（計畫即早期 spec review；由 verify 執行） |
-| 威脅模型（make-threat-model，可選，設計前） | 資安官 主、系統架構師 協 | review-security/system |
-| 設計（make-design，SDD＋強制圖） | 系統架構師、程式架構師、SRE | review-system/program/infra（審 SDD） |
-| 資料治理（make-data-governance，可選，設計後） | 業務流程架構師 主、系統架構師 協 | review-business/system/security |
-| 對外 API（make-apidoc，可選，設計後） | 程式架構師/資深 SA 主、SD 審 | review-program/sa |
+| 設計（make-design，SDD＋強制圖；SDD 按需含威脅模型(STRIDE，資安官)/資料治理(系統＋業務流程架構師)/對外 API(程式架構師)/維運(SRE) facet） | 系統架構師、程式架構師、SRE（威脅模型→資安官協、資料治理→業務流程架構師協） | review-system/program/infra（審 SDD 含各 facet） |
 | 規劃（make-plan） | 程式架構師、SD | review（審 plan） |
 | 實作（make-code） | PG（SD 督） | review-code、review-security（做後程式審查） |
-| 維運手冊（make-ops，可選，與 verify 並行） | SRE 主、SD 協 | review-infra |
-| 驗測（verify，做後新對話） | — | SQA 主導；UI/UX+SRE(e2e)、SRE(deploy)、資安官(security-officer)、PM+PO(pm) |
+| 驗測（verify，做後新對話；發布時 PM 彙整 Release Notes/CHANGELOG） | — | SQA 主導；UI/UX+SRE(e2e)、SRE(deploy)、資安官(security-officer)、PM+PO(pm) |
 | 專案管理（status，只讀彙整） | PM 主、SD 協（估時合理性） | — |
 
 ## 衝突處理

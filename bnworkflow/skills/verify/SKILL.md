@@ -50,6 +50,13 @@ Fallback（找不到計畫才走）：從規格（lite / business / plan）臨�
 
 各子 skill 可單獨執行：`/bnworkflow:verify-e2e`、`/bnworkflow:verify-deploy`、`/bnworkflow:verify-security-officer`、`/bnworkflow:verify-pm`；程式審查走 `/bnworkflow:review`。
 
+## 發布記錄（推 UAT / 發布時）
+
+全通過、推 UAT 或正式發布時，PM 彙整本次 Sprint/Issue 範圍變更為 Release Notes/CHANGELOG（預設 repo 根 `CHANGELOG.md`，專案 CLAUDE.md 可覆寫）：
+- 分類 Added / Changed / Fixed / Removed / Security；每條寫「改了什麼、影響誰」
+- 破壞性變更明確標 breaking，不埋進一般條目
+- 只記結論不記過程；不含 credentials/PII/內部細節；每條對應實際 spec/Issue/commit，無對應不寫
+
 ## 不做的事
 
 - 有 WBS（`docs/wbs/`）時，PASS 必更新對應節點為「已執行」並戳完成日（今天）；不更新＝不算完成

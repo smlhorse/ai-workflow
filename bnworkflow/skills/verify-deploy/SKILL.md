@@ -17,6 +17,8 @@ description: 部署準備檢查（SRE 視角）。環境變數、Migration、CI/
 
 **Rollback**：有明確的 rollback 步驟。資料變更的 rollback 方案已確認。
 
+**維運手冊**（涉上線部署才適用）：runbook/事故處理/DR 備份還原/容量規劃已隨設計（make-design SDD 維運 facet）產出並齊備，非原作者也能照做。缺 → FAIL。
+
 ## 不做的事
 
 - 只回報缺漏，不代為補設定

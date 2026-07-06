@@ -18,13 +18,9 @@ description: 審查總控。按對象（spec / design / plan / 程式）派對�
 | 對象 | 派哪些審查角色 |
 |---|---|
 | spec（lite / business） | review-business / -system / -program / -sa / -uiux |
-| threat-model（威脅模型） | review-security / -system |
-| design（SDD，含架構圖/DFD） | review-system / -program / -infra |
-| data-governance（資料治理） | review-business / -system / -security |
-| apidoc（對外 API 文件） | review-program / -sa |
+| design（SDD，含架構圖/DFD；SDD 內含威脅模型/資料治理/對外 API/維運 facet 一併審） | review-system / -program / -infra |
 | plan | review-program / -sa（技術可行性、步驟完整性） |
 | 程式（diff，做後） | review-code / -security |
-| ops（維運手冊） | review-infra |
 
 ## 不做的事
 

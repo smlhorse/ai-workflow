@@ -74,7 +74,7 @@ make-req(需求) → make-spec(規格) → make-design(SDD) → make-plan(計畫
 
 一句話分清差別：**要解決什麼**（需求）→ **長什麼樣**（規格）→ **怎麼建**（設計）→ **怎麼一步步做**（計畫）→ **寫出來**（程式碼）。
 
-主線之外，管線在「需要時」插入可選產物：`make-threat-model`（規格後、設計前的做前安全建模）、`make-data-governance`（設計後的資料治理）、`make-apidoc`（設計後的對外 API 文件）、`make-ops`（實作後、與 verify 並行的維運手冊）。不需要的關自動略過。
+主線之外，`make-design` 的 SDD 按需涵蓋可選 facet：威脅模型（規格後、設計前的 STRIDE 安全建模）、資料治理、對外 API 文件、維運（runbook/DR/rollback）；不需要的略過。發布時由 `verify` 彙整 Release Notes/CHANGELOG。
 
 ### 各產物的家
 
@@ -84,16 +84,11 @@ make-req(需求) → make-spec(規格) → make-design(SDD) → make-plan(計畫
 |---|---|
 | `bnworkflow:make-req` | `docs/requirements/` |
 | `bnworkflow:make-spec` | `docs/specs/` |
-| `bnworkflow:make-threat-model` | `docs/security/threat-model/<feature>.md`（可選） |
-| `bnworkflow:make-design` | `docs/SDD/{編號}_{名稱}.md`（編號前綴排序、統一命名） |
-| `bnworkflow:make-data-governance` | `docs/data-governance/`（可選） |
-| `bnworkflow:make-apidoc` | `docs/api/<service>/api.md`（可選） |
+| `bnworkflow:make-design` | `docs/SDD/{編號}_{名稱}.md`（編號前綴排序、統一命名；SDD facet 按需：威脅模型 `docs/security/threat-model/`、資料治理 `docs/data-governance/`、對外 API `docs/api/<service>/api.md`、維運 `docs/ops/<feature>/`） |
 | `bnworkflow:make-testplan` | `docs/qa/{sprint}_測試計畫_v{N}.md` |
 | `bnworkflow:make-plan` | 小任務＝Issue 內步驟；L+＝WBS（`docs/wbs/`） |
 | `bnworkflow:make-code` | repo（程式碼） |
-| `bnworkflow:make-ops` | `docs/ops/<feature>/`（可選，與 verify 並行） |
-| `bnworkflow:verify` | `docs/qa/reports/{sprint}_測試紀錄_v{N}_{時戳}.md` |
-| `bnworkflow:changelog` | repo 根 `CHANGELOG.md` |
+| `bnworkflow:verify` | `docs/qa/reports/{sprint}_測試紀錄_v{N}_{時戳}.md`；發布時彙整 repo 根 `CHANGELOG.md` |
 
 **任務追蹤／變更去處**（非 skill 產物）：
 
@@ -115,23 +110,16 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | 整件事（訪談 → 規格 → 設計 → 規畫 → 執行 → 驗收） | `/bnworkflow:do` |
 | 釐清需求 | `/bnworkflow:make-req` |
 | 只產規格 | `/bnworkflow:make-spec` |
-| 做前威脅建模（STRIDE） | `/bnworkflow:make-threat-model` |
-| 只做架構設計（SDD） | `/bnworkflow:make-design` |
-| 資料治理（字典/PII/保留/SBOM） | `/bnworkflow:make-data-governance` |
-| 對外 API 文件 | `/bnworkflow:make-apidoc` |
+| 只做架構設計（SDD，含威脅模型/資料治理/對外 API/維運 facet 按需） | `/bnworkflow:make-design` |
 | 寫測試計畫 | `/bnworkflow:make-testplan` |
 | 只規畫不執行 | `/bnworkflow:make-plan` |
 | 已有明確做法、跳過規畫 | `/bnworkflow:make-code` |
-| 維運手冊（runbook/DR/rollback） | `/bnworkflow:make-ops` |
 | 審查某產物（spec/SDD/plan/程式） | `/bnworkflow:review` |
-| 全套驗收（新對話） | `/bnworkflow:verify` |
+| 全套驗收（新對話；發布時彙整 Release Notes/CHANGELOG） | `/bnworkflow:verify` |
 | 開新專案初始化 | `/bnworkflow:init` |
 | Sprint／Issue 管理 | `/bnworkflow:sprint` |
 | 回饋框架本身 | `/bnworkflow:feedback` |
 | 看進度／時程 | `/bnworkflow:status` |
-| 產發布記錄 | `/bnworkflow:changelog` |
-
-> 順序與下方「Skill 說明」一致（管線序：do → 產出執行管線 → review/verify → 工具）。不含 `review-*` / `verify-*` 那 12 個 callee——由 review / verify 自動派、不手動打（清單見下方「把關執行」）。
 
 ## 角色與能力（12 位資深成員，皆 10+ 年、負責過大型系統）
 
@@ -154,7 +142,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 
 ## Skill 說明
 
-30 個 skill 按「做哪種工作」分四類。**日常只需打 `do` 與 `verify`**，其餘自動派。
+25 個 skill 按「做哪種工作」分四類。**日常只需打 `do` 與 `verify`**，其餘自動派。
 
 ### 調度（派工，自己不做事）
 
@@ -170,41 +158,36 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 |---|---|---|---|
 | 4 | `bnworkflow:make-req` | PO、PM、業務流程架構師 | 需求訪談，逼出 user 講不清的真需求 |
 | 5 | `bnworkflow:make-spec` | 資深 SA、UI/UX（PM、業務架構師協同） | 兩層規格（lite 業務版 + business 結構版） |
-| 6 | `bnworkflow:make-threat-model` | 資安官、系統架構師 | 做前威脅建模（STRIDE），產威脅清單＋緩解（可選） |
-| 7 | `bnworkflow:make-design` | 系統架構師、程式架構師、SRE | 架構設計 SDD（系統＋軟體＋基礎設施＋強制圖） |
-| 8 | `bnworkflow:make-data-governance` | 業務流程架構師、系統架構師 | 資料字典/分類/PII/保留/SBOM 授權（可選） |
-| 9 | `bnworkflow:make-apidoc` | 程式架構師/資深 SA、SD | 對外 API 文件（OpenAPI/整合指南，可選） |
-| 10 | `bnworkflow:make-testplan` | SQA、UI/UX | 規格定案後與工程軌並行寫測試計畫（含失敗/邊界/非功能） |
-| 11 | `bnworkflow:make-plan` | 程式架構師、SD | Anchor → Plan → 等 ack，不執行 |
-| 12 | `bnworkflow:make-code` | PG（SD 督） | 純執行，跳過 plan |
-| 13 | `bnworkflow:make-ops` | SRE、SD | 維運手冊 runbook/DR/rollback/容量（可選，與 verify 並行） |
+| 6 | `bnworkflow:make-design` | 系統架構師、程式架構師、SRE（威脅模型→資安官、資料治理→業務流程架構師 協） | 架構設計 SDD（系統＋軟體＋基礎設施＋強制圖；按需含威脅模型/資料治理/對外 API/維運 facet） |
+| 7 | `bnworkflow:make-testplan` | SQA、UI/UX | 規格定案後與工程軌並行寫測試計畫（含失敗/邊界/非功能） |
+| 8 | `bnworkflow:make-plan` | 程式架構師、SD | Anchor → Plan → 等 ack，不執行 |
+| 9 | `bnworkflow:make-code` | PG（SD 督） | 純執行，跳過 plan |
 
 ### 把關執行（callee，由 review / verify 自動派，通常不手動）
 
 | # | Skill | 參與角色 | 派工者 | 用途 |
 |---|---|---|---|---|
-| 14 | `bnworkflow:review-business` | 業務流程架構師 | review | 審業務流程合理性 |
-| 15 | `bnworkflow:review-system` | 系統架構師 | review | 審系統架構面 |
-| 16 | `bnworkflow:review-program` | 程式架構師 | review | 審軟體架構面 |
-| 17 | `bnworkflow:review-sa` | 資深 SA | review | 審規格完整性/品質 |
-| 18 | `bnworkflow:review-uiux` | UI/UX | review | 審介面與操作流程 |
-| 19 | `bnworkflow:review-code` | SD | review | 審程式碼對規格 |
-| 20 | `bnworkflow:review-security` | 資安官 | review | 靜態資安審查（OWASP/hardcode） |
-| 21 | `bnworkflow:review-infra` | SRE | review | 審基礎設施/部署架構 |
-| 22 | `bnworkflow:verify-e2e` | UI/UX、SRE | verify | 實地操作 E2E |
-| 23 | `bnworkflow:verify-deploy` | SRE | verify | 部署就緒檢查 |
-| 24 | `bnworkflow:verify-security-officer` | 資安官 | verify | 動態關卡：弱掃 + SAST + 紅軍 |
-| 25 | `bnworkflow:verify-pm` | PM、PO | verify | 業務最終驗收 |
+| 10 | `bnworkflow:review-business` | 業務流程架構師 | review | 審業務流程合理性 |
+| 11 | `bnworkflow:review-system` | 系統架構師 | review | 審系統架構面 |
+| 12 | `bnworkflow:review-program` | 程式架構師 | review | 審軟體架構面 |
+| 13 | `bnworkflow:review-sa` | 資深 SA | review | 審規格完整性/品質 |
+| 14 | `bnworkflow:review-uiux` | UI/UX | review | 審介面與操作流程 |
+| 15 | `bnworkflow:review-code` | SD | review | 審程式碼對規格 |
+| 16 | `bnworkflow:review-security` | 資安官 | review | 靜態資安審查（OWASP/hardcode） |
+| 17 | `bnworkflow:review-infra` | SRE | review | 審基礎設施/部署架構 |
+| 18 | `bnworkflow:verify-e2e` | UI/UX、SRE | verify | 實地操作 E2E |
+| 19 | `bnworkflow:verify-deploy` | SRE | verify | 部署就緒檢查 |
+| 20 | `bnworkflow:verify-security-officer` | 資安官 | verify | 動態關卡：弱掃 + SAST + 紅軍 |
+| 21 | `bnworkflow:verify-pm` | PM、PO | verify | 業務最終驗收 |
 
 ### 工具
 
 | # | Skill | 參與角色 | 用途 |
 |---|---|---|---|
-| 26 | `bnworkflow:init` | （工具） | 初始化新專案，產生 CLAUDE.md 與設定檔 |
-| 27 | `bnworkflow:sprint` | （PM 視角） | Sprint 與 Issue 管理（GitHub Milestone / 本機模式） |
-| 28 | `bnworkflow:feedback` | （工具） | 框架使用回饋蒐集，回 framework repo 批量消化 |
-| 29 | `bnworkflow:status` | PM、SD | 讀 WBS+Issue 給雙軌進度% + 時程 + stale 旗（只讀，非工時） |
-| 30 | `bnworkflow:changelog` | （工具） | verify 通過/發布時彙整 Release Notes 至 CHANGELOG.md |
+| 22 | `bnworkflow:init` | （工具） | 初始化新專案，產生 CLAUDE.md 與設定檔 |
+| 23 | `bnworkflow:sprint` | （PM 視角） | Sprint 與 Issue 管理（GitHub Milestone / 本機模式） |
+| 24 | `bnworkflow:feedback` | （工具） | 框架使用回饋蒐集，回 framework repo 批量消化 |
+| 25 | `bnworkflow:status` | PM、SD | 讀 WBS+Issue 給雙軌進度% + 時程 + stale 旗（只讀，非工時） |
 
 ## 解決的問題
 
@@ -235,14 +218,14 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 你的專案/
 ├── CLAUDE.md                    ← init 產（必有，專案設定）
 ├── .claude/{CLAUDE.md, roles.md, settings.json}  ← init 產/複製（必有）
-├── CHANGELOG.md                 ← changelog（選用）
+├── CHANGELOG.md                 ← verify 發布時彙整（選用）
 ├── docs/                        ← skills 按需產生
 │   ├── requirements/            ← make-req
 │   ├── specs/                   ← make-spec
 │   ├── SDD/{編號}_{名稱}.md     ← make-design（含強制架構圖/DFD）
-│   ├── api/<service>/api.md     ← make-apidoc（選用）
-│   ├── data-governance/         ← make-data-governance（選用）
-│   ├── ops/<feature>/           ← make-ops（選用）
+│   ├── api/<service>/api.md     ← make-design 對外 API facet（選用）
+│   ├── data-governance/         ← make-design 資料治理 facet（選用）
+│   ├── ops/<feature>/           ← make-design 維運 facet（選用）
 │   ├── qa/{sprint}_測試計畫_v{N}.md + reports/  ← make-testplan / verify
 │   ├── wbs/{sprint}.md          ← make-plan（L+）
 │   ├── issues/#N.md             ← 本機 Issue（本機模式預設；專案可設 tmp/issues）
@@ -250,7 +233,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 │   ├── decisions.md             ← 🔵變更＋決策日誌（動到範圍才記，一條一行）
 │   ├── adr/                     ← 重要決策記錄（選用）
 │   ├── sprints/                 ← sprint（本機模式）
-│   └── security/                ← verify-security-officer + make-threat-model（threat-model/）
+│   └── security/                ← verify-security-officer + make-design 威脅模型 facet（threat-model/）
 └── tmp/                         ← gitignore（scratch：anchor.md、report.md；專案設 tmp/issues 時 Issue 也在此）
 ```
 
@@ -273,7 +256,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 │       ├── init/SKILL.md
 │       │   └── templates/{CLAUDE.md, rules.md, roles.md}
 │       ├── do/SKILL.md
-│       └── ... (共 30 個 skill)
+│       └── ... (共 25 個 skill)
 ├── .claude/                          ← 框架自身的 AI 規範（維護者用）
 │   ├── CLAUDE.md
 │   └── roles.md

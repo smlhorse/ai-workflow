@@ -42,14 +42,14 @@
 - sprint / issue＝**已排程**：功能級（多一項使用者能力）才進；規劃時從 backlog 選進，非清空。
 - git log＝**改字級**：🟢沒動範圍的小改，直接 commit，不進任何清單。
 
-## 可選產物位置（選填，不填用各 skill 預設）
+## 可選產物位置（選填，不填用預設）
 
-以下產物按需才產、預設路徑已在對應 skill 定義，需自訂才填：
-- 威脅模型（make-threat-model）：`docs/security/threat-model/`
-- 資料治理（make-data-governance）：`docs/data-governance/`
-- 對外 API 文件（make-apidoc）：`docs/api/`
-- 維運手冊（make-ops）：`docs/ops/`
-- 發布記錄（changelog）：`CHANGELOG.md`
+以下產物按需才產（威脅模型/資料治理/對外 API/維運為 make-design 的 SDD facet，觸發條件見該 skill；發布記錄由 verify 於推 UAT/發布時彙整），預設路徑已定義，需自訂才填：
+- 威脅模型（STRIDE，涉外部輸入/權限邊界/敏感資料）：`docs/security/threat-model/`
+- 資料治理（涉個資/合規）：`docs/data-governance/`
+- 對外 API 文件（有對外開放 API）：`docs/api/`
+- 維運手冊（涉上線部署）：`docs/ops/`
+- 發布記錄（推 UAT/發布時）：`CHANGELOG.md`
 
 ## 目錄結構
 
