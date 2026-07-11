@@ -76,6 +76,48 @@ make-req(需求) → make-spec(規格) → make-design(SDD) → make-plan(計畫
 
 主線之外，`make-design` 的 SDD 按需涵蓋可選 facet：威脅模型（規格後、設計前的 STRIDE 安全建模）、資料治理、對外 API 文件、維運（runbook/DR/rollback/容量規劃/環境建置/監控告警/壓測規劃）；不需要的略過。發布時由 `verify` 彙整 Release Notes/CHANGELOG。
 
+### 團隊分工與同步模型
+
+**同步規則**：下一步驟需要用到前一步驟的具體產出（TABLE schema、API 合約等）就是序列相依，不能平行；產出物彼此互不需要對方的東西，才是真平行——不得憑感覺猜哪些同步，要照這條規則查有沒有檔案/表/合約重疊。
+
+```
+Stage 0｜需求（序列）
+  PO、PM、業務流程架構師 訪談 → docs/requirements/
+
+Stage 1｜規格（序列）
+  資深 SA + UI/UX 主寫；PM、業務流程架構師 協同 → docs/specs/
+  → review：business / system / program / sa / uiux
+  ─── barrier：規格定案 ───
+
+Stage 2｜設計規劃（並行）
+  系統架構師 — 系統架構 SDD
+  程式架構師 — 軟體架構 SDD／API 合約／DB schema
+  SRE — 部署/維運 SDD（含環境建置/監控告警/壓測規劃）；DB schema 變更時同步評估容量/查詢負載
+  UI/UX — 介面互動架構
+  資安官 — 威脅模型 STRIDE（有外部輸入/權限邊界/敏感資料才產）
+  業務流程架構師 — 資料治理（涉 PII/合規才產；DB schema 變更時一併確認是否觸發）
+  → review：system / program / infra
+  ─── barrier：TABLE schema 定案，API 合約才能鎖欄位 ───
+
+Stage 2.5｜計畫（匯流 → 序列）
+  程式架構師 + SD：彙整成 plan，並行分組標明可由哪些角色執行
+  → review：program / sa
+  ─── barrier：plan review PASS，等 ack ───
+
+Stage 3｜實作（並行，依 plan 並行分組拆）
+  PG(前端) ／ PG(後端) ／ 前後台串接整合（依賴前端+後端都完成才開始）
+  → review：code（含執行驗證）／security（含執行驗證）／infra（涉部署配置/session/容量才派）
+  ─── barrier：build 全數完成 + review PASS ───
+
+Stage 4｜驗證（並行，做後新對話）
+  SQA 執行測試（讀 make-testplan 產出的測試計畫）／PM+PO 業務驗收／
+  SRE（e2e + deploy，deploy 含環境建置/監控告警/壓測對照 anchor 確認）／資安官 security-officer
+  ─── barrier：全數 PASS，資安官 FAIL 對 UAT 啟動有否決權 ───
+  推 UAT/發布時由 PM 彙整 Release Notes/CHANGELOG
+```
+
+**派工前盤點**：`do` 進工程軌前先查 `docs/SDD/`／`docs/api/`／`docs/security/threat-model/`／`docs/qa/` 是否已有對應文件；缺的先觸發對應產出關卡，不直接跳進 `make-code`。
+
 ### 各產物的家
 
 **skill 產出物**（skill 名與下方「Skill 說明」一致）：
