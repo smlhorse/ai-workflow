@@ -15,7 +15,7 @@ description: 需求釐清（訪談）。產出需求＝要解決什麼、user �
 
 ## 產出
 
-精煉後的需求（寫入 `docs/requirements/`；專案 CLAUDE.md 可覆寫路徑）：目標、使用情境、邊界/例外、成功標準、未決項。
+精煉後的需求（寫入 `docs/requirements/<feature>.md`；專案 CLAUDE.md 可覆寫路徑）：目標、使用情境、邊界/例外、成功標準、未決項。
 
 ## 不做的事
 
@@ -23,6 +23,8 @@ description: 需求釐清（訪談）。產出需求＝要解決什麼、user �
 - 不寫系統長相（spec）、不寫怎麼建（design）
 - 不放過「我要一個系統」這種模糊願望 → 逼到可執行
 - happy path 之外的例外、權限、極端情境都要問到
+- 有 WBS（`docs/wbs/`）時本關完成必更新對應 WBS 節點狀態（make-req 完＝已產出）；不更新＝不算完成
+- 無 WBS/Issue 時不腦補，先查 anchor，缺資訊回報
 
 ## 自主決策邊界
 

@@ -49,6 +49,8 @@ business 預設 `docs/specs/<feature>/business.md`；專案 CLAUDE.md 可覆寫�
 - lite 不寫元件 ID / API / DB
 - 不只寫 happy path：失敗、空值、權限、網路失敗每項都要對應處理
 - 同一元件 ID 在 A-E 描述不一致 → 整份打回
+- 有 WBS（`docs/wbs/`）時本關完成必更新對應 WBS 節點狀態（make-spec 完＝待審，等 review 判定）；不更新＝不算完成
+- 無 WBS/Issue 時不腦補，先查 anchor，缺資訊回報
 
 ## 角色分工（建議）
 

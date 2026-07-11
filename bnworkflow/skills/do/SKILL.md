@@ -16,7 +16,7 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 
 **全流程不中斷** — 管線 make-req → make-spec →〔工程軌 make-design → make-plan → make-code ＋ QA 軌 make-testplan 並行〕→ make-code 連貫執行（依分支判斷略過不需要的關）。Plan 無待確認事項時直接進執行，不停下等 ack；有待確認才停。
 
-**Issue 是任務追蹤，不是萬用桶** — Issue 只裝任務追蹤（目標/狀態/估時/日期/驗收結果），引用產出物（需求/spec/設計/測試計畫/WBS，一律住 `docs/*` 版控）而不裝它們；討論走留言、重要決策落 `docs/adr/`。有 #N 就從 Issue 讀 anchor；無 #N 就從 user 原話建 anchor，並根據規模自動建立對應記錄（XS/S/M → 依 Issue 位置設定建 Issue；L+ → 呼叫 bnworkflow:sprint new，將拆解建議記進 Sprint 文件）。
+**Issue 是任務追蹤，不是萬用桶** — Issue 只裝任務追蹤（目標/狀態/估時/日期/驗收結果），引用產出物（需求/spec/設計/測試計畫/WBS，一律住 `docs/*` 版控）而不裝它們；討論走留言、重要決策落 `docs/adr/`。有 #N 就從 Issue 讀 anchor；無 #N 就從 user 原話建 anchor，並依規模與 sprint 門檻（見 bnworkflow:sprint「進 sprint 門檻＝功能級」）建立對應記錄：XS/S/M 且屬功能級（多一項使用者能力）→ 依 Issue 位置設定建 Issue；🟢改字級（不論規模，改字/小修正）→ 直接 commit，不建 Issue；L+ → 呼叫 bnworkflow:sprint new，將拆解建議記進 Sprint 文件。
 
 **Issue 位置依設定** — GitHub 模式（偵測到 git remote）走 GitHub Issues；本機模式讀專案 CLAUDE.md「本機 Issue 位置」欄位，預設 `docs/issues/#N.md`（版控）。
 
@@ -26,7 +26,7 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 
 ## 管線分支（讀 anchor 後依需要逐關判斷）
 
-**派工前盤點**：進工程軌前查 `docs/SDD/`／`docs/api/`／`docs/security/threat-model/`／`docs/qa/` 是否已有對應文件；缺的先觸發對應產出關卡，不直接跳進 make-code。
+**派工前盤點**：進工程軌前依本次任務涉及的面向查對應文件是否已存在——`docs/requirements/`（需求）、`docs/specs/`（規格）、`docs/SDD/`（架構）、`docs/api/`（對外API）、`docs/security/threat-model/`（威脅模型）、`docs/data-governance/`（資料治理）、`docs/ops/`（維運）、`docs/qa/`（測試計畫）；缺的先觸發對應產出關卡，不直接跳進 make-code。無關的面向不查（如純後端任務不查 docs/specs/）。
 
 每關只在「需要」時跑，否則略過：
 

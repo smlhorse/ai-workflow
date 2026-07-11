@@ -38,26 +38,34 @@ init 會互動式收集專案資訊，產生：
 
 **日常你只打 2 個**：`do`（做事）、`verify`（驗收，開新對話）。其餘由 do / review / verify 按規則自動派，你不用選。
 
+**任務來源**：功能級任務由 `sprint` 從 `docs/backlog/` 挑「這期值得做」的項目排進當期（PM 主責）；改字級小改不經 sprint，直接由 `do` 處理。
+
 ```
-你描述任務
+你描述任務（或來自當期 sprint 的 Issue）
    ▼
-do ──讀 anchor、判規模、逐關判斷需不需要
-   ├─ 需求講不清？─是→ make-req(PO 訪談逼出需求)
+do ──讀 anchor、判規模、逐關判斷需不需要（有 WBS 時建節點：未執行→執行中）
+   ├─ 需求講不清？─是→ make-req(PO 訪談逼出需求)（完成：WBS節點→已產出）
    ▼
    ├─ 改使用者可見？─是→ make-spec ──→ review(審規格)
+   │  （make-spec 完成：WBS節點→待審；review PASS：WBS節點→已執行）
    ▼
    規格定案後 fan-out 兩軌並行：
    ├─────────────────────┬─────────────────────────────┐
    │ 工程軌                │ QA 軌                        │
    │ make-design(SDD)      │ make-testplan(SQA 從規格寫    │
    │   ──→ review(審設計)  │   測試案例，涵蓋失敗/邊界)   │
+   │ （make-design 完成：   │ （make-testplan 完成：       │
+   │   WBS節點→待審；       │   WBS節點→已產出）           │
+   │   review PASS：       │                              │
+   │   WBS節點→已執行）     │                              │
    │ make-plan ──→ review  │                              │
    │   →等 ack             │                              │
    │ make-code ──→ 做後    │                              │
-   │   review(code+sec)    │                              │
+   │   review(code+sec)    │ （make-code 完成：WBS節點→待驗） │
    └─────────────────────┴─────────────────────────────┘
    ▼ 兩軌匯流(barrier，完成，開新對話)
 verify ── 讀 make-testplan 的測試計畫執行：程式審查 + e2e + deploy + 紅軍 + PM驗收
+       （verify 完成：WBS節點→已執行；PM 可打 status 查進度）
 ```
 
 每產出一個產物（spec / design / plan / 程式）就 `review` 審那個對象，FAIL 停下修。
@@ -83,13 +91,15 @@ make-req(需求) → make-spec(規格) → make-design(SDD) → make-plan(計畫
 ```
 Stage 0｜需求（序列）
   PO、PM、業務流程架構師 訪談 → docs/requirements/
+  （有 WBS：完成→節點「已產出」）
 
 Stage 1｜規格（序列）
   資深 SA + UI/UX 主寫；PM、業務流程架構師 協同 → docs/specs/
   → review：business / system / program / sa / uiux
+  （有 WBS：make-spec 完成→節點「待審」；review PASS→節點「已執行」）
   ─── barrier：規格定案 ───
 
-Stage 2｜設計規劃（並行）
+Stage 2｜設計規劃（並行；僅 M/L+ 或跨模組/新介面/DB schema 變更才觸發，XS/S 單模組無架構決策 → 略過本階段，直接進 Stage 2.5）
   系統架構師 — 系統架構 SDD
   程式架構師 — 軟體架構 SDD／API 合約／DB schema
   SRE — 部署/維運 SDD（含環境建置/監控告警/壓測規劃）；DB schema 變更時同步評估容量/查詢負載
@@ -97,36 +107,55 @@ Stage 2｜設計規劃（並行）
   資安官 — 威脅模型 STRIDE（有外部輸入/權限邊界/敏感資料才產）
   業務流程架構師 — 資料治理（涉 PII/合規才產；DB schema 變更時一併確認是否觸發）
   → review：system / program / infra
+  （有 WBS：make-design 完成（各 facet 各自標對應節點）→「待審」；review PASS→「已執行」）
   ─── barrier：TABLE schema 定案，API 合約才能鎖欄位 ───
 
 Stage 2.5｜計畫（匯流 → 序列）
   程式架構師 + SD：彙整成 plan，並行分組標明可由哪些角色執行
   → review：program / sa
+  （有 WBS：L+ 規模執行/修改同步更新對應節點狀態）
   ─── barrier：plan review PASS，等 ack ───
 
-Stage 3｜實作（並行，依 plan 並行分組拆）
+Stage 3｜實作（並行分組視 plan 而定；XS 無 plan、簡單 S 單步驟 plan → 單一 agent 執行，無拆工）
   PG(前端) ／ PG(後端) ／ 前後台串接整合（依賴前端+後端都完成才開始）
-  → review：code（含執行驗證）／security（含執行驗證）／infra（涉部署配置/session/容量才派）
+  → review：code（含執行驗證）／security（含執行驗證）／infra（涉部署配置/session/容量才派，含執行驗證）
+  （有 WBS：make-code 完成→節點「待驗」）
   ─── barrier：build 全數完成 + review PASS ───
 
 Stage 4｜驗證（並行，做後新對話）
   SQA 執行測試（讀 make-testplan 產出的測試計畫）／PM+PO 業務驗收／
   SRE（e2e + deploy，deploy 含環境建置/監控告警/壓測對照 anchor 確認）／資安官 security-officer
+  （有 WBS：PASS→節點「已執行」）
   ─── barrier：全數 PASS，資安官 FAIL 對 UAT 啟動有否決權 ───
   推 UAT/發布時由 PM 彙整 Release Notes/CHANGELOG
 ```
 
-**派工前盤點**：`do` 進工程軌前先查 `docs/SDD/`／`docs/api/`／`docs/security/threat-model/`／`docs/qa/` 是否已有對應文件；缺的先觸發對應產出關卡，不直接跳進 `make-code`。
+**派工前盤點**：`do` 進工程軌前依任務涉及的面向查對應文件是否已存在（需求/規格/架構/對外API/威脅模型/資料治理/維運/測試計畫，見上方「文件面向對照表」路徑）；缺的先觸發對應產出關卡，不直接跳進 `make-code`；無關面向不查。
 
 ### 各產物的家
+
+**文件面向對照表**（每個面向回答什麼問題、誰產、放哪、檔名）：
+
+| 面向 | 回答什麼 | 產出 Skill | 目錄 | 檔名 |
+|---|---|---|---|---|
+| 需求文件 | 為什麼做、要解決什麼問題 | `make-req` | `docs/requirements/` | `<feature>.md` |
+| 業務／UI 規格 | 畫面長什麼樣、怎麼操作 | `make-spec` | `docs/specs/<feature>/` | `business.md`（lite 格式/位置由 user 決定） |
+| 系統架構規格 | 系統怎麼串、模組怎麼分、怎麼撐流量與容錯 | `make-design`（系統架構師） | `docs/SDD/` | `{編號}_{名稱}[_{子模組}].md` |
+| 程式架構規格 | 程式怎麼分層、模組邊界、內部介面 | `make-design`（程式架構師） | `docs/SDD/` | 同上（SDD 內章節） |
+| DB Schema | 資料表怎麼設計 | `make-design`（API合約/DB schema） | `docs/SDD/` | 同上（SDD 內章節） |
+| API 規格 | 系統之間、前後端之間怎麼傳資料的正式合約 | `make-design`（內部合約）／對外開放才另產 | 內部 `docs/SDD/`；對外 `docs/api/<service>/` | 內部同上（SDD 章節）；對外 `api.md` |
+| 部署／基礎設施規格 | 環境怎麼架、怎麼部署、怎麼容錯 | `make-design`（SRE 維運facet，涉上線部署才產） | `docs/ops/<feature>/` | `runbook.md` |
+| 資安／威脅模型 | 哪裡有風險、怎麼防 | `make-design`（資安官，涉外部輸入/權限邊界/敏感資料才產） | `docs/security/threat-model/` | `<feature>.md` |
+| SQA 測試計畫 | 怎麼驗收才算過 | `make-testplan` | `docs/qa/` | `{sprint}_測試計畫_v{N}.md` |
+| 資料治理（個資） | 個資怎麼存、怎麼刪、誰能看 | `make-design`（業務流程架構師＋系統架構師，涉個資/合規才產） | `docs/data-governance/` | `<feature>.md` |
 
 **skill 產出物**（skill 名與下方「Skill 說明」一致）：
 
 | Skill | 產出位置 |
 |---|---|
-| `bnworkflow:make-req` | `docs/requirements/` |
-| `bnworkflow:make-spec` | `docs/specs/` |
-| `bnworkflow:make-design` | `docs/SDD/{編號}_{名稱}.md`（編號前綴排序、統一命名；SDD facet 按需：威脅模型 `docs/security/threat-model/`、資料治理 `docs/data-governance/`、對外 API `docs/api/<service>/api.md`、維運 `docs/ops/<feature>/`） |
+| `bnworkflow:make-req` | `docs/requirements/<feature>.md` |
+| `bnworkflow:make-spec` | `docs/specs/<feature>/business.md`（lite 另計） |
+| `bnworkflow:make-design` | `docs/SDD/{編號}_{名稱}.md`（編號前綴排序、統一命名；facet 檔名見上方「文件面向對照表」） |
 | `bnworkflow:make-testplan` | `docs/qa/{sprint}_測試計畫_v{N}.md` |
 | `bnworkflow:make-plan` | 小任務＝Issue 內步驟；L+＝WBS（`docs/wbs/`） |
 | `bnworkflow:make-code` | repo（程式碼） |
@@ -143,7 +172,7 @@ Stage 4｜驗證（並行，做後新對話）
 
 ### 專案管理（WBS + status）
 
-L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 milestone → epic → story → task，葉子＝一張 Issue）。執行各關（do / make-code / verify）**必更新對應節點狀態**，不更新不算完成。`status` 只讀 WBS 樹＋Issue＋Sprint，給**雙軌進度%**（已拆解 vs 含未規劃）＋**時程**（剩餘天數、逾期、即將到期、stale 旗），計時用**日曆天、非實際工時**。
+L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 milestone → epic → story → 葉節點；葉節點為 task（一張 Issue）或產出物 checkpoint（需求/規格/SDD/測試計畫等文件節點））。執行各關（do / make-req / make-spec / make-design / make-testplan / make-plan / make-code / review / verify）**必更新對應節點狀態**，不更新不算完成。`status` 只讀 WBS 樹＋Issue＋Sprint，給**雙軌進度%**（已拆解 vs 含未規劃）＋**時程**（剩餘天數、逾期、即將到期、stale 旗），計時用**日曆天、非實際工時**。
 
 ### 想手動單獨呼叫時
 
@@ -254,7 +283,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | review 只讀 diff 沒執行，錯誤穿透未被抓到 | `review-code`/`review-security` 加執行驗證（build/測試/實際送測），不得只憑讀碼判 PASS |
 | 並行分組定義了沒人消費，實作永遠單一 agent 全包 | `make-code` 依 plan 並行分組拆前端/後端等多角色平行執行 |
 | 設計期角色不全（UI/UX、SRE 容量規劃缺席） | `make-design` 補 UI/UX 介面互動架構、DB schema 變更連動 SRE 容量規劃 |
-| 派工前沒查是否已有文件就直接實作 | `do` 加派工前盤點：查 SDD/API文件/威脅模型/測試計畫是否已存在 |
+| 派工前沒查是否已有文件就直接實作 | `do` 加派工前盤點：查全部 8 個面向文件（需求/規格/架構/API/威脅模型/資料治理/維運/測試計畫）是否已存在，非只查 4 項 |
 | 上線設施項目（環境建置/監控/壓測）事後才想起 | `verify-deploy` 上線前對照 anchor 逐項確認是否需要，不擅自省略或全做 |
 
 ## 使用後的專案目錄結構
@@ -267,12 +296,12 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 ├── .claude/{CLAUDE.md, roles.md, settings.json}  ← init 產/複製（必有）
 ├── CHANGELOG.md                 ← verify 發布時彙整（選用）
 ├── docs/                        ← skills 按需產生
-│   ├── requirements/            ← make-req
-│   ├── specs/                   ← make-spec
+│   ├── requirements/<feature>.md ← make-req
+│   ├── specs/<feature>/business.md ← make-spec
 │   ├── SDD/{編號}_{名稱}.md     ← make-design（含強制架構圖/DFD）
 │   ├── api/<service>/api.md     ← make-design 對外 API facet（選用）
-│   ├── data-governance/         ← make-design 資料治理 facet（選用）
-│   ├── ops/<feature>/           ← make-design 維運 facet（選用）
+│   ├── data-governance/<feature>.md ← make-design 資料治理 facet（選用）
+│   ├── ops/<feature>/runbook.md ← make-design 維運 facet（選用）
 │   ├── qa/{sprint}_測試計畫_v{N}.md + reports/  ← make-testplan / verify
 │   ├── wbs/{sprint}.md          ← make-plan（L+）
 │   ├── issues/#N.md             ← 本機 Issue（本機模式預設；專案可設 tmp/issues）

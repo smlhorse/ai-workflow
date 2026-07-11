@@ -30,6 +30,8 @@ description: 審查總控。按對象（spec / design / plan / 程式）派對�
 - 不放水：任一子 skill FAIL 即整體 FAIL
 - 多份內容矛盾 → 以較新 mtime 為基準陳述衝突，要求 user 確認；未回應不推進
 - 對象沒有的面向 → N/A，不硬套
+- 有 WBS（`docs/wbs/`）時，對象為 spec／design 節點且判定 PASS → 更新對應節點為「已執行」；不更新＝不算完成
+- 無 WBS/Issue 時不腦補，先查 anchor，缺資訊回報
 
 ## 自主決策邊界
 
