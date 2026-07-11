@@ -74,7 +74,7 @@ make-req(需求) → make-spec(規格) → make-design(SDD) → make-plan(計畫
 
 一句話分清差別：**要解決什麼**（需求）→ **長什麼樣**（規格）→ **怎麼建**（設計）→ **怎麼一步步做**（計畫）→ **寫出來**（程式碼）。
 
-主線之外，`make-design` 的 SDD 按需涵蓋可選 facet：威脅模型（規格後、設計前的 STRIDE 安全建模）、資料治理、對外 API 文件、維運（runbook/DR/rollback）；不需要的略過。發布時由 `verify` 彙整 Release Notes/CHANGELOG。
+主線之外，`make-design` 的 SDD 按需涵蓋可選 facet：威脅模型（規格後、設計前的 STRIDE 安全建模）、資料治理、對外 API 文件、維運（runbook/DR/rollback/容量規劃/環境建置/監控告警/壓測規劃）；不需要的略過。發布時由 `verify` 彙整 Release Notes/CHANGELOG。
 
 ### 各產物的家
 
@@ -158,10 +158,10 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 |---|---|---|---|
 | 4 | `bnworkflow:make-req` | PO、PM、業務流程架構師 | 需求訪談，逼出 user 講不清的真需求 |
 | 5 | `bnworkflow:make-spec` | 資深 SA、UI/UX（PM、業務架構師協同） | 兩層規格（lite 業務版 + business 結構版） |
-| 6 | `bnworkflow:make-design` | 系統架構師、程式架構師、SRE（威脅模型→資安官、資料治理→業務流程架構師 協） | 架構設計 SDD（系統＋軟體＋基礎設施＋強制圖；按需含威脅模型/資料治理/對外 API/維運 facet） |
+| 6 | `bnworkflow:make-design` | 系統架構師、程式架構師、SRE、UI/UX（威脅模型→資安官、資料治理→業務流程架構師 協） | 架構設計 SDD（系統＋軟體＋基礎設施＋介面互動＋強制圖；按需含威脅模型/資料治理/對外 API/維運 facet） |
 | 7 | `bnworkflow:make-testplan` | SQA、UI/UX | 規格定案後與工程軌並行寫測試計畫（含失敗/邊界/非功能） |
-| 8 | `bnworkflow:make-plan` | 程式架構師、SD | Anchor → Plan → 等 ack，不執行 |
-| 9 | `bnworkflow:make-code` | PG（SD 督） | 純執行，跳過 plan |
+| 8 | `bnworkflow:make-plan` | 程式架構師、SD | Anchor → Plan → 等 ack，不執行；步驟標並行分組並註明執行角色 |
+| 9 | `bnworkflow:make-code` | PG（依 plan 並行分組可拆前端/後端等多角色，SD 督） | 純執行，跳過 plan |
 
 ### 把關執行（callee，由 review / verify 自動派，通常不手動）
 
@@ -172,11 +172,11 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | 12 | `bnworkflow:review-program` | 程式架構師 | review | 審軟體架構面 |
 | 13 | `bnworkflow:review-sa` | 資深 SA | review | 審規格完整性/品質 |
 | 14 | `bnworkflow:review-uiux` | UI/UX | review | 審介面與操作流程 |
-| 15 | `bnworkflow:review-code` | SD | review | 審程式碼對規格 |
-| 16 | `bnworkflow:review-security` | 資安官 | review | 靜態資安審查（OWASP/hardcode） |
+| 15 | `bnworkflow:review-code` | SD | review | 審程式碼對規格＋執行驗證（build/測試） |
+| 16 | `bnworkflow:review-security` | 資安官 | review | 資安審查（OWASP/hardcode）＋輸入驗證實際送測 |
 | 17 | `bnworkflow:review-infra` | SRE | review | 審基礎設施/部署架構 |
 | 18 | `bnworkflow:verify-e2e` | UI/UX、SRE | verify | 實地操作 E2E |
-| 19 | `bnworkflow:verify-deploy` | SRE | verify | 部署就緒檢查 |
+| 19 | `bnworkflow:verify-deploy` | SRE | verify | 部署就緒檢查＋對照 anchor 確認環境建置/監控告警/壓測是否需要 |
 | 20 | `bnworkflow:verify-security-officer` | 資安官 | verify | 動態關卡：弱掃 + SAST + 紅軍 |
 | 21 | `bnworkflow:verify-pm` | PM、PO | verify | 業務最終驗收 |
 
@@ -209,6 +209,11 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | 重複讀同一份文件 | 同對話內讀過的內容不重讀；先查已有上下文，再查 codebase |
 | 輸出混過程說明 | 輸出格式規範：只寫事實與決策 |
 | 重複提醒已知限制 | 已知限制不重複提醒，只報告新資訊 |
+| review 只讀 diff 沒執行，錯誤穿透未被抓到 | `review-code`/`review-security` 加執行驗證（build/測試/實際送測），不得只憑讀碼判 PASS |
+| 並行分組定義了沒人消費，實作永遠單一 agent 全包 | `make-code` 依 plan 並行分組拆前端/後端等多角色平行執行 |
+| 設計期角色不全（UI/UX、SRE 容量規劃缺席） | `make-design` 補 UI/UX 介面互動架構、DB schema 變更連動 SRE 容量規劃 |
+| 派工前沒查是否已有文件就直接實作 | `do` 加派工前盤點：查 SDD/API文件/威脅模型/測試計畫是否已存在 |
+| 上線設施項目（環境建置/監控/壓測）事後才想起 | `verify-deploy` 上線前對照 anchor 逐項確認是否需要，不擅自省略或全做 |
 
 ## 使用後的專案目錄結構
 
