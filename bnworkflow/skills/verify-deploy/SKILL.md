@@ -19,6 +19,8 @@ description: 部署準備檢查（SRE 視角）。環境變數、Migration、CI/
 
 **維運手冊**（涉上線部署才適用）：runbook/事故處理/DR 備份還原/容量規劃已隨設計（make-design SDD 維運 facet）產出並齊備，非原作者也能照做。缺 → FAIL。
 
+**環境建置／監控告警設定／壓測**：對照 anchor 逐項確認本次是否需要；anchor 未提及 → 停下問 user，不擅自省略或全做；anchor 已明確排除 → 免問直接跳過。
+
 ## 不做的事
 
 - 只回報缺漏，不代為補設定

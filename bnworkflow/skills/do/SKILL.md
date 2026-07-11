@@ -26,6 +26,8 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 
 ## 管線分支（讀 anchor 後依需要逐關判斷）
 
+**派工前盤點**：進工程軌前查 `docs/SDD/`／`docs/api/`／`docs/security/threat-model/`／`docs/qa/` 是否已有對應文件；缺的先觸發對應產出關卡，不直接跳進 make-code。
+
 每關只在「需要」時跑，否則略過：
 
 - **make-req**（需求訪談）：anchor 模糊、user 講不清要什麼 → 先 `bnworkflow:make-req` 逼出可執行需求；需求已清楚 → 略過

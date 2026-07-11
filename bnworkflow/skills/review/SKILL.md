@@ -13,6 +13,8 @@ description: 審查總控。按對象（spec / design / plan / 程式）派對�
 
 **前段優先** — 業務/架構層 FAIL 時不跑後段細節 review。
 
+**高風險二次質疑** — 子 skill 判 PASS 且屬高風險項（資安、資料、不可逆操作）時，追加一次「這個 PASS 有沒有可能誤判」的自我質疑，不照單全收。
+
 ## 審查對象 → 角色
 
 | 對象 | 派哪些審查角色 |
@@ -20,7 +22,7 @@ description: 審查總控。按對象（spec / design / plan / 程式）派對�
 | spec（lite / business） | review-business / -system / -program / -sa / -uiux |
 | design（SDD，含架構圖/DFD；SDD 內含威脅模型/資料治理/對外 API/維運 facet 一併審） | review-system / -program / -infra |
 | plan | review-program / -sa（技術可行性、步驟完整性） |
-| 程式（diff，做後） | review-code / -security |
+| 程式（diff，做後） | review-code / -security / -infra（涉部署配置/session/容量的改動才派 -infra） |
 
 ## 不做的事
 
