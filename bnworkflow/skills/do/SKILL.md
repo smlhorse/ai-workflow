@@ -20,6 +20,8 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 
 **Issue 位置依設定** — GitHub 模式（偵測到 git remote）走 GitHub Issues；本機模式讀專案 CLAUDE.md「本機 Issue 位置」欄位，預設 `docs/issues/#N.md`（版控）。
 
+**user 輸入混雜不因提問卡整批** — 無論是建立 anchor 當下（run1）或執行中收到的對話回饋（run2 起，每輪都套用），只要同時含說明/指示/待確認問題，先拆分：真正需要 user 決策才能往下走的卡點，vs. 已有明確依據可直接執行的部分。卡點依「完整發問」一次列出等回覆；可執行部分不等卡點解決，立即派 Agent 平行處理，避免整批因單一提問停滯。
+
 **回報給對的地方** — SQA 結果由 bnworkflow:verify 寫回 Issue（GitHub 模式 → gh issue comment；本機模式 → 依設定的 Issue 位置 `#N.md`）。
 
 **執行中冒出來的照心法三堆分流** — user 中途丟的、做著發現的雜項，依 `.claude/CLAUDE.md`「變更分流與 Sprint 防波堤」分：🟢直接 commit、只留 git log 不進桶／🔵扣住等 user 拍板（記 `docs/decisions.md`＋改 spec/wbs），不靜默改計畫／🟡入 `docs/backlog/`。sprint 進行中 🔵🟡不插斷當期，只有 blocker 例外。
