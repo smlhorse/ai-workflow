@@ -1,5 +1,5 @@
 ---
-name: bnworkflow:review-business
+name: review-business
 description: 業務流程架構師視角審查規格。聚焦業務流程合理性、目標對齊、長遠維運、業務層安全與效能。（由 review 自動呼叫，通常不需手動）
 ---
 

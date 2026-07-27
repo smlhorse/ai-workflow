@@ -1,5 +1,5 @@
 ---
-name: bnworkflow:sprint
+name: sprint
 description: Sprint 與 Issue 清單管理。支援 GitHub Milestone 與本機模式。
 ---
 

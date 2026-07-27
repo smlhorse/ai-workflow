@@ -1,5 +1,5 @@
 ---
-name: bnworkflow:status
+name: status
 description: 讀現有 WBS/Issue/Sprint 彙整專案進度與時程（雙軌進度% + 逾期/即將到期 + stale 旗）。只讀不寫，不預測工期。PM 主責。
 ---
 

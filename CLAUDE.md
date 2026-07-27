@@ -48,7 +48,7 @@ make-design 的 SDD 按需涵蓋威脅模型（STRIDE，做前）、資料治理
 ## Skill 結構規範
 
 每個 skill 必須有：
-- `name` + `description` frontmatter；`name` 寫完整 `bnworkflow:<folder>`，slash command autocomplete 才會顯示 `/bnworkflow:<folder>` 而不是裸名 `/<folder>`
+- `name` + `description` frontmatter；`name` 寫裸名 `<folder>`，不手寫 `bnworkflow:` 前綴——plugin 載入時會自動加上，手寫會變雙重前綴（`bnworkflow:bnworkflow:<folder>`）
 - **核心心法**：說明這個 skill 存在的原因（解決什麼問題）
 - **不做的事**：針對已知失敗模式的明確禁止清單
 - **自主決策邊界**（如適用）：哪些自己決定、哪些停下來問
@@ -60,7 +60,7 @@ make-design 的 SDD 按需涵蓋威脅模型（STRIDE，做前）、資料治理
 1. 確認對應的失敗模式（來源：實際執行紀錄、用戶回饋）
 2. 每條規則對應一個失敗模式，無來源不寫
 3. 歸入分類（調度 / 產出執行 / 把關執行 / 工具）；把關執行用 `review-` / `verify-` 前綴 + description 標 callee
-4. 在 `bnworkflow/skills/<name>/SKILL.md` 建立檔案，frontmatter `name: bnworkflow:<name>`
+4. 在 `bnworkflow/skills/<name>/SKILL.md` 建立檔案，frontmatter `name: <name>`（裸名，不加 `bnworkflow:` 前綴）
 5. 在 README.md Skill 說明表對應分類區塊新增一行
 6. **完成前自檢**：動到的文件逐項對照本檔原則自審（skill 數／三表順序／命名／無專案化洩漏／版本）；**大改後派 general agent 審文件一致性與廢話**（段落重複、命名/順序一致、無廢話）——語意一致與廢話非 grep 能判，靠 AI 或人審。
 7. push 到 `smlhorse/ai-workflow`；user 端透過 `/plugin marketplace update` 取得新版

@@ -1,5 +1,5 @@
 ---
-name: bnworkflow:review-program
+name: review-program
 description: 程式架構師視角審查規格。聚焦程式結構、模組邊界、技術選型。（由 review 自動呼叫，通常不需手動）
 ---
 

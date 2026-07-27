@@ -1,5 +1,5 @@
 ---
-name: bnworkflow:review
+name: review
 description: 審查總控。按對象（spec / design / plan / 程式）派對應審查角色，前一關 FAIL 停止後續。
 ---
 
@@ -11,7 +11,7 @@ description: 審查總控。按對象（spec / design / plan / 程式）派對�
 
 **按對象派工** — review 不只審規格；spec / design SDD / plan / 程式碼 各召集不同審查角色。
 
-**前段優先** — 業務/架構層 FAIL 時不跑後段細節 review。
+**前段優先** — 業務/架構層 FAIL 時不跑後段細節 review（spec 對象：business/system/program 為架構層，sa/uiux 為細節層，架構層需全 PASS 才派細節層）。
 
 **高風險二次質疑** — 子 skill 判 PASS 且屬高風險項（資安、資料、不可逆操作）時，追加一次「這個 PASS 有沒有可能誤判」的自我質疑，不照單全收。
 
@@ -41,7 +41,7 @@ description: 審查總控。按對象（spec / design / plan / 程式）派對�
 
 ## 執行
 
-用 `Agent` tool 依「審查對象 → 角色」表啟動對應子 skill，帶入審查對象，前一關 FAIL 停止。各子 skill 可單獨執行。
+用 `Agent` tool 依「審查對象 → 角色」表啟動對應子 skill，帶入審查對象，同批角色一律平行執行，不得單一 agent 序列跑完全部；spec 對象架構層（business/system/program）平行跑完全 PASS，才平行派細節層（sa/uiux），前一批 FAIL 停止不派後段。各子 skill 可單獨執行。
 
 審查角色（8）：
 - `review-business` 業務流程架構師

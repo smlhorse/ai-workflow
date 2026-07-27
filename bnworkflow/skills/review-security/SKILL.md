@@ -1,5 +1,5 @@
 ---
-name: bnworkflow:review-security
+name: review-security
 description: Security 審查（系統架構師 + SD 視角）。OWASP Top 10、hardcode 掃描、敏感資料流、輸入驗證。只輸出 PASS/FAIL，FAIL 附風險等級與具體位置。（由 review 自動呼叫，通常不需手動）
 ---
 

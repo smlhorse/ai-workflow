@@ -1,5 +1,5 @@
 ---
-name: bnworkflow:init
+name: init
 description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 ---
 

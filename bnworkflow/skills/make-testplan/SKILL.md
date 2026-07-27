@@ -1,5 +1,5 @@
 ---
-name: bnworkflow:make-testplan
+name: make-testplan
 description: 測試計畫撰寫（SQA 視角）。規格定案後與工程軌並行，從規格寫測試案例（涵蓋失敗/邊界），產出 docs/qa/{sprint}_測試計畫_v{N}.md。
 ---
 

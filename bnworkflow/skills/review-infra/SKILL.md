@@ -1,5 +1,5 @@
 ---
-name: bnworkflow:review-infra
+name: review-infra
 description: 基礎設施/部署架構審查（SRE 視角）。容量、可觀測性、部署拓樸、基礎設施層安全。（由 review 自動呼叫，通常不需手動）
 ---
 

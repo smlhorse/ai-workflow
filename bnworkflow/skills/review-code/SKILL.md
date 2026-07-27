@@ -1,5 +1,5 @@
 ---
-name: bnworkflow:review-code
+name: review-code
 description: Code review（SD 視角）。逐條核對實作決策是否有規格依據。只輸出 PASS/FAIL，不給修復建議。（由 review 自動呼叫，通常不需手動）
 ---
 

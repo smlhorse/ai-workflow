@@ -1,5 +1,5 @@
 ---
-name: bnworkflow:make-req
+name: make-req
 description: 需求釐清（訪談）。產出需求＝要解決什麼、user 真正要什麼。落 docs/requirements/。
 ---
 

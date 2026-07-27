@@ -1,5 +1,5 @@
 ---
-name: bnworkflow:verify-e2e
+name: verify-e2e
 description: E2E 驗測（UI/UX + SRE 視角）。實地操作，不得只靠源碼推斷。只輸出 PASS/FAIL，FAIL 附 DEF ID 與觀察描述。（由 verify 自動呼叫，通常不需手動）
 ---
 

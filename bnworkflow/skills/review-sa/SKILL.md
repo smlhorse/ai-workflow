@@ -1,5 +1,5 @@
 ---
-name: bnworkflow:review-sa
+name: review-sa
 description: 資深 SA 視角審查規格。聚焦需求完整性、規格品質、邊界條件。（由 review 自動呼叫，通常不需手動）
 ---
 

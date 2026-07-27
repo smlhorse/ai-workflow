@@ -1,5 +1,5 @@
 ---
-name: bnworkflow:review-system
+name: review-system
 description: 系統架構師視角審查規格。聚焦系統設計、整合、擴展性、系統層安全與效能。（由 review 自動呼叫，通常不需手動）
 ---
 
@@ -39,6 +39,7 @@ description: 系統架構師視角審查規格。聚焦系統設計、整合、�
 ## design（SDD）視角
 
 主審系統架構 facet（服務切分、整合、資料一致性、容錯、容量/SLA）。
+- 服務切分未採前後端分離，且專案 CLAUDE.md「架構摘要」無明確排除依據 → FAIL
 - 服務切分、整合方式與現有系統邊界衝突或未說明 → FAIL
 - 資料一致性策略、容錯/降級機制缺席 → FAIL
 - 容量規劃 / SLA 未定義或與非功能需求不符 → FAIL

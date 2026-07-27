@@ -95,12 +95,12 @@ Stage 0｜需求（序列）
 
 Stage 1｜規格（序列）
   資深 SA + UI/UX 主寫；PM、業務流程架構師 協同 → docs/specs/
-  → review：business / system / program / sa / uiux
+  → review：business/system/program（架構層，平行執行）全 PASS → sa/uiux（細節層，平行執行）
   （有 WBS：make-spec 完成→節點「待審」；review PASS→節點「已執行」）
   ─── barrier：規格定案 ───
 
 Stage 2｜設計規劃（並行；僅 M/L+ 或跨模組/新介面/DB schema 變更才觸發，XS/S 單模組無架構決策 → 略過本階段，直接進 Stage 2.5）
-  系統架構師 — 系統架構 SDD
+  系統架構師 — 系統架構 SDD（服務切分預設前後端分離，純後端 service/CLI/library 需在專案 CLAUDE.md 明確排除）
   程式架構師 — 軟體架構 SDD／API 合約／DB schema
   SRE — 部署/維運 SDD（含環境建置/監控告警/壓測規劃）；DB schema 變更時同步評估容量/查詢負載
   UI/UX — 介面互動架構
@@ -286,6 +286,10 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | 派工前沒查是否已有文件就直接實作 | `do` 加派工前盤點：查全部 8 個面向文件（需求/規格/架構/API/威脅模型/資料治理/維運/測試計畫）是否已存在，非只查 4 項 |
 | 上線設施項目（環境建置/監控/壓測）事後才想起 | `verify-deploy` 上線前對照 anchor 逐項確認是否需要，不擅自省略或全做 |
 | user 輸入（建 anchor 或執行中回饋）混雜提問/說明/指示，整批卡在單一提問上不推進 | `do` 拆分卡點（等 user 回覆）與可執行部分（立即派 Agent 平行處理），每輪輸入都套用，不因卡點未解就整批停滯 |
+| `review` 同對象召集多角色未明訂平行，可能被單一 agent 序列跑完甚至漏派 | `review` 同批角色一律平行執行；spec 對象架構層平行跑完全 PASS 才平行派細節層 |
+| `make-design` 多 facet「共同產出」未明訂平行，易一人全包 | `make-design` 無依賴的 facet 各派 agent 平行產出，有依賴的待前置完成才動手 |
+| 大型專案並行分組被「前端/後端」範例誤解為只能拆兩組 | `make-plan`/`make-code` 並行分組明訂可依模組/服務切分拆 N 組，不限二分 |
+| 系統架構未強制前後端分離，實作階段才發現耦合 | `make-design` 系統架構 facet 預設前後端分離；`review-system` 未採用且無專案排除依據 → FAIL |
 
 ## 使用後的專案目錄結構
 

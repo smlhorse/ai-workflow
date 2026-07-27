@@ -1,5 +1,5 @@
 ---
-name: bnworkflow:verify-deploy
+name: verify-deploy
 description: 部署準備檢查（SRE 視角）。環境變數、Migration、CI/CD、Rollback。只輸出 PASS/FAIL，FAIL 附具體缺漏。（由 verify 自動呼叫，通常不需手動）
 ---
 
