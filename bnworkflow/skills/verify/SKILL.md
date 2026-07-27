@@ -15,7 +15,7 @@ description: 全套品質驗收。必須在新對話執行，不得與 Developer
 
 ## 讀取
 
-1. `tmp/anchor.md` + 本次 diff
+1. anchor（路徑依 Anchor First 規則判斷）+ 本次 diff
 2. CLAUDE.md 指定的 Ground Truth 規格文件
 3. `SPEC_CONTRACT.md`（若存在）
 4. make-testplan 產出的測試計畫（主路徑；位置見「QA 文件結構」。找不到才 fallback 臨時推導）

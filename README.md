@@ -291,6 +291,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | 大型專案並行分組被「前端/後端」範例誤解為只能拆兩組 | `make-plan`/`make-code` 並行分組明訂可依模組/服務切分拆 N 組，不限二分 |
 | 系統架構未強制前後端分離，實作階段才發現耦合 | `make-design` 系統架構 facet 預設前後端分離；`review-system` 未採用且無專案排除依據 → FAIL |
 | 業務規則寫成裁決/仲裁論述，工程師讀完不知道要寫什麼；狀態衝突發明優先權管理而非設計消滅 | `make-spec` 規則只寫動作與結果、優先消滅狀態衝突、不綁入口、不發明新詞彙；`review-sa` 對應 4 條 FAIL 準則 |
+| 同專案不同 session 共用同一份 `tmp/anchor.md`，互相撞主題；同 session 想拆開處理不同子任務也沒辦法 | Anchor First 路徑依觸發句分流：`#編號`→ `tmp/anchor/#編號.md`；`[anchor:名稱]`→ `tmp/anchor/{名稱}.md`；都沒有→預設共用 `tmp/anchor.md` |
 
 ## 使用後的專案目錄結構
 
@@ -316,7 +317,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 │   ├── adr/                     ← 重要決策記錄（選用）
 │   ├── sprints/                 ← sprint（本機模式）
 │   └── security/                ← verify-security-officer + make-design 威脅模型 facet（threat-model/）
-└── tmp/                         ← gitignore（scratch：anchor.md、report.md；專案設 tmp/issues 時 Issue 也在此）
+└── tmp/                         ← gitignore（scratch：anchor.md 或 anchor/{#N,名稱}.md（見 Anchor First）、report.md；專案設 tmp/issues 時 Issue 也在此）
 ```
 
 - **必有**＝init 一開始就建：`CLAUDE.md`、`.claude/*`。

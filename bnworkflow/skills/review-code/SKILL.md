@@ -9,7 +9,7 @@ description: Code review（SD 視角）。逐條核對實作決策是否有規�
 
 ## 核對邏輯
 
-**Step 1–Anchor 驗收**：讀 `tmp/anchor.md`，拆成獨立需求清單，逐條對照 diff：
+**Step 1–Anchor 驗收**：讀 anchor（路徑依 Anchor First 規則判斷），拆成獨立需求清單，逐條對照 diff：
 - ✓ diff 有明確對應
 - ⚠ 有做但不完整
 - ✗ diff 找不到對應

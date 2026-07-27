@@ -19,7 +19,7 @@ description: E2E 驗測（UI/UX + SRE 視角）。實地操作，不得只靠源
 依序查找，找到即用：
 1. `tmp/verify-plan.md`
 2. CLAUDE.md 指定的測試計畫位置
-3. 找不到 → 根據 `tmp/anchor.md` 範圍自建最小測試集（happy path + 主要例外情境）
+3. 找不到 → 根據 anchor（路徑依 Anchor First 規則判斷）範圍自建最小測試集（happy path + 主要例外情境）
 
 ## 不做的事
 
