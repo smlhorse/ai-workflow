@@ -1,6 +1,6 @@
 ---
 name: do
-description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
+description: 全流程：plan + 執行 + 回報。支援綁定 Issue（/do #編號 描述）或指定獨立 anchor（/do [anchor:名稱]）。
 ---
 
 # bnworkflow:do
@@ -10,6 +10,7 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue。
 ```
 /bnworkflow:do                  ← 直接描述任務
 /bnworkflow:do #123             ← 綁定 Issue
+/bnworkflow:do [anchor:名稱]     ← 指定獨立 anchor，不沿用預設共用的那份
 ```
 
 ## 核心心法
