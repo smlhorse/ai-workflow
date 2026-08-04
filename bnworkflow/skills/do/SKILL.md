@@ -15,7 +15,7 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue（/do #編�
 
 ## 核心心法
 
-**全流程不中斷** — 管線 make-req → make-spec →〔工程軌 make-design → make-plan → make-code ＋ QA 軌 make-testplan 並行〕→ make-code 連貫執行（依分支判斷略過不需要的關）。Plan 無待確認事項時直接進執行，不停下等 ack；有待確認才停。
+**全流程不中斷** — 管線 make-req → make-spec →〔工程軌 make-design → make-plan → make-code ＋ QA 軌 make-testplan 並行〕→ make-code 連貫執行（依分支判斷略過不需要的關）。Plan 一律停下等 user ack 才進執行，無論有無待確認事項（呼應 make-plan 的 Plan-First Lock）。
 
 **Issue 是任務追蹤，不是萬用桶** — Issue 只裝任務追蹤（目標/狀態/估時/日期/驗收結果），引用產出物（需求/spec/設計/測試計畫/WBS，一律住 `docs/*` 版控）而不裝它們；討論走留言、重要決策落 `docs/adr/`。有 #N 就從 Issue 讀 anchor；無 #N 就從 user 原話建 anchor，並依規模與 sprint 門檻（見 bnworkflow:sprint「進 sprint 門檻＝功能級」）建立對應記錄：XS/S/M 且屬功能級（多一項使用者能力）→ 依 Issue 位置設定建 Issue；🟢改字級（不論規模，改字/小修正）→ 直接 commit，不建 Issue；L+ → 呼叫 bnworkflow:sprint new，將拆解建議記進 Sprint 文件。
 
@@ -55,7 +55,7 @@ verify 全通過、推 UAT/發布時 → 由 verify 彙整本次 Release Notes/C
 
 ## 不做的事
 
-- Plan 有待確認事項時不自行推進執行
+- Plan 未經 user ack 不自行推進執行，無論有無待確認事項
 - L+ 規模，呼叫 bnworkflow:sprint new 後停下
 - Issue comment 不寫執行中間過程，只寫最終結果
 - 有 WBS（`docs/wbs/`）時本關完成必更新對應節點狀態（建節點＝未執行→執行中）；不更新＝不算完成
@@ -72,4 +72,4 @@ verify 全通過、推 UAT/發布時 → 由 verify 彙整本次 Release Notes/C
 
 **自己決定**：規模判斷、Issue 編號自動遞增、模式偵測（git remote get-url origin）。
 
-**停下來等確認**：Plan 有待確認事項、L+ 規模需人工拆解。
+**停下來等確認**：Plan 一律等 user ack 才執行（無論有無待確認事項）、L+ 規模需人工拆解。
