@@ -293,6 +293,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | 業務規則寫成裁決/仲裁論述，工程師讀完不知道要寫什麼；狀態衝突發明優先權管理而非設計消滅 | `make-spec` 規則只寫動作與結果、優先消滅狀態衝突、不綁入口、不發明新詞彙；`review-sa` 對應 4 條 FAIL 準則 |
 | 同專案不同 session 共用同一份 `tmp/anchor.md`，互相撞主題；同 session 想拆開處理不同子任務也沒辦法 | Anchor First 路徑依觸發句分流：`#編號`→ `tmp/anchor/#編號.md`；`[anchor:名稱]`→ `tmp/anchor/{名稱}.md`；都沒有→預設共用 `tmp/anchor.md` |
 | 建付費雲端資源前沒查證費用就動手，事後才回頭補報「應該很小」，跟沒講一樣 | `make-code`「產生額外費用」準則強制動手前先列具體方案＋查證計費方式＋取得對該方案的明確同意，原則性回答不算授權 |
+| 上一條寫成文字準則仍會被跳過（文字原則是 advisory，非強制）——實測建付費資源時規則直接被繞過 | `hooks/hooks.json`（PreToolUse／Bash）攔 `gcloud/aws/az/terraform/pulumi` 的建立/變更類指令，強制跳出確認（`ask`），不靠模型自覺；僅補這一類已知指令，非完整防線 |
 
 ## 使用後的專案目錄結構
 
@@ -336,6 +337,9 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 ├── bnworkflow/                       ← plugin 本體
 │   ├── .claude-plugin/
 │   │   └── plugin.json
+│   ├── hooks/
+│   │   ├── hooks.json                ← PreToolUse／Bash，攔付費雲端資源建立指令
+│   │   └── check-billable-command.sh
 │   └── skills/
 │       ├── init/SKILL.md
 │       │   └── templates/{CLAUDE.md, rules.md, roles.md}
