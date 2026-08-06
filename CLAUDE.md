@@ -79,8 +79,9 @@ make-design 的 SDD 按需涵蓋威脅模型（STRIDE，做前）、資料治理
 │   ├── .claude-plugin/
 │   │   └── plugin.json
 │   ├── hooks/
-│   │   ├── hooks.json                ← PreToolUse／Bash 攔付費雲端資源指令；PostToolUse／Write|Edit 審推論當事實/前後不一致
-│   │   └── check-billable-command.sh
+│   │   ├── hooks.json                ← PreToolUse／Bash 攔付費資源/破壞性git/push；PostToolUse／Write|Edit 呼叫 review
+│   │   ├── check-billable-command.sh
+│   │   └── check-git-safety.sh
 │   └── skills/
 │       ├── init/
 │       │   ├── SKILL.md
