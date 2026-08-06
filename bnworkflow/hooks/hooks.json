@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "agent",
-            "prompt": "剛寫入/修改了檔案：$ARGUMENTS 。用 Skill 工具呼叫 review-sa，對剛寫入的內容做審查（不要自己另外發明檢查標準，一切依 review-sa 的既有準則判定）。依 review-sa 的判定結果回覆：FAIL 時回覆 {\"decision\":\"block\",\"reason\":\"{review-sa 列出的具體問題與位置}\"}；PASS 或該內容不適用 review-sa 範疇時回覆 {\"decision\":\"allow\"}。只回覆這個 JSON，不要其他文字。",
+            "prompt": "剛寫入/修改了檔案：$ARGUMENTS 。判斷這是哪種產物（spec／design／plan／程式碼／其他），用 Skill 工具呼叫 review（總控），讓它依自己的「審查對象→角色」派工表決定該派誰審查，不要自己指定或發明審查角色與標準。依 review 的最終判定回覆：FAIL 時回覆 {\"decision\":\"block\",\"reason\":\"{review 列出的具體問題與位置}\"}；PASS 或該內容不屬於 review 涵蓋的產物類型時回覆 {\"decision\":\"allow\"}。只回覆這個 JSON，不要其他文字。",
             "timeout": 45,
             "statusMessage": "審查剛寫入的內容…"
           }

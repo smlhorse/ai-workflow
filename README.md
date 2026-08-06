@@ -294,7 +294,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | 同專案不同 session 共用同一份 `tmp/anchor.md`，互相撞主題；同 session 想拆開處理不同子任務也沒辦法 | Anchor First 路徑依觸發句分流：`#編號`→ `tmp/anchor/#編號.md`；`[anchor:名稱]`→ `tmp/anchor/{名稱}.md`；都沒有→預設共用 `tmp/anchor.md` |
 | 建付費雲端資源前沒查證費用就動手，事後才回頭補報「應該很小」，跟沒講一樣 | `make-code`「產生額外費用」準則強制動手前先列具體方案＋查證計費方式＋取得對該方案的明確同意，原則性回答不算授權 |
 | 上一條寫成文字準則仍會被跳過（文字原則是 advisory，非強制）——實測建付費資源時規則直接被繞過 | `hooks/hooks.json`（PreToolUse／Bash）攔 `gcloud/aws/az/terraform/pulumi` 的建立/變更類指令，強制跳出確認（`ask`），不靠模型自覺；僅補這一類已知指令，非完整防線 |
-| 推論當事實講、同文件取捨判準前後不一致，被抓到一次只修那一句，同類問題留給 user 逐條抓 | `hooks/hooks.json`（PostToolUse／Write\|Edit）派獨立 agent 呼叫既有的 `review-sa` 審剛寫入的內容（不在 hook 裡另外發明檢查標準，沿用同一份準則），每次 Write/Edit 都審，非只在被抓到後才補查 |
+| 推論當事實講、同文件取捨判準前後不一致，被抓到一次只修那一句，同類問題留給 user 逐條抓 | `hooks/hooks.json`（PostToolUse／Write\|Edit）派獨立 agent 呼叫既有的 `review`（總控）審剛寫入的內容，由 review 依自己的派工表決定角色（不在 hook 裡另外指定或發明審查標準），每次 Write/Edit 都審，非只在被抓到後才補查 |
 
 ## 使用後的專案目錄結構
 
