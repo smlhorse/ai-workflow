@@ -293,10 +293,11 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | 業務規則寫成裁決/仲裁論述，工程師讀完不知道要寫什麼；狀態衝突發明優先權管理而非設計消滅 | `make-spec` 規則只寫動作與結果、優先消滅狀態衝突、不綁入口、不發明新詞彙；`review-sa` 對應 4 條 FAIL 準則 |
 | 同專案不同 session 共用同一份 `tmp/anchor.md`，互相撞主題；同 session 想拆開處理不同子任務也沒辦法 | Anchor First 路徑依觸發句分流：`#編號`→ `tmp/anchor/#編號.md`；`[anchor:名稱]`→ `tmp/anchor/{名稱}.md`；都沒有→預設共用 `tmp/anchor.md` |
 | 建付費雲端資源前沒查證費用就動手，事後才回頭補報「應該很小」，跟沒講一樣 | `make-code`「產生額外費用」準則強制動手前先列具體方案＋查證計費方式＋取得對該方案的明確同意，原則性回答不算授權 |
-| 上一條寫成文字準則仍會被跳過（文字原則是 advisory，非強制）——實測建付費資源時規則直接被繞過 | `hooks/hooks.json`（PreToolUse／Bash）攔 `gcloud/aws/az/terraform/pulumi` 的建立/變更類指令，強制跳出確認（`ask`），不靠模型自覺；僅補這一類已知指令，非完整防線 |
+| 文字準則寫了仍會被跳過（文字原則是 advisory，非強制）——實測建付費資源時規則直接被繞過 | `hooks/hooks.json`（PreToolUse／Bash）攔 `gcloud/aws/az/terraform/pulumi` 的建立/變更類指令，強制跳出確認（`ask`），不靠模型自覺 |
 | 推論當事實講、同文件取捨判準前後不一致，被抓到一次只修那一句，同類問題留給 user 逐條抓 | `hooks/hooks.json`（PostToolUse／Write\|Edit）派獨立 agent 呼叫既有的 `review`（總控）審剛寫入的內容，由 review 依自己的派工表決定角色（不在 hook 裡另外指定或發明審查標準），每次 Write/Edit 都審，非只在被抓到後才補查 |
-| No-Drift 是永不破例的核心原則，但審查層只有 `review-code`／`review-business` 兩個角色真的查 anchor 對齊，`review-sa`/`review-system`/`review-program`/`review-uiux`/`review-infra` 完全沒查 | 5 個角色各補一條「Anchor 對齊」FAIL 準則，內容找不到對應 anchor 依據 → FAIL，不再只有一半角色守住 No-Drift |
-| 破壞性 git 操作（reset --hard／clean -f）、push 前沒等明確下令 | `hooks/hooks.json`（PreToolUse／Bash）加 `check-git-safety.sh`，攔下強制 `ask`；UAT/PROD 寫入判別方式因專案而異，無法通用化，仍留文字規則不做 hook |
+| No-Drift 是永不破例的核心原則，但審查層只有 `review-code`／`review-business` 兩個角色真的查 anchor 對齊，`review-sa`/`review-system`/`review-program`/`review-uiux`/`review-infra` 完全沒查 | 5 個角色各補一條「Anchor 對齊」FAIL 準則（比照 `review-sa` 含「待確認」排除條款，避免誤判合規產物為 FAIL） |
+| 破壞性 git 操作（reset --hard／clean -f）、push 前沒等明確下令 | `hooks/hooks.json`（PreToolUse／Bash）加 `check-git-safety.sh`，攔下強制 `ask` |
+| UAT/PROD 寫入需逐項授權，但沒有機械化防護 | 判別方式因專案而異，無法通用化為 hook，仍留文字規則（授權紅線） |
 
 ## 使用後的專案目錄結構
 
