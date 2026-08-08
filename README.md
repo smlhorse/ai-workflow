@@ -298,6 +298,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | No-Drift 是永不破例的核心原則，但審查層只有 `review-code`／`review-business` 兩個角色真的查 anchor 對齊，`review-sa`/`review-system`/`review-program`/`review-uiux`/`review-infra` 完全沒查 | 5 個角色各補一條「Anchor 對齊」FAIL 準則（比照 `review-sa` 含「待確認」排除條款，避免誤判合規產物為 FAIL） |
 | 破壞性 git 操作（reset --hard／clean -f）、push 前沒等明確下令 | `hooks/hooks.json`（PreToolUse／Bash）加 `check-git-safety.sh`，攔下強制 `ask` |
 | UAT/PROD 寫入需逐項授權，但沒有機械化防護 | 判別方式因專案而異，無法通用化為 hook，仍留文字規則（授權紅線） |
+| 報告/盤點類文件不在派工表內，被「N/A 不硬套」整份放行，零檢查——推論當事實的錯誤都出在這類文件 | `review` 補「表外產物自行判斷派工」：讀內容判斷涉及領域派對應角色，`review-sa` 必派；並補一條「推論不寫成事實」FAIL 準則 |
 
 ## 使用後的專案目錄結構
 

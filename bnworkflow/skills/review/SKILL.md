@@ -11,6 +11,8 @@ description: 審查總控。按對象（spec / design / plan / 程式）派對�
 
 **按對象派工** — review 不只審規格；spec / design SDD / plan / 程式碼 各召集不同審查角色。
 
+**表外產物自行判斷派工** — 派工表列的是管線既定產物的固定派工。表外產物（報告、盤點、研究整理等）讀內容判斷涉及哪些領域，派對應角色：系統邊界/整合→`review-system`、業務流程→`review-business`、程式結構→`review-program`、介面互動→`review-uiux`、部署維運→`review-infra`；文件品質與可追溯性一律加派 `review-sa`。判斷不出來 → 停下問，不默默放行。
+
 **前段優先** — 業務/架構層 FAIL 時不跑後段細節 review（spec 對象：business/system/program 為架構層，sa/uiux 為細節層，架構層需全 PASS 才派細節層）。
 
 **高風險二次質疑** — 子 skill 判 PASS 且屬高風險項（資安、資料、不可逆操作）時，追加一次「這個 PASS 有沒有可能誤判」的自我質疑，不照單全收。
@@ -29,7 +31,8 @@ description: 審查總控。按對象（spec / design / plan / 程式）派對�
 - 不自行解釋 FAIL 原因（由各子 skill 回報）
 - 不放水：任一子 skill FAIL 即整體 FAIL
 - 多份內容矛盾 → 以較新 mtime 為基準陳述衝突，要求 user 確認；未回應不推進
-- 對象沒有的面向 → N/A，不硬套
+- 已派角色遇到該產物沒有的面向 → 該角色回 N/A，不硬套
+- 整份產物不在派工表內 → 不是 N/A，依「表外產物自行判斷派工」派角色
 - 有 WBS（`docs/wbs/`）時，對象為 spec／design 節點且判定 PASS → 更新對應節點為「已執行」；不更新＝不算完成
 - 無 WBS/Issue 時不腦補，先查 anchor，缺資訊回報
 
