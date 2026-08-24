@@ -6,7 +6,6 @@ description: 審查總控。按對象（spec / design / plan / 程式）派對�
 # bnworkflow:review
 
 ## 核心心法
-
 **多角色把關** — 產物必須通過對應角色 review 才可進入下一階段。任一 FAIL 停下修正後重跑。
 
 **按對象派工** — review 不只審規格；spec / design SDD / plan / 程式碼 各召集不同審查角色。
