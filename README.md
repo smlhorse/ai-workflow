@@ -298,6 +298,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | No-Drift 是永不破例的核心原則，但審查層只有 `review-code`／`review-business` 兩個角色真的查 anchor 對齊，`review-sa`/`review-system`/`review-program`/`review-uiux`/`review-infra` 完全沒查 | 5 個角色各補一條「Anchor 對齊」FAIL 準則（比照 `review-sa` 含「待確認」排除條款，避免誤判合規產物為 FAIL） |
 | 破壞性 git 操作（reset --hard／clean -f）、push 前沒等明確下令 | `hooks/hooks.json`（PreToolUse／Bash）加 `check-git-safety.sh`，攔下強制 `ask` |
 | UAT/PROD 寫入需逐項授權，但沒有機械化防護 | 判別方式因專案而異，無法通用化為 hook，仍留文字規則（授權紅線） |
+| `/bnworkflow:do` 觸發後，後續追問/討論脫離 skill 內容約束，猜測、用內部代號回話，被糾正後 1-2 輪又故態復萌 | `hooks/hooks.json`（UserPromptSubmit）每輪重新注入一行溝通標準提醒，避免規則隨對話變長被稀釋；`rules.md` 補「指涉不明就問不准猜」「業務語言溝通」「送出前自檢」三條 |
 | 報告/盤點類文件不在派工表內，被「N/A 不硬套」整份放行，零檢查——推論當事實的錯誤都出在這類文件 | `review` 補「表外產物自行判斷派工」：讀內容判斷涉及領域派對應角色，`review-sa` 必派；並補一條「推論不寫成事實」FAIL 準則 |
 | 產出夾自創名詞/數值、長期累積素材前後矛盾亂湊、步驟間漏動作或例外路徑沒去向，交付後才被逐條抓 | rules.md 補「產出校對」：交付前必執行三段校對（事實比對/時序矛盾/邏輯斷層）並隨產出呈報；`review-sa` 補「邏輯斷層」FAIL 準則當第二線把關 |
 
@@ -344,7 +345,8 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 │   ├── .claude-plugin/
 │   │   └── plugin.json
 │   ├── hooks/
-│   │   ├── hooks.json                ← PreToolUse／Bash 攔付費資源/破壞性git/push；PostToolUse／Write|Edit 呼叫 review
+│   │   ├── hooks.json                ← UserPromptSubmit 提醒溝通標準；PreToolUse／Bash 攔付費資源/破壞性git/push；PostToolUse／Write|Edit 呼叫 review
+│   │   ├── inject-communication-reminder.sh
 │   │   ├── check-billable-command.sh
 │   │   └── check-git-safety.sh
 │   └── skills/

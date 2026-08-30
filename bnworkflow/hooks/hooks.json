@@ -1,5 +1,11 @@
 {
   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "type": "command",
+        "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/inject-communication-reminder.sh"
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",
