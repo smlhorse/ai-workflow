@@ -13,7 +13,7 @@ description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 
 **Step 1 — 確認**
 檢查專案根目錄是否已有 `CLAUDE.md`：
-- 已存在 → 告知，詢問是否覆寫，等指示
+- 已存在 → 這是已初始化的專案，告知並建議改用 `bnworkflow:update` 補落差（只補缺的、不覆寫既有內容）；user 明確要重建才覆寫
 - 不存在 → 繼續
 
 **Step 2 — 收集資訊（一次問完）**
@@ -44,7 +44,7 @@ description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 
 `.team/`（有勾選成員才建；不進版控）：
 - `org.md` — 套用 `../team/templates/org.md`，被勾選的成員各一列；代號與預設主管照該模板的對照表填，由 user 確認
-- `members/{代號}.md` — 每位一張自我介紹卡，套用 `../team/templates/member.md`；姓名與人設（經驗/工具/寫作習性/溝通方式/個性）先給草案讓 user 改，不代 user 拍板
+- `members/{代號}.md` — 每位一張自我介紹卡，套用 `../team/templates/members/{代號}.md` 的職能底稿；姓名與個人色彩先給草案讓 user 改，不代 user 拍板；底稿裡標「⚠️ 待確認」的條目一併帶出來請 user 確認
 - `handoff/{代號}.md` — 每位一份空的工作管理檔，套用 `../team/templates/handoff.md`，狀態填「進行中」
 - `.sessions.log` 由掛勾在第一次開 session 時自動產生，init 不建
 

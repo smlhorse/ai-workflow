@@ -12,17 +12,19 @@
 
 ## 代號與預設主管（init 建表時套用，user 可改）
 
+各代號的職能底稿在 `../members/{代號}.md`，建成員卡時套用。
+
 | 代號 | 角色（對應 `.claude/roles.md`） | 預設主管 |
 |---|---|---|
 | PM | PM（產品經理） | 無（直接對 user） |
-| PO | PO（需求擁有者） | PM |
+| PO | PO（Product Owner，需求擁有者） | PM |
 | BIZ-ARCH | 業務流程架構師 | PM |
 | SYS-ARCH | 系統架構師 | PM |
 | PROG-ARCH | 程式架構師 | SYS-ARCH |
-| SA | 資深 SA | SYS-ARCH |
-| SD | 資深工程師（Tech Lead） | PROG-ARCH |
+| SA | 資深 SA（System Analyst） | SYS-ARCH |
+| SD | 資深工程師（SD，兼 Tech Lead） | PROG-ARCH |
 | UIUX | UI/UX | PROG-ARCH |
-| PG | 程式設計師 | SD |
-| SRE | SRE | SD |
-| SQA | 資深 QA | 無（獨立，只判 PASS/FAIL） |
-| SEC | 資安官 | 無（獨立，只判 PASS/FAIL） |
+| PG | PG（程式設計師） | SD |
+| SRE | SRE（Site Reliability Engineer） | SD |
+| SQA | SQA（Senior QA） | 無（獨立，只判 PASS/FAIL） |
+| SEC | 資安官（Security Officer） | 無（獨立，只判 PASS/FAIL） |

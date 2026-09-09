@@ -33,7 +33,11 @@ init 會互動式收集專案資訊，產生：
 ```
 或在 `/plugin` UI Marketplaces 分頁啟用 auto-update。
 
-新增 skill 後重新跑一次 init 可選擇是否同步 `.claude/CLAUDE.md` 與 `.claude/roles.md`（plugin 升級不會自動覆蓋既有專案的規則檔，避免破壞用戶 local 修改）。
+plugin 升級不會自動改既有專案（規則檔、角色檔都是當初複製的複本，避免破壞在地修改）。既有專案要補上新規則、新角色或新產物，在該專案打：
+```
+/bnworkflow:update
+```
+它只列「plugin 有、你沒有」的落差，你勾了才補，不覆寫你改過的內容。
 
 ## 執行流程（什麼時候用誰）
 
@@ -73,7 +77,7 @@ verify ── 讀 make-testplan 的測試計畫執行：程式審查 + e2e + dep
 
 - **review** ＝ 審查（讀產物判對錯）：每完成一個產物就跑，按對象派對應角色。
 - **verify** ＝ 驗測（把成品跑起來驗）：做後一次、開新對話保持獨立。
-- `init` ＝ 開新專案用一次；`feedback` ＝ 吐槽框架時用；`team` ＝ 有團隊記憶時每個 session 起手報到、收工前寫回現況。
+- `init` ＝ 開新專案用一次；`update` ＝ plugin 升級後把既有專案補齊；`feedback` ＝ 吐槽框架時用；`team` ＝ 有團隊記憶時每個 session 起手報到、收工前寫回現況。
 
 ### 產物遞進
 
@@ -193,6 +197,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | 回饋框架本身 | `/bnworkflow:feedback` |
 | 看進度／時程 | `/bnworkflow:status` |
 | 報到認人／寫工作管理檔／查組織表 | `/bnworkflow:team` |
+| plugin 升級後補齊既有專案 | `/bnworkflow:update` |
 
 ## 角色與能力（12 位資深成員，皆 10+ 年、負責過大型系統）
 
@@ -215,7 +220,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 
 ## Skill 說明
 
-26 個 skill 按「做哪種工作」分四類。**日常只需打 `do` 與 `verify`**（有團隊記憶時起手多一次 `team join`），其餘自動派。
+27 個 skill 按「做哪種工作」分四類。**日常只需打 `do` 與 `verify`**（有團隊記憶時起手多一次 `team join`），其餘自動派。
 
 ### 調度（派工，自己不做事）
 
@@ -261,7 +266,8 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | 23 | `bnworkflow:sprint` | （PM 視角） | Sprint 與 Issue 管理（GitHub Milestone / 本機模式） |
 | 24 | `bnworkflow:feedback` | （工具） | 框架使用回饋蒐集，回 framework repo 批量消化 |
 | 25 | `bnworkflow:status` | PM、SD | 讀 WBS+Issue 給雙軌進度% + 時程 + stale 旗（只讀，非工時） |
-| 26 | `bnworkflow:team` | （工具） | 團隊記憶：報到認人、寫交接、查組織表找人（跨 session 不失憶） |
+| 26 | `bnworkflow:team` | （工具） | 團隊記憶：報到認人、寫工作管理檔、查組織表找人（跨 session 不失憶） |
+| 27 | `bnworkflow:update` | （工具） | 把既有專案對齊到最新框架：列落差、你勾了才補，不覆寫既有內容 |
 
 ## 解決的問題
 
@@ -363,8 +369,8 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 │       ├── do/SKILL.md
 │       ├── team/
 │       │   ├── SKILL.md
-│       │   └── templates/{org.md, member.md, handoff.md}
-│       └── ... (共 26 個 skill)
+│       │   └── templates/{org.md, handoff.md, members/{代號}.md ×12}
+│       └── ... (共 27 個 skill)
 ├── .claude/                          ← 框架自身的 AI 規範（維護者用）
 │   ├── CLAUDE.md
 │   └── roles.md

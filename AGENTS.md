@@ -26,7 +26,7 @@ plan 不是一律進 Issue：小任務的計畫＝Issue 內幾行步驟；L+＝W
 
 ## Skill 分類（四類，新增 skill 必須歸類）
 
-26 個 skill 按「做哪種工作」分四類：
+27 個 skill 按「做哪種工作」分四類：
 
 **調度** — 派工/把關，自己不做事：`do`、`review`（審查總控）、`verify`（驗測總控）
 
@@ -39,7 +39,7 @@ make-design 的 SDD 按需涵蓋威脅模型（STRIDE，做前）、資料治理
 - review 派（8）：`review-business / -system / -program / -sa / -uiux / -code / -security / -infra`
 - verify 派（4）：`verify-e2e / -deploy / -security-officer / -pm`
 
-**工具** — 雜務與常駐輔助：`init`、`sprint`、`feedback`、`status`、`team`（團隊記憶：報到認人/寫工作管理檔/查組織表，跨 session 不失憶）
+**工具** — 雜務與常駐輔助：`init`、`update`（plugin 升級後把既有專案補齊落差）、`sprint`、`feedback`、`status`、`team`（團隊記憶：報到認人/寫工作管理檔/查組織表，跨 session 不失憶）
 
 慣例：
 - 把關執行一律 `review-` / `verify-` 前綴；description 標「（由 {parent} 自動呼叫，通常不需手動）」，讓 `/plugin` 清單與 autocomplete 自我說明
@@ -96,11 +96,11 @@ make-design 的 SDD 按需涵蓋威脅模型（STRIDE，做前）、資料治理
 │       ├── make-spec/SKILL.md
 │       ├── team/
 │       │   ├── SKILL.md
-│       │   └── templates/         ← org / member / handoff（init 也用同一份）
+│       │   └── templates/         ← org / handoff ＋ members/{代號}.md 12 份職能底稿（init 也用同一份）
 │       ├── verify-security-officer/
 │       │   ├── SKILL.md
 │       │   └── templates/         ← findings / false-positives / scan-cadence
-│       └── ...（共 26 個 skill；部分 skill 含 templates/）
+│       └── ...（共 27 個 skill；部分 skill 含 templates/）
 ├── .claude/                          ← 框架自身運行規則（維護者用，Codex 共用讀取）
 │   ├── CLAUDE.md
 │   ├── roles.md
