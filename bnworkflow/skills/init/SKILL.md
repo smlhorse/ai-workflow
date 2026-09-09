@@ -45,7 +45,7 @@ description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 `.team/`（有勾選成員才建；不進版控）：
 - `org.md` — 套用 `../team/templates/org.md`，被勾選的成員各一列；代號與預設主管照該模板的對照表填，由 user 確認
 - `members/{代號}.md` — 每位一張自我介紹卡，套用 `../team/templates/members/{代號}.md` 的職能底稿；姓名與個人色彩先給草案讓 user 改，不代 user 拍板；底稿裡標「⚠️ 待確認」的條目一併帶出來請 user 確認
-- `handoff/{代號}.md` — 每位一份空的工作管理檔，套用 `../team/templates/handoff.md`，狀態填「進行中」
+- `handoff/{代號}.md` — 每位一份空的工作管理檔，套用 `../team/templates/handoff.md`，狀態填「未開始」（沒人做過就不能寫成進行中）
 - `.sessions.log` 由掛勾在第一次開 session 時自動產生，init 不建
 
 日常使用見 `bnworkflow:team`。
@@ -58,4 +58,5 @@ tmp/
 ```
 
 **Step 4 — 回報**
-列出產生與修改的檔案，標出仍需人工填寫的 `{佔位符}`。
+列出產生與修改的檔案，標出仍需人工填寫的 `{佔位符}`，以及成員卡裡標「⚠️ 待確認」的條目。
+有建 `.team/` 時提醒：本次 session 開始時還沒有團隊記憶，拿不到 session 編號，這個 session 內報到只能登記為「—」，完整登記與「未收尾」安全網從下一個 session 起生效。

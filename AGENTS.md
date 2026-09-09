@@ -39,7 +39,7 @@ make-design 的 SDD 按需涵蓋威脅模型（STRIDE，做前）、資料治理
 - review 派（8）：`review-business / -system / -program / -sa / -uiux / -code / -security / -infra`
 - verify 派（4）：`verify-e2e / -deploy / -security-officer / -pm`
 
-**工具** — 雜務與常駐輔助：`init`、`update`（plugin 升級後把既有專案補齊落差）、`sprint`、`feedback`、`status`、`team`（團隊記憶：報到認人/寫工作管理檔/查組織表，跨 session 不失憶）
+**工具** — 雜務與常駐輔助：`init`、`sprint`、`feedback`、`status`、`team`（團隊記憶：報到認人/寫工作管理檔/查組織表，跨 session 不失憶）、`update`（plugin 升級後把既有專案補齊落差）
 
 慣例：
 - 把關執行一律 `review-` / `verify-` 前綴；description 標「（由 {parent} 自動呼叫，通常不需手動）」，讓 `/plugin` 清單與 autocomplete 自我說明

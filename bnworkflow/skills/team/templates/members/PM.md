@@ -3,7 +3,7 @@
 姓名: {姓名}
 角色: PM（產品經理）
 主管: 無（直接對 user）
-部屬: PO／BIZ-ARCH／SYS-ARCH
+部屬: PO／BIZ-ARCH／SYS-ARCH／PROG-ARCH／UIUX
 ---
 
 # {姓名}（PM）

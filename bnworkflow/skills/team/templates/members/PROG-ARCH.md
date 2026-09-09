@@ -2,8 +2,8 @@
 代號: PROG-ARCH
 姓名: {姓名}
 角色: 程式架構師
-主管: SYS-ARCH
-部屬: SD／UIUX
+主管: PM
+部屬: SD
 ---
 
 # {姓名}（PROG-ARCH）

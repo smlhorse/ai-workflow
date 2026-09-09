@@ -1,9 +1,11 @@
 #!/bin/bash
-# SessionEnd hook — mechanical close-out only. A session hook has ~1.5s and cannot call the model,
-# so it cannot write a summary. What it can do: log the end, and if this session's handoff file was
-# never updated during the session, mark it 未收尾 and record the transcript path so the next
-# session can recover the state itself.
+# SessionEnd hook — mechanical close-out only. A session hook has ~1.5s shared budget and cannot
+# call the model, so it cannot write a summary. What it can do: log the end, and if this session's
+# handoff file was never updated during the session, mark it 未收尾 and record the transcript path
+# so the next session can recover the state itself.
 #
+# Kept cheap on purpose: one grep picks out this session's handoff files, so a full 12-member team
+# still costs a handful of processes rather than one batch per member.
 # Never rewrites org.md (concurrent windows) and never fails the shutdown.
 
 input=$(cat)
@@ -15,16 +17,14 @@ team="$dir/.team"
 sid=$(printf '%s' "$input" | jq -r '.session_id // "unknown"')
 reason=$(printf '%s' "$input" | jq -r '.reason // "other"')
 transcript=$(printf '%s' "$input" | jq -r '.transcript_path // ""')
-now=$(date '+%Y-%m-%d %H:%M')
 
-printf '%s\tend\t%s\t%s\n' "$now" "$sid" "$reason" >> "$team/.sessions.log" 2>/dev/null
+printf '%s\tend\t%s\t%s\n' "$(date '+%Y-%m-%d %H:%M')" "$sid" "$reason" >> "$team/.sessions.log" 2>/dev/null
 
-started=$(tail -500 "$team/.sessions.log" 2>/dev/null | grep -F "	start	$sid" | tail -1 | cut -f1)
+# 本 session 的開始時間＝第一筆 start（compact/resume 會再觸發 SessionStart，取最後一筆會誤判成剛開機）
+started=$(grep -F "	start	$sid" "$team/.sessions.log" 2>/dev/null | head -1 | cut -f1)
 [ -n "$started" ] || exit 0
 
-for f in "$team"/handoff/*.md; do
-  [ -f "$f" ] || continue
-  grep -q "^最後 session id: $sid$" "$f" || continue
+grep -l "^最後 session id: $sid$" "$team"/handoff/*.md 2>/dev/null | while IFS= read -r f; do
   updated=$(sed -n 's/^更新時間: //p' "$f" | head -1)
   # 佔位符等非日期值一律當「沒更新過」，否則字串比大小會反向判成已收尾
   case "$updated" in
@@ -33,9 +33,13 @@ for f in "$team"/handoff/*.md; do
   tmp="$f.tmp.$$"
   awk -v t="$transcript" '
     NR==1 && /^---$/ { fm=1; print; next }
-    fm && !done_s && /^狀態: / { print "狀態: 未收尾"; done_s=1; next }
-    fm && !done_t && /^逐字稿: / { print "逐字稿: " t; done_t=1; next }
-    fm && /^---$/ { if (!done_t) print "逐字稿: " t; fm=0; print; next }
+    fm && !ds && /^狀態: / { print "狀態: 未收尾"; ds=1; next }
+    fm && !dt && /^逐字稿: / { print "逐字稿: " t; dt=1; next }
+    fm && /^---$/ {
+      if (!ds) print "狀態: 未收尾"
+      if (!dt) print "逐字稿: " t
+      fm=0; print; next
+    }
     { print }
   ' "$f" > "$tmp" 2>/dev/null && mv "$tmp" "$f" 2>/dev/null || rm -f "$tmp" 2>/dev/null
 done
