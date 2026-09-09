@@ -1,9 +1,45 @@
 {
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/team-session-start.sh"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/team-session-end.sh"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "context 即將壓縮，事件資料：$ARGUMENTS 。若本專案沒有 .team/ 目錄、事件資料沒帶 session_id、或該 session_id 在 .team/org.md 找不到對應成員（＝未綁定身分），一律什麼都不做，不得猜身分。有對應成員才動作：讀事件的 transcript_path（JSONL，讀尾段即可）判斷該成員的工作現況，依 .team/handoff/{代號}.md 現有欄位逐欄覆寫，並更新檔頭的更新時間；未驗證過的不寫進「做到哪」，待確認事項照原文搬，判斷不出來的欄位寫「無」，不得編造。有寫入時回覆 {\"hookSpecificOutput\":{\"hookEventName\":\"PreCompact\",\"additionalContext\":\"工作管理檔已更新：.team/handoff/{代號}.md\"}}；未寫入時回覆 {\"hookSpecificOutput\":{\"hookEventName\":\"PreCompact\",\"additionalContext\":\"\"}}。只回覆這個 JSON，不要其他文字。",
+            "timeout": 90,
+            "statusMessage": "壓縮前更新工作管理檔…"
+          }
+        ]
+      }
+    ],
     "UserPromptSubmit": [
       {
-        "type": "command",
-        "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/inject-communication-reminder.sh"
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/inject-communication-reminder.sh"
+          }
+        ]
       }
     ],
     "PreToolUse": [

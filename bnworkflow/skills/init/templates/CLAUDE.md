@@ -51,6 +51,10 @@
 - 維運手冊（涉上線部署）：`docs/ops/`
 - 發布記錄（推 UAT/發布時）：`CHANGELOG.md`
 
+## 團隊記憶（`.team/`，不進版控）
+
+存這個專案的成員與工作現況，用法見 `bnworkflow:team`。不進版控＝換機器、換人不會帶著走，值得留存的決策仍要落 `docs/`。
+
 ## 目錄結構
 
 完整目錄樹見框架 README「使用後的專案目錄結構」：<https://github.com/smlhorse/ai-workflow>。各產物放哪由對應 skill 決定，AI 不需這張樹也能運作。

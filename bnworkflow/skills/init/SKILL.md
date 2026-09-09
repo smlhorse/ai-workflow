@@ -5,7 +5,7 @@ description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 
 # bnworkflow:init
 
-初始化專案 AI 工作流。產生專案 `CLAUDE.md`、`.claude/CLAUDE.md`、`.claude/roles.md` 與設定檔。
+初始化專案 AI 工作流。產生專案 `CLAUDE.md`、`.claude/CLAUDE.md`、`.claude/roles.md`、設定檔與團隊記憶 `.team/`。
 
 前置條件：bnworkflow plugin 已安裝（`/plugin install bnworkflow@smlhorse-ai-workflow`）。
 
@@ -23,6 +23,7 @@ description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 4. 啟動命令
 5. 架構摘要（技術棧、關鍵路徑）
 6. 本機 Issue 位置（選填，預設 `docs/issues/` 版控；不強迫 user 填）
+7. 團隊成員（選填）：列 `templates/roles.md` 的 12 個角色讓 user 勾選這個專案要哪幾位；不勾＝不建 `.team/`
 
 **Step 3 — 產生檔案**
 
@@ -41,10 +42,19 @@ description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 }
 ```
 
+`.team/`（有勾選成員才建；不進版控）：
+- `org.md` — 套用 `../team/templates/org.md`，被勾選的成員各一列；代號與預設主管照該模板的對照表填，由 user 確認
+- `members/{代號}.md` — 每位一張自我介紹卡，套用 `../team/templates/member.md`；姓名與人設（經驗/工具/寫作習性/溝通方式/個性）先給草案讓 user 改，不代 user 拍板
+- `handoff/{代號}.md` — 每位一份空的工作管理檔，套用 `../team/templates/handoff.md`，狀態填「進行中」
+- `.sessions.log` 由掛勾在第一次開 session 時自動產生，init 不建
+
+日常使用見 `bnworkflow:team`。
+
 `.gitignore` 補充（附加，不覆寫；逐行檢查避免重複）：
 ```
 .claude/settings.local.json
 tmp/
+.team/
 ```
 
 **Step 4 — 回報**
