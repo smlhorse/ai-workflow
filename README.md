@@ -227,7 +227,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 
 | # | Skill | 參與角色 | 用途 |
 |---|---|---|---|
-| 1 | `bnworkflow:do` | （流程驅動） | 任務全流程驅動，自動串管線 |
+| 1 | `bnworkflow:do` | CTO（派工總控） | 任務全流程驅動，自動串管線 |
 | 2 | `bnworkflow:review` | 召集對應審查角色 | 審查總控，按對象派審查角色 |
 | 3 | `bnworkflow:verify` | SQA 主導 | 驗測總控（必須新對話），派驗測角色 |
 
