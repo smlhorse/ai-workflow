@@ -44,7 +44,7 @@ description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 
 `.team/`（有勾選成員才建；不進版控）：
 - `org.md` — 套用 `../team/templates/org.md`，被勾選的成員各一列；代號與預設主管照該模板的對照表填，由 user 確認
-- `members/{代號}.md` — 每位一張自我介紹卡，套用 `../team/templates/members/{代號}.md` 的職能底稿；姓名與個人色彩先給草案讓 user 改，不代 user 拍板；底稿裡標「⚠️ 待確認」的條目一併帶出來請 user 確認
+- `members/{代號}.md` — 每位一張自我介紹卡，套用 `../team/templates/members/{代號}.md` 的職能底稿；姓名與個人色彩先給草案讓 user 改，不代 user 拍板。卡內「指派語句」的 `{團隊}` 一律填入專案代號（同時作為 session 命名前綴，如 `WMS_CTO`）
 - `handoff/{代號}.md` — 每位一份空的工作管理檔，套用 `../team/templates/handoff.md`，狀態填「未開始」（沒人做過就不能寫成進行中）
 - `.sessions.log` 由掛勾在第一次開 session 時自動產生，init 不建
 

@@ -15,7 +15,7 @@ plugin 升級後，新規則與新產物不會自己出現在既有專案（規�
 
 ## 檢查範圍
 
-框架會產出的東西都查一遍：專案 `CLAUDE.md` 的章節、`.claude/CLAUDE.md` 的規則條目、`.claude/roles.md` 的角色、`.claude/settings.json`、`.gitignore` 該有的行、`.team/` 團隊記憶（沒建過→問要不要建並選成員；已建→查成員卡與工作管理檔的欄位是否比底稿少）。
+框架會產出的東西都查一遍：專案 `CLAUDE.md` 的章節、`.claude/CLAUDE.md` 的規則條目、`.claude/roles.md` 的角色、`.claude/settings.json`、`.gitignore` 該有的行、`.team/` 團隊記憶（沒建過→問要不要建並選成員；已建→查成員卡與工作管理檔的欄位是否比底稿少，含新增的溝通與洞察、指派語句等節）。
 
 ## 核心心法
 
