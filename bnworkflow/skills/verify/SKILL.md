@@ -47,6 +47,7 @@ Fallback（找不到計畫才走）：從規格（lite / business / plan）臨�
 3. `bnworkflow:verify-deploy`（SRE，部署就緒）
 4. `bnworkflow:verify-security-officer`（資安官，推 UAT 前必跑，FAIL 對 UAT 啟動有否決權）
 5. `bnworkflow:verify-pm`（PM + PO 業務驗收）
+6. **CTO 最終放行**：逐條對照 user 原始需求（anchor）確認交付結果與需求相符，並確認前五關全 PASS。前面各關驗的是「照規格做對了沒」，這一關驗的是「做出來的是不是 user 當初要的」——規格本身偏離需求時，前五關會全 PASS 但這關要 FAIL。任一未過不得交付。
 
 各子 skill 可單獨執行：`/bnworkflow:verify-e2e`、`/bnworkflow:verify-deploy`、`/bnworkflow:verify-security-officer`、`/bnworkflow:verify-pm`；程式審查走 `/bnworkflow:review`。
 
@@ -78,6 +79,7 @@ Fallback（找不到計畫才走）：從規格（lite / business / plan）臨�
 - Deploy：PASS / FAIL
 - Security Officer：PASS / FAIL
 - PM：PASS / FAIL
+- CTO 最終放行：PASS / FAIL
 
 FAIL 清單：
 - {項目} {具體位置或描述}

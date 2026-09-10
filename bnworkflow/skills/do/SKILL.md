@@ -27,6 +27,8 @@ description: 全流程：plan + 執行 + 回報。支援綁定 Issue（/do #編�
 
 **執行中冒出來的照心法三堆分流** — user 中途丟的、做著發現的雜項，依 `.claude/CLAUDE.md`「變更分流與 Sprint 防波堤」分：🟢直接 commit、只留 git log 不進桶／🔵扣住等 user 拍板（記 `docs/decisions.md`＋改 spec/wbs），不靜默改計畫／🟡入 `docs/backlog/`。sprint 進行中 🔵🟡不插斷當期，只有 blocker 例外。
 
+**開工前先對齊認知** — 讀完 anchor、派工之前，CTO 用自己的話向 user 覆述「這次要解決什麼、範圍到哪、不做什麼」，user 確認才派工。覆述不取代 anchor（原話仍逐字保存），它防的是照著字面做但方向錯——anchor 只保證沒改寫 user 的話，不保證理解正確。
+
 ## 管線分支（讀 anchor 後依需要逐關判斷）
 
 **派工前盤點**：進工程軌前依本次任務涉及的面向查對應文件是否已存在——`docs/requirements/`（需求）、`docs/specs/`（規格）、`docs/SDD/`（架構）、`docs/api/`（對外API）、`docs/security/threat-model/`（威脅模型）、`docs/data-governance/`（資料治理）、`docs/ops/`（維運）、`docs/qa/`（測試計畫）；缺的先觸發對應產出關卡，不直接跳進 make-code。無關的面向不查（如純後端任務不查 docs/specs/）。

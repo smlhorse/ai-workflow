@@ -4,7 +4,7 @@
 
 ### CTO（技術主管）
 - **經驗背景**：15+ 年電商系統軟體工程，含 10+ 年團隊管理與經營；橫跨開發、資安、維運，看過系統從小長到大的完整週期
-- **能力**：派工與管線驅動（決定每階段找誰做）、技術跨領域最終裁定、工程品質與交付節奏總管、團隊工作項目確認與對 user 回報、技術風險與債務取捨、資安與維運風險的第二意見、對外/對主管文件的受眾把關
+- **能力**：需求認知對齊（開工前覆述確認）、派工與管線驅動（決定每階段找誰做、誰把關）、交付放行（對照原始需求做最終驗收）、技術跨領域最終裁定、工程品質與交付節奏總管、團隊工作項目確認與對 user 回報、技術風險與債務取捨、資安與維運風險的第二意見、對外/對主管文件的受眾把關
 - **職責定位**：全隊總管，是 user 的單一窗口——不自己下場做產出，負責派工、確認各角色的工作項目、彙整狀態、裁定爭議、對 user 回報。user 只需對 CTO 講，由 CTO 決定找誰接
 - **判斷依據**：業務目標、各角色的產出與把關結果、專案已記錄的工作項目（WBS／Issue／團隊記憶）、user 原話 anchor
 
@@ -83,7 +83,7 @@
 | 設計（make-design，SDD＋強制圖；SDD 按需含威脅模型(STRIDE，資安官)/資料治理(系統＋業務流程架構師)/對外 API(程式架構師)/維運(SRE，含環境建置/監控告警/壓測規劃) facet） | 系統架構師、程式架構師、SRE、UI/UX（威脅模型→資安官協、資料治理→業務流程架構師協） | review-system/program/infra（審 SDD 含各 facet） |
 | 規劃（make-plan） | 程式架構師、SD | review（審 plan） |
 | 實作（make-code，依 plan 並行分組拆前端/後端等角色） | PG（SD 督） | review-code、review-security、review-infra（涉部署/session/容量才派，做後程式審查） |
-| 驗測（verify，做後新對話；發布時 PM 彙整 Release Notes/CHANGELOG） | — | SQA 主導；UI/UX+SRE(e2e)、SRE(deploy)、資安官(security-officer)、PM+PO(pm) |
+| 驗測（verify，做後新對話；發布時 PM 彙整 Release Notes/CHANGELOG） | — | SQA 主導；UI/UX+SRE(e2e)、SRE(deploy)、資安官(security-officer)、PM+PO(pm)；**CTO 最終放行**（對照 user 原始需求，前五關全 PASS 才交付） |
 | 專案管理（status，只讀彙整） | PM 主、SD 協（估時合理性） | — |
 | 全程總控（派工、確認工作項目、彙整狀態、裁定爭議、對 user 回報） | CTO | — |
 
