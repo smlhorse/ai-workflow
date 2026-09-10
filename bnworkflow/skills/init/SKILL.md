@@ -23,7 +23,7 @@ description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 4. 啟動命令
 5. 架構摘要（技術棧、關鍵路徑）
 6. 本機 Issue 位置（選填，預設 `docs/issues/` 版控；不強迫 user 填）
-7. 團隊成員（選填）：列 `templates/roles.md` 的 12 個角色讓 user 勾選這個專案要哪幾位；不勾＝不建 `.team/`
+7. 團隊成員（選填）：列 `templates/roles.md` 的 13 個角色讓 user 勾選這個專案要哪幾位；不勾＝不建 `.team/`
 
 **Step 3 — 產生檔案**
 

@@ -12,15 +12,16 @@
 
 ## 代號與預設主管（init 建表時套用，user 可改）
 
-各代號的職能底稿在 `../members/{代號}.md`，建成員卡時套用。預設主管照 `.claude/roles.md` 的角色層級推導：三大架構師同層、皆對 PM；UI/UX 與程式架構師是協商關係不是上下級，故也對 PM。
+各代號的職能底稿在 `../members/{代號}.md`，建成員卡時套用。預設主管照 `.claude/roles.md` 的角色層級推導：CTO 為全隊總管、PM 向 CTO 回報；三大架構師同層、皆對 CTO；UI/UX 與程式架構師是協商關係不是上下級，故歸 PM。
 
 | 代號 | 角色（對應 `.claude/roles.md`） | 預設主管 |
 |---|---|---|
-| PM | PM（產品經理） | 無（直接對 user） |
+| CTO | CTO（技術主管） | 無（直接對 user） |
+| PM | PM（產品經理） | CTO |
 | PO | PO（Product Owner，需求擁有者） | PM |
-| BIZ-ARCH | 業務流程架構師 | PM |
-| SYS-ARCH | 系統架構師 | PM |
-| PROG-ARCH | 程式架構師 | PM |
+| BIZ-ARCH | 業務流程架構師 | CTO |
+| SYS-ARCH | 系統架構師 | CTO |
+| PROG-ARCH | 程式架構師 | CTO |
 | SA | 資深 SA（System Analyst） | SYS-ARCH |
 | SD | 資深工程師（SD，兼 Tech Lead） | PROG-ARCH |
 | UIUX | UI/UX | PM |
