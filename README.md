@@ -24,7 +24,7 @@ init 會互動式收集專案資訊，產生：
 - `.claude/CLAUDE.md` — AI 行為規範（從 plugin 複製，獨立於 plugin 更新）
 - `.claude/roles.md` — 13 角色定位與衝突處理
 - `.claude/settings.json`
-- `.team/` — 團隊記憶（有勾選成員才建，不進版控）：組織表＋自我介紹卡＋工作管理檔
+- `.team/` — 團隊記憶（有設定團隊才建，不進版控）：組織／團隊／成員／session 身分、工作與交接
 
 ## 更新
 
@@ -41,7 +41,7 @@ plugin 升級不會自動改既有專案（規則檔、角色檔都是當初複�
 
 ## 執行流程（什麼時候用誰）
 
-**日常你只打 2 個**：`do`（做事）、`verify`（驗收，開新對話）。其餘由 do / review / verify 按規則自動派，你不用選。專案有 `.team/` 團隊記憶時，session 起手多打一次 `team join {代號}` 認人。
+**日常你只打 2 個**：`do`（做事）、`verify`（驗收，開新對話）。其餘由 do / review / verify 按規則自動派，你不用選。專案有 `.team/` 時，新 session 起手用 `team join [{組織}/{團隊}] {成員 ID}` 報到。
 
 **任務來源**：功能級任務由 `sprint` 從 `docs/backlog/` 挑「這期值得做」的項目排進當期（PM 主責）；改字級小改不經 sprint，直接由 `do` 處理。
 
@@ -78,6 +78,29 @@ verify ── 讀 make-testplan 的測試計畫執行：程式審查 + e2e + dep
 - **review** ＝ 審查（讀產物判對錯）：每完成一個產物就跑，按對象派對應角色。
 - **verify** ＝ 驗測（把成品跑起來驗）：做後一次、開新對話保持獨立。
 - `init` ＝ 開新專案用一次；`update` ＝ plugin 升級後把既有專案補齊；`feedback` ＝ 吐槽框架時用；`team` ＝ 有團隊記憶時每個 session 起手報到、收工前寫回現況。
+
+## 團隊身分與交接
+
+團隊身分分為「組織 → 團隊 → 成員 → session」。換 Claude 帳號不會建立新團隊；只要在同一專案 join 同一成員 ID，就讀取同一份成員卡與交接。不同帳號仍須各自安裝相同版本的 plugin。
+
+組織／團隊 ID 只用英數、`-`、`_`，不得含 `/`。成員 ID 採 `{角色小寫}-{兩位流水號}`，例如 `pg-01`、`pg-02`、`sa-01`；流水號不代表職級，停用後不轉給新人。PG 預設全端，前端／後端屬於當次任務分工：M／L+ 優先由不同成員平行執行，XS／S 可由同一成員依獨立工作項依序完成。
+
+```text
+/bnworkflow:team use BBN/WMS
+/bnworkflow:team onboard BBN/WMS pg-01 PG --manager sd-01
+/bnworkflow:team join BBN/WMS pg-01
+/bnworkflow:team handoff --to pg-02
+/bnworkflow:team who pg-01
+/bnworkflow:team refresh
+```
+
+- `use`：設定專案預設組織／團隊。
+- `onboard`：建立成員、角色、主管與職能卡；同角色可有多人。
+- `join`：將目前 session 綁定既有成員，只載入自己角色的能力、直接關係、工作與交接。
+- `handoff`：把已驗證進度、下一步、卡點與位置交給下一棒；接手確認前不算完成。
+- `refresh`：讓既有 session 重新讀最新角色與工作；若 plugin 新增 skill／hook／工具，須更新 plugin、handoff 並重開 session。
+
+完整行為與舊 `.team/` 轉換規則以 `bnworkflow:team`、`bnworkflow:update` 為準。
 
 ### 產物遞進
 
@@ -196,7 +219,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | Sprint／Issue 管理 | `/bnworkflow:sprint` |
 | 回饋框架本身 | `/bnworkflow:feedback` |
 | 看進度／時程 | `/bnworkflow:status` |
-| 報到認人／寫工作管理檔／查組織表 | `/bnworkflow:team` |
+| 多組織／團隊的 onboard、報到、交接、查人與能力更新 | `/bnworkflow:team` |
 | plugin 升級後補齊既有專案 | `/bnworkflow:update` |
 
 ## 角色與能力（13 位資深成員，皆 10+ 年、負責過大型系統；CTO 15+ 年）
@@ -221,7 +244,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 
 ## Skill 說明
 
-27 個 skill 按「做哪種工作」分四類。**日常只需打 `do` 與 `verify`**（有團隊記憶時起手多一次 `team join`），其餘自動派。
+27 個 skill 按「做哪種工作」分四類。**日常只需打 `do` 與 `verify`**（有團隊記憶時新 session 多一次 `team join`），其餘自動派。
 
 ### 調度（派工，自己不做事）
 
@@ -267,7 +290,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | 23 | `bnworkflow:sprint` | （PM 視角） | Sprint 與 Issue 管理（GitHub Milestone / 本機模式） |
 | 24 | `bnworkflow:feedback` | （工具） | 框架使用回饋蒐集，回 framework repo 批量消化 |
 | 25 | `bnworkflow:status` | PM、SD | 讀 WBS+Issue 給雙軌進度% + 時程 + stale 旗（只讀，非工時） |
-| 26 | `bnworkflow:team` | （工具） | 團隊記憶：報到認人、寫工作管理檔、查組織表找人（跨 session 不失憶） |
+| 26 | `bnworkflow:team` | （工具） | 多組織／團隊的成員 onboard、session 報到、交接、查人與能力更新 |
 | 27 | `bnworkflow:update` | （工具） | 把既有專案對齊到最新框架：列落差、你勾了才補，不覆寫既有內容 |
 
 ## 解決的問題
@@ -312,7 +335,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 | 報告/盤點類文件不在派工表內，被「N/A 不硬套」整份放行，零檢查——推論當事實的錯誤都出在這類文件 | `review` 補「表外產物自行判斷派工」：讀內容判斷涉及領域派對應角色，`review-sa` 必派；並補一條「推論不寫成事實」FAIL 準則 |
 | 產出夾自創名詞/數值、長期累積素材前後矛盾亂湊、步驟間漏動作或例外路徑沒去向，交付後才被逐條抓 | rules.md 補「產出校對」：交付前必執行三段校對（事實比對/時序矛盾/邏輯斷層）並隨產出呈報；`review-sa` 補「邏輯斷層」FAIL 準則當第二線把關 |
 | 回話第一行是脈絡不是動作、多步驟工作不重述進度、工作量用「很快」「有點多」帶過 | rules.md 補「回話形狀」與「形狀讓位於內容」兩條，並把「送出前自檢」改成先刪再送（刪開場白／收尾客套／岔題／空修飾詞／成語）；每輪注入的提醒同步帶上形狀關鍵字 |
-| session 一滿被壓縮或被 `/clear`，工作現況隨之消失，下一個 session 要 user 重講一遍；角色每次重新扮演、沒有固定人格 | `.team/` 團隊記憶（不進版控）＋ `bnworkflow:team`：報到讀自我介紹卡與工作管理檔、收工寫回；`hooks/hooks.json` SessionStart 交出 session id、PreCompact 壓縮前自動把現況寫回工作管理檔、SessionEnd 標「未收尾」留逐字稿路徑當補救 |
+| 換帳號／session 後團隊身分改變；同角色多人互相覆蓋；交接後能力與現況遺失 | `.team/` 以組織／團隊／穩定成員 ID／session 四層綁定；`team join/handoff/refresh` 載入身分、關係、能力與工作；hooks 在 compact/end 依 session 綁定回寫正確成員 |
 
 ## 使用後的專案目錄結構
 
@@ -339,11 +362,11 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 │   ├── sprints/                 ← sprint（本機模式）
 │   └── security/                ← verify-security-officer + make-design 威脅模型 facet（threat-model/）
 ├── tmp/                         ← gitignore（scratch：anchor.md 或 anchor/{#N,名稱}.md（見 Anchor First）、report.md；專案設 tmp/issues 時 Issue 也在此）
-└── .team/                       ← gitignore（團隊記憶：org.md 組織表、members/{代號}.md 自我介紹卡、handoff/{代號}.md 工作管理檔、.sessions.log 開關機流水）
+└── .team/                       ← gitignore（defaults、sessions/{id}、organizations/{組織}/teams/{團隊}/{org,capabilities,work,members,handoff}、.sessions.log）
 ```
 
 - **必有**＝init 一開始就建：`CLAUDE.md`、`.claude/*`。
-- **按需**＝skill 用到才建：`docs/*` 子目錄、`tmp/*`；`.team/` 由 init 在 user 勾選成員時建。
+- **按需**＝skill 用到才建：`docs/*` 子目錄、`tmp/*`；`.team/` 由 init 在 user 設定團隊時建。
 - GitHub 模式下 Issue/Milestone 走 GitHub，不產 `docs/issues`、`docs/sprints`。
 - **Issue ＝任務追蹤，不是萬用桶**：產出物（需求/spec/設計/測試計畫/WBS）住 `docs/*` 恆版控、Issue 只引用；討論走 Issue 留言、重要決策落 `docs/adr/`。Issue 位置才「視情況」（GitHub / `docs/issues/` 版控 / `tmp/issues/` scratch，依設定）。
 - **變更依「規模×是否排程」分家**（根治大小不分）：`backlog`＝未排程前置池（🟡未做、做完即刪、恆短）；`sprint`/`issue`＝已排程（功能級才進，多一項使用者能力）；`decisions.md`＝🔵動到已定案範圍的變更/決策（等 user 拍板）；git log＝🟢改字級小改（不進任何清單）。sprint 規劃從 backlog **選**進、非清空。
@@ -371,7 +394,7 @@ L+ 規模時 `make-plan` 產出 **WBS 樹**（`docs/wbs/{sprint}.md`，層級 mi
 │       ├── do/SKILL.md
 │       ├── team/
 │       │   ├── SKILL.md
-│       │   └── templates/{org.md, handoff.md, members/{代號}.md ×13}
+│       │   └── templates/{defaults, session, org, capabilities, work, handoff, members/{角色}.md ×13}
 │       └── ... (共 27 個 skill)
 ├── .claude/                          ← 框架自身的 AI 規範（維護者用）
 │   ├── CLAUDE.md

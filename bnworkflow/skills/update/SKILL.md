@@ -15,7 +15,7 @@ plugin 升級後，新規則與新產物不會自己出現在既有專案（規�
 
 ## 檢查範圍
 
-框架會產出的東西都查一遍：專案 `CLAUDE.md` 的章節、`.claude/CLAUDE.md` 的規則條目、`.claude/roles.md` 的角色、`.claude/settings.json`、`.gitignore` 該有的行、`.team/` 團隊記憶（沒建過→問要不要建並選成員；已建→查成員卡與工作管理檔的欄位是否比底稿少，含新增的溝通與洞察、指派語句等節）。
+框架會產出的東西都查一遍：專案 `CLAUDE.md` 的章節、`.claude/CLAUDE.md` 的規則條目、`.claude/roles.md` 的角色、`.claude/settings.json`、`.gitignore` 該有的行、`.team/` 團隊記憶（沒建過→問要不要建並設定組織／團隊／成員；新版→查模板欄位與能力版本；舊版→列轉換差異）。
 
 ## 核心心法
 
@@ -31,11 +31,16 @@ plugin 升級後，新規則與新產物不會自己出現在既有專案（規�
 
 **成員卡只補欄位** — 底稿新增的欄位補成空欄讓 user 填，不動已寫的姓名、人設與職能調整。
 
+**舊團隊結構整批轉換，不混用** — 偵測到 `.team/org.md`、`.team/members/{角色}.md`、`.team/handoff/{角色}.md` 時，先請 user 指定組織 ID、團隊 ID及成員映射；預設將每個舊角色映射成 `{角色小寫}-01`。列出搬移前後路徑、姓名、角色與主管關係，取得確認後才建立 defaults、team org/capabilities/work、member/handoff 與 sessions 目錄。保留舊卡的人設與交接內容；全部驗證成功後才移除舊路徑，失敗不得留下新舊混合結構。
+
+**既有 session 的能力升級分流** — 角色卡、組織關係與工作內容更新可用 `bnworkflow:team refresh`；新增 skill、hook 或工具時，標記需要更新 plugin、handoff 並重開 session，不宣稱熱更新完成。
+
 ## 不做的事
 
 - 不刪除專案自己多出來的規則、角色或檔案
 - 不順手整理與框架無關的內容
 - 不用「應該要有」的理由自行補齊未勾選項目
+- 不在未確認組織／團隊／成員映射前搬移舊 `.team/`
 
 ## 自主決策邊界
 

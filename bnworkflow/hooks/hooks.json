@@ -25,7 +25,7 @@
         "hooks": [
           {
             "type": "agent",
-            "prompt": "context 即將壓縮，事件資料：$ARGUMENTS 。若本專案沒有 .team/ 目錄、事件資料沒帶 session_id、或該 session_id 在 .team/org.md 找不到對應成員（＝未綁定身分），一律什麼都不做，不得猜身分。有對應成員才動作：讀事件的 transcript_path（JSONL，讀尾段即可）判斷該成員的工作現況，依 .team/handoff/{代號}.md 現有欄位逐欄覆寫，並更新檔頭的更新時間；未驗證過的不寫進「做到哪」，待確認事項照原文搬，判斷不出來的欄位寫「無」，不得編造。有寫入時回覆 {\"hookSpecificOutput\":{\"hookEventName\":\"PreCompact\",\"additionalContext\":\"工作管理檔已更新：.team/handoff/{代號}.md\"}}；未寫入時回覆 {\"hookSpecificOutput\":{\"hookEventName\":\"PreCompact\",\"additionalContext\":\"\"}}。只回覆這個 JSON，不要其他文字。",
+            "prompt": "context 即將壓縮，事件資料：$ARGUMENTS 。若本專案沒有 .team/、事件資料沒帶 session_id，或 `.team/sessions/{session_id}.md` 不存在，一律什麼都不做，不得由帳號、session 名稱或對話猜身分。已綁定才讀該檔取得組織／團隊／成員 ID，定位 `.team/organizations/{組織}/teams/{團隊}/handoff/{成員 ID}.md`；讀 transcript_path 尾段，依既有欄位覆寫目前工作現況並更新時間。未驗證的不寫進做到哪，待確認照原文搬，判斷不出寫無，不得編造。有寫入時回覆 {\"hookSpecificOutput\":{\"hookEventName\":\"PreCompact\",\"additionalContext\":\"工作管理檔已更新：{handoff path}\"}}；未寫入時回覆 {\"hookSpecificOutput\":{\"hookEventName\":\"PreCompact\",\"additionalContext\":\"\"}}。只回覆 JSON。",
             "timeout": 90,
             "statusMessage": "壓縮前更新工作管理檔…"
           }

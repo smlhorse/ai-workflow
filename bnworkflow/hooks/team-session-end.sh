@@ -2,10 +2,10 @@
 # SessionEnd hook — mechanical close-out only. A session hook has ~1.5s shared budget and cannot
 # call the model, so it cannot write a summary. What it can do: log the end, and if this session's
 # handoff file was never updated during the session, mark it 未收尾 and record the transcript path
-# so the next session can recover the state itself.
+# so the next session can recover the state itself. Handoff files may be nested by organization/team.
 #
-# Kept cheap on purpose: one grep picks out this session's handoff files, so a full 12-member team
-# still costs a handful of processes rather than one batch per member.
+# Kept cheap on purpose: one recursive lookup picks out this session's handoff file rather than
+# running one model call or one batch per member.
 # Never rewrites org.md (concurrent windows) and never fails the shutdown.
 
 input=$(cat)
@@ -24,7 +24,7 @@ printf '%s\tend\t%s\t%s\n' "$(date '+%Y-%m-%d %H:%M')" "$sid" "$reason" >> "$tea
 started=$(grep -F "	start	$sid" "$team/.sessions.log" 2>/dev/null | head -1 | cut -f1)
 [ -n "$started" ] || exit 0
 
-grep -l "^最後 session id: $sid$" "$team"/handoff/*.md 2>/dev/null | while IFS= read -r f; do
+find "$team/organizations" -type f -path '*/handoff/*.md' -exec grep -l "^最後 session id: $sid$" {} + 2>/dev/null | while IFS= read -r f; do
   updated=$(sed -n 's/^更新時間: //p' "$f" | head -1)
   # 佔位符等非日期值一律當「沒更新過」，否則字串比大小會反向判成已收尾
   case "$updated" in

@@ -23,7 +23,7 @@ description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 4. 啟動命令
 5. 架構摘要（技術棧、關鍵路徑）
 6. 本機 Issue 位置（選填，預設 `docs/issues/` 版控；不強迫 user 填）
-7. 團隊成員（選填）：列 `templates/roles.md` 的 13 個角色讓 user 勾選這個專案要哪幾位；不勾＝不建 `.team/`
+7. 團隊（選填）：組織 ID、團隊 ID，以及每個角色需要幾位成員；不設定＝不建 `.team/`。成員 ID 預設採 `{角色小寫}-{兩位流水號}`（如 `pg-01`、`pg-02`），姓名與主管關係由 user 確認；PG 預設全端，前後端是工作分組而非成員身分。
 
 **Step 3 — 產生檔案**
 
@@ -42,11 +42,15 @@ description: 初始化新專案，產生 CLAUDE.md 與設定檔。
 }
 ```
 
-`.team/`（有勾選成員才建；不進版控）：
-- `org.md` — 套用 `../team/templates/org.md`，被勾選的成員各一列；代號與預設主管照該模板的對照表填，由 user 確認
-- `members/{代號}.md` — 每位一張自我介紹卡，套用 `../team/templates/members/{代號}.md` 的職能底稿；姓名與個人色彩先給草案讓 user 改，不代 user 拍板。卡內「指派語句」的 `{團隊}` 一律填入專案代號（同時作為 session 命名前綴，如 `WMS_CTO`）
-- `handoff/{代號}.md` — 每位一份空的工作管理檔，套用 `../team/templates/handoff.md`，狀態填「未開始」（沒人做過就不能寫成進行中）
-- `.sessions.log` 由掛勾在第一次開 session 時自動產生，init 不建
+`.team/`（有設定團隊才建；不進版控）：
+- `defaults.md` — 套用 `../team/templates/defaults.md`，填入專案預設組織／團隊
+- `organizations/{組織}/teams/{團隊}/org.md` — 套用 `../team/templates/org.md`；同角色可有多人，每位使用穩定成員 ID，主管欄填實際成員 ID
+- `organizations/{組織}/teams/{團隊}/capabilities.md` — 套用 `../team/templates/capabilities.md`；join／refresh 只讀該成員角色的一列
+- `organizations/{組織}/teams/{團隊}/work.md` — 套用 `../team/templates/work.md`，初始無工作
+- `organizations/{組織}/teams/{團隊}/members/{成員 ID}.md` — 套用對應角色的 `../team/templates/members/{角色代號}.md`；將卡內路徑與指派語句填成實際組織／團隊／成員 ID。姓名與個人色彩給草案讓 user 改，不代 user 拍板
+- `organizations/{組織}/teams/{團隊}/handoff/{成員 ID}.md` — 套用 `../team/templates/handoff.md`，狀態填「未開始」
+- `sessions/` — 建空目錄；join 後依 `../team/templates/session.md` 建立 session 綁定
+- `.sessions.log` 由掛勾第一次開 session 時自動產生，init 不建
 
 日常使用見 `bnworkflow:team`。
 
@@ -59,4 +63,4 @@ tmp/
 
 **Step 4 — 回報**
 列出產生與修改的檔案，標出仍需人工填寫的 `{佔位符}`，以及成員卡裡標「⚠️ 待確認」的條目。
-有建 `.team/` 時提醒：本次 session 開始時還沒有團隊記憶，拿不到 session 編號，這個 session 內報到只能登記為「—」，完整登記與「未收尾」安全網從下一個 session 起生效。
+有建 `.team/` 時提醒：本次 session 開始時還沒有團隊記憶，拿不到 session 編號時不得編造；從下一個 session 起用 `/bnworkflow:team join [{組織}/{團隊}] {成員 ID}` 完成綁定與「未收尾」安全網。

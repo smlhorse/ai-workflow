@@ -39,7 +39,7 @@ make-design 的 SDD 按需涵蓋威脅模型（STRIDE，做前）、資料治理
 - review 派（8）：`review-business / -system / -program / -sa / -uiux / -code / -security / -infra`
 - verify 派（4）：`verify-e2e / -deploy / -security-officer / -pm`
 
-**工具** — 雜務與常駐輔助：`init`、`sprint`、`feedback`、`status`、`team`（團隊記憶：報到認人/寫工作管理檔/查組織表，跨 session 不失憶）、`update`（plugin 升級後把既有專案補齊落差）
+**工具** — 雜務與常駐輔助：`init`、`sprint`、`feedback`、`status`、`team`（多組織／團隊的成員 onboard、session 報到、交接、查人與能力更新）、`update`（plugin 升級後把既有專案補齊落差）
 
 慣例：
 - 把關執行一律 `review-` / `verify-` 前綴；description 標「（由 {parent} 自動呼叫，通常不需手動）」，讓 `/plugin` 清單與 autocomplete 自我說明
@@ -96,7 +96,7 @@ make-design 的 SDD 按需涵蓋威脅模型（STRIDE，做前）、資料治理
 │       ├── make-spec/SKILL.md
 │       ├── team/
 │       │   ├── SKILL.md
-│       │   └── templates/         ← org / handoff ＋ members/{代號}.md 12 份職能底稿（init 也用同一份）
+│       │   └── templates/         ← defaults / session / org / capabilities / work / handoff ＋ members/{角色}.md 職能底稿（init 也用同一份）
 │       ├── verify-security-officer/
 │       │   ├── SKILL.md
 │       │   └── templates/         ← findings / false-positives / scan-cadence

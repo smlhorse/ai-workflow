@@ -5,4 +5,4 @@
 # rules.md; repeating them verbatim every turn would itself become the clutter this exists
 # to prevent.
 
-jq -n '{"hookSpecificOutput":{"additionalContext":"[bnworkflow] 本輪若涉及執行/決策，套用 rules.md 標準（第一行給動作／重述進度／工作量給單位／指涉不明就問不猜／業務語言／位置明示／送出前先刪再送）；非閒聊不強制。"}}'
+jq -n '{"hookSpecificOutput":{"additionalContext":"[bnworkflow] 本輪若涉及執行/決策，套用 rules.md 標準（第一行給動作／重述進度／工作量給單位／不猜／業務語言／需處理的對象用已知資訊定位但不為此擴大工作／先刪再送）；非閒聊不強制。"}}'
